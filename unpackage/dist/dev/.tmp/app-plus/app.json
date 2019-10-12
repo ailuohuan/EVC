@@ -1,0 +1,74 @@
+{
+  "pages": [
+    "pages/wallet/wallet",
+    "pages/wallet/create",
+    "pages/wallet/backupMnemonic1",
+    "pages/wallet/backupMnemonic",
+    "pages/wallet/import",
+    "pages/wallet/resetPin",
+    "pages/wallet/backup",
+    "pages/wallet/manage",
+    "pages/market/market",
+    "pages/dapp/dapp",
+    "pages/user/user",
+    "pages/pagesB/login/login",
+    "pages/pagesB/login/register",
+    "pages/pagesB/login/setPassword",
+    "pages/pagesB/login/forgetPassword",
+    "pages/pagesB/login/resetPassword",
+    "pages/pagesB/index/index",
+    "pages/message/message",
+    "pages/message/detail",
+    "pages/coin/detail",
+    "pages/coin/charge",
+    "pages/coin/transfer",
+    "pages/coin/transferDetail"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "EVC",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#777777",
+    "selectedColor": "#0099FF",
+    "borderStyle": "black",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/wallet/wallet",
+        "iconPath": "static/images/nav/index.png",
+        "selectedIconPath": "static/images/nav/index_active.png",
+        "text": "钱包"
+      },
+      {
+        "pagePath": "pages/market/market",
+        "iconPath": "static/images/nav/hq.png",
+        "selectedIconPath": "static/images/nav/hq_active.png",
+        "text": "行情"
+      },
+      {
+        "pagePath": "pages/dapp/dapp",
+        "iconPath": "static/images/nav/dapp.png",
+        "selectedIconPath": "static/images/nav/dapp_active.png",
+        "text": "DAPP"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "static/images/nav/user.png",
+        "selectedIconPath": "static/images/nav/user_active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "nvueCompiler": "uni-app",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "EVC",
+  "compilerVersion": "2.3.3",
+  "usingComponents": {}
+}

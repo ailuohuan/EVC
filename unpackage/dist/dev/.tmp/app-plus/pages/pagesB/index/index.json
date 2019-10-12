@@ -1,0 +1,20 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "首页",
+  "titleNView": {
+    "type": "default",
+    "titleColor": "#333333",
+    "backgroundColor": "#fff",
+    "titleSize": "36rpx",
+    "buttons": [
+      {
+        "text": "",
+        "fontSrc": "/static/font/iconfont.ttf",
+        "fontSize": "22px",
+        "float": "right",
+        "background": "rgba(0,0,0,0)"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

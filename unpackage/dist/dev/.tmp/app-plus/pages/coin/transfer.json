@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "转账",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup"
+  }
+}

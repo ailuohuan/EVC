@@ -1,0 +1,9 @@
+
+page{background-color: #FFFFFF;}
+.content{padding: 60rpx 15% 0;}
+.icon-xiangmuwancheng{font-size: 120rpx;}
+.tip{margin: 40rpx 0 60rpx;}
+.mnemonic-wrap{display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-flex-wrap: wrap;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-bottom: 30rpx;}
+.mnemonic-wrap .item{background-color: #E5F5FF;color: #999999;border-radius: 12rpx;padding: 6rpx 14rpx;margin-right: 20rpx;margin-bottom: 20rpx;}
+button{width: 100%;margin-top: 60rpx;}
+

@@ -1,0 +1,21 @@
+page{font-size: 28upx;color: #333333;background-color: #F8F8F8;}
+uni-button:after,wx-button:after{border: 0;}
+.font-small{font-size: 24upx;}
+.font-middle{font-size: 30upx;}
+.font-big{font-size: 50upx;}
+.font-bold {font-weight: bold;}
+.font-blue{color: #0099FF;}
+.font-gray{color: #999999;}
+.font-green{color: #17A52F;}
+.font-red{color: #FF3D00;}
+.text-center{text-align: center;}
+.text-right{text-align: right;}
+.text-left{text-align: left;}
+.flex-between{display: flex;justify-content: space-between;align-items: center;}
+.flex{display: flex;align-items: center;}
+.text-overflow{white-space: nowrap; text-overflow: ellipsis; overflow: hidden;word-break: break-all;}
+button{color: #FFFFFF;height: 90upx;line-height: 90upx;font-size: 30upx;width: 50%;}
+button.blue{background-color: #0099FF;border: 1px solid #0099FF;}
+button.plain{background: transparent;color: #0099FF;}
+.input-placeholder{color: #999999;}
+.input-left{margin-left: 20upx;}

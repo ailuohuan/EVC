@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收款",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup"
+  }
+}
