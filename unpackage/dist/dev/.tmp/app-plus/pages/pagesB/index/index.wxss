@@ -29,7 +29,24 @@
   padding: 0 32rpx;
   font-size: 24rpx;
   color: #333;
-  height: 1334rpx;
+  height: 100%;
+}
+.content .percent {
+    margin-top: 20rpx;
+    font-size: 58rpx;
+    color: #FF3400;
+    font-weight: bold;
+}
+.content .percent-small {
+    font-size: 36rpx;
+}
+.content .detail-btn {
+    width: 140rpx;
+    height: 60rpx;
+    text-align: center;
+    line-height: 60rpx;
+    font-size: 26rpx;
+    margin: 0;
 }
 .content .swiper {
     width: 700rpx;
@@ -75,6 +92,33 @@
       height: 6rpx;
       background: rgba(255, 255, 255, 0.8);
 }
+.content .choice-type {
+    height: 100rpx;
+    line-height: 100rpx;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    font-weight: bold;
+}
+.content .choice-type .choice-type1 {
+      font-size: 32rpx;
+      font-weight: bold;
+}
+.content .choice-type .icon {
+      font-size: 24rpx;
+      margin-left: 20rpx;
+      font-weight: 400;
+}
 .content .notice {
     font-size: 26rpx;
     margin-top: 30rpx;
@@ -112,7 +156,7 @@
     width: 332rpx;
     -webkit-box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
             box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
-    text-align: center;
+    text-align: left;
     line-height: 60rpx;
 }
 .content .recommend-product .title {
@@ -123,12 +167,6 @@
 .content .recommend-product .desc {
       font-size: 24rpx;
       color: #999;
-}
-.content .recommend-product .percent {
-      margin-top: 20rpx;
-      font-size: 58rpx;
-      color: #FF3400;
-      font-weight: bold;
 }
 .content .recommend-product .profit {
       font-size: 24rpx;
@@ -149,5 +187,41 @@
       color: #fff;
       text-align: center;
       line-height: 34rpx;
+}
+.content .product-list-item {
+    height: 256rpx;
+    width: 100%;
+    padding: 30rpx 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-top: 2rpx solid #E6E6E6;
+}
+.content .product-list-item .title {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      line-height: 60rpx;
+}
+.content .product-list-item .desc {
+      display: inline-block;
+      text-align: center;
+      line-height: 36rpx;
+      font-size: 22rpx;
+      width: 88rpx;
+      height: 36rpx;
+      border-radius: 18rpx;
+      color: #38C262;
+      background-color: rgba(56, 194, 98, 0.1);
+      border: 2rpx solid #38C262;
 }
 

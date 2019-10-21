@@ -1,10 +1,7 @@
 <template>
 	<view class="content">
-		<page-head2 :headerTitle="headerTitle"></page-head2>
-		
 		<view class="input-wrap">
 			<view>
-				
 				<input class="input-left" placeholder="邮箱号" placeholder-class="input-placeholder" v-model="emailNum" @input="change">
 			</view>
 			<view>
@@ -16,19 +13,13 @@
 		<view>
 			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="backupMnemonic">下一步</button>
 		</view>
-
 	</view>
 </template>
 
 <script>
-	import pageHead2 from '../../../components/page-head2.vue';
 	export default {
-		components: {
-			pageHead2
-		},
 		data() {
 			return {
-				headerTitle: '忘记密码',
 				emailNum:'',
 				password:'',
 				opcity:0.5,
@@ -84,32 +75,32 @@
 			// 	});
 			// },
 			// 发送短信验证码计时器
-			sendMsgCodeTimer() {
-				this.timerId = setInterval(() => {
-					let codeTime = this.sendbtn.codeTime;
-					codeTime--;
-					this.sendbtn.codeTime = codeTime;
-					this.sendbtn.text = codeTime + "S";
-					if (codeTime < 1) {
-						clearInterval(this.timerId);
-						this.sendbtn.text = "重新获取";
-						this.nosendCode = false
-						this.sendbtn.codeTime = 60;
-						this.$refs.getCode1.$el.style.backgroundColor = "rgba(127, 204, 255, 1)"
-					}
-				}, 1000);
-			},
+			// sendMsgCodeTimer() {
+			// 	this.timerId = setInterval(() => {
+			// 		let codeTime = this.sendbtn.codeTime;
+			// 		codeTime--;
+			// 		this.sendbtn.codeTime = codeTime;
+			// 		this.sendbtn.text = codeTime + "S";
+			// 		if (codeTime < 1) {
+			// 			clearInterval(this.timerId);
+			// 			this.sendbtn.text = "重新获取";
+			// 			this.nosendCode = false
+			// 			this.sendbtn.codeTime = 60;
+			// 			this.$refs.getCode1.$el.style.backgroundColor = "rgba(127, 204, 255, 1)"
+			// 		}
+			// 	}, 1000);
+			// },
 		}
 	}
 </script>
 
-<style scoped lang="scss">
-	.content {
+<style lang="scss">
+	page{
 		background-color: #fff;
+	}
+	.content {		
 		padding: 0 56rpx;
 		font-size: 24rpx;
-		color: #999999;
-		height: 1334rpx;
 		.logo {
 			width: 86px;
 			height: 86rpx;

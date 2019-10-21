@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<page-head2 :headerTitle="headerTitle"></page-head2>
+		
 		<view class="input-wrap">
 			<view>
 				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的密码" placeholder-class="input-placeholder" v-model="emailNum" @input="change">
@@ -18,14 +18,11 @@
 </template>
 
 <script>
-	import pageHead2 from '../../../components/page-head2.vue';
+	
 	export default {
-		components: {
-			pageHead2
-		},
+		
 		data() {
 			return {
-				headerTitle: '邮箱注册',
 				emailNum:'',
 				password:'',
 				opcity:0.5,
@@ -64,13 +61,16 @@
 	}
 </script>
 
-<style scoped lang="scss">
-	.content {
+<style lang="scss">
+	page{
 		background-color: #fff;
+	}
+	.content {
+		
 		padding: 0 56rpx;
 		font-size: 24rpx;
 		color: #999999;
-		height: 1334rpx;
+		
 		.logo {
 			width: 86px;
 			height: 86rpx;

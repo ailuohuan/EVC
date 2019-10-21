@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-		<page-head2 :headerTitle="headerTitle"></page-head2>
 		<view class="logo">
 			<image class="logo-img" src="../../../static/images/pagesA/login/logo.png" mode="aspectFill"></image>
 		</view>
@@ -21,7 +20,7 @@
 
 		</view>
 		<view>
-			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="backupMnemonic">登录</button>
+			<button class="blue" hover-class="none" :disabled="disabled" :style="{opacity:opcity}" @click="login">登录</button>
 			<navigator url="./register">
 				<view class="font-small text-center">
 					<text class="font-gray">还没有账号?</text>
@@ -34,14 +33,12 @@
 </template>
 
 <script>
-	import pageHead2 from '../../../components/page-head2.vue';
+
 	export default {
-		components: {
-			pageHead2
-		},
+		
 		data() {
 			return {
-				headerTitle: '登录',
+				disabled:true,
 				emailNum: '',
 				password: '',
 				opcity: 0.5
@@ -54,48 +51,72 @@
 
 		},
 		methods: {
-			backupMnemonic() {
-				uni.navigateTo({
-					url: "backupMnemonic1"
+			//登录
+			login() {
+				this.disabled = true
+				uni.request({
+					url: this.baseUrl + "/member-login",
+					data: {
+						Email: this.emailNum,
+						Password:this.password
+					},
+					method: "POST",
+					success: (res) => {
+						console.log(res)
+						if (res.data.status == 1) {
+							uni.setStorageSync("token",res.data.data)
+							console.log(uni.getStorageSync('token'))
+							this.disabled = true
+							uni.navigateTo({
+								url:"../index/index"
+							})
+						} else {
+							this.disabled = false
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						}
+					}
 				})
 			},
 			change(e) {
 				console.log(e.detail.value.length)
 				if (e.detail.value.length >= 3) {
 					this.opcity = 1
+					this.disabled = false
 				} else {
 					this.opcity = 0.5
+					this.disabled = true
 				}
 			}
 		}
 	}
 </script>
 
-<style scoped lang="scss">
-	.content {
+<style lang="scss">
+	page{
 		background-color: #fff;
+	}
+	.content {		
 		padding: 0 56rpx;
 		font-size: 24rpx;
 		color: #999999;
-		height: 1334rpx;
-
 		.logo {
 			width: 86px;
 			height: 86rpx;
-			margin: 60rpx auto 50rpx;
+			margin: 116rpx auto 50rpx;
 		}
 
 		.logo-img {
-			width: 160rpx;
-			height: 160rpx;
+			width: 172rpx;
+			height: 172rpx;
 		}
 
 		.forget-password {
 			margin-left: 500rpx;
 		}
 	}
-
-
 
 	.input-wrap {
 		margin-top: 120rpx;
@@ -117,12 +138,5 @@
 		margin-bottom: 20rpx;
 		margin-top: 80rpx;
 		opacity: 0.5;
-	}
-
-	.footer {
-		position: fixed;
-		width: 100%;
-		text-align: center;
-		bottom: 60rpx;
 	}
 </style>

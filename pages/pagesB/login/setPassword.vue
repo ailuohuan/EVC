@@ -1,35 +1,33 @@
 <template>
 	<view class="content">
-		<page-head2 :headerTitle="headerTitle"></page-head2>
 		<view class="logo">
 			<image class="logo-img" src="../../../static/images/pagesA/login/logo.png" mode="aspectFill"></image>
 		</view>
 		<view class="input-wrap">
-
 			<view class="">
-				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的密码" placeholder-class="input-placeholder" v-model="emailNum" @input="change">
+				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的密码" placeholder-class="input-placeholder" v-model="password">
 			</view>
 			<view class="">
-				<input class="input-left" type="password" placeholder="请再次输入密码" placeholder-class="input-placeholder"  >
+				<input class="input-left" type="password" placeholder="请再次输入密码" placeholder-class="input-placeholder"  v-model="password2">
 			</view>
 			<view class="">
-				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的交易密码" placeholder-class="input-placeholder"  >
+				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的资金密码" placeholder-class="input-placeholder" v-model="transactionPassword" >
 			</view>
 			<view class="">
-				<input class="input-left" type="password" placeholder="请再次输入交易密码" placeholder-class="input-placeholder" >
+				<input class="input-left" type="password" placeholder="请再次输入资金密码" placeholder-class="input-placeholder" v-model="transactionPassword2" >
 			</view>
 			<view class="">
-				<input class="input-left"  placeholder="请填写邀请码(选填)" placeholder-class="input-placeholder"  >
+				<input class="input-left"  placeholder="请填写邀请码(必填)" placeholder-class="input-placeholder" v-model="inviteCode">
 			</view>
 			<view class="font-small text-center">
-				<label class="radio"><radio :checked="check" @tap="checked()" /></label>
+				<label class="radio"><radio :checked="check" @tap="checked" /></label>
 				<text class="font-gray">我已阅读并同意</text>
 				<text class="font-blue">《服务条款》</text>
 			</view>
 
 		</view>
 		<view>
-			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="backupMnemonic">注册</button>
+			<button class="blue" hover-class="none" :disabled="disabled" :style="{opacity:opcity}" @click="register">注册</button>
 			<navigator url="./login">
 				<view class="font-small text-center">
 					<text class="font-gray">已有账号?</text>
@@ -42,61 +40,91 @@
 </template>
 
 <script>
-	import pageHead2 from '../../../components/page-head2.vue';
 	export default {
-		components: {
-			pageHead2
-		},
 		data() {
 			return {
-				headerTitle: '设置密码',
 				emailNum: '',
 				password: '',
+				password2:'',
+				transactionPassword:'',
+				transactionPassword2:'',
+				inviteCode:'',
 				opcity: 0.5,
-				check:false
-	
+				check:false,
+				disabled:true,
+				checkCode :''
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+			this.checkCode = options.checkCode 
+			this.emailNum = options.emailNum
 		},
 		onReady() {
 
 		},
 		methods: {
-			backupMnemonic() {
-				uni.navigateTo({
-					url: "backupMnemonic1"
-				})
-			},
-			change(e) {
-				console.log(e.detail.value.length)
-				if (e.detail.value.length >= 3) {
-					this.opcity = 1
-				} else {
-					this.opcity = 0.5
-				}
+			//设置密码
+			register() {
+				//注册
+					uni.request({
+						url: this.baseUrl + "/member-register",
+						data: {
+							Email: this.emailNum,
+							Password : this.password,
+							RepeatPassword:this.password2,
+							PayPassword :this.transactionPassword,
+							RepeatPayPassword:this.transactionPassword2,
+							// InviteCode:this.inviteCode,
+							InviteCode:280951,
+							// AuthCode:this.checkCode
+							AuthCode:101101
+						},
+						method: "POST",
+						success: (res) => {
+							console.log(res)
+							if (res.data.status == 1) {
+								uni.showToast({
+									title: res.data.message,
+									icon: 'none'
+								})
+								uni.navigateTo({
+									url:"./login"
+								})
+							} else {
+								uni.showToast({
+									title: res.data.message,
+									icon: 'none'
+								})
+							}
+						}
+					})
 			},
 			checked(){
 				this.check =!this.check
+				if (this.check == true) {
+					this.opcity = 1
+					this.disabled = false
+				} else {
+					this.opcity = 0.5
+					this.disabled =true
+				}
 			}
-
 		}
 	}
 </script>
 
-<style scoped lang="scss">
-	.content {
+<style  lang="scss">
+	page{
 		background-color: #fff;
+	}
+	.content {
 		padding: 0 56rpx;
 		font-size: 24rpx;
 		color: #999999;
-		height: 1334rpx;
-
 		.logo {
 			width: 86px;
 			height: 86rpx;
-			margin: 60rpx auto 50rpx;
+			margin: 118rpx auto 50rpx;
 		}
 
 		.logo-img {
@@ -143,12 +171,5 @@
 		margin-bottom: 20rpx;
 		margin-top: 80rpx;
 		opacity: 0.5;
-	}
-
-	.footer {
-		position: fixed;
-		width: 100%;
-		text-align: center;
-		bottom: 60rpx;
 	}
 </style>

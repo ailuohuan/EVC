@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-
 		<view class="">
 			<!-- 轮播 -->
 			<swiper class="swiper" :autoplay="true" :interval="3000" :duration="1000" :current="swiperCurrent" @change="changeSwiper">
@@ -15,65 +14,67 @@
 				</block>
 			</view>
 		</view>
-		<view class="notice" @tap="jumpToManageMoney(0)">
+		<view class="notice">
 			<text class="iconfont icon1">&#xe63f;</text>
-			sdfsdfsdsdfsdfsdfsddffsdfds哩哩啦啦即将上线！
+			即将上线！
 		</view>
 		<view class="recommend">
 			热门产品
 		</view>
-		<view class="recommend-product" v-for="(item,index) in activity" :key="item.id">
+		<view class="recommend-product" v-for="(item,index) in productList" :key="item.id" @tap="jumpToProductDetail(index)">
 			<view class="hot">
-				V1
+				V{{item.NeedLevel}}
 			</view>
 			<view class="title">
-				{{item.Title}}
+				{{item.Name}}
 			</view>
 			<view>
-				<text class="percent">{{item.MaxRate}}%</text><text class="font-gray">月利率</text>
+				<text class="percent">{{ $base._toFixed(item.Ratio,4) }}%</text><text class="font-gray">月利率</text>
 			</view>
 			<view class="profit">
-				投入金额：1111USTD
+				投入金额：{{ $base._toFixed(item.Number,4) }}USTD
 			</view>
 		</view>
-		<view class="choice-type">
+		<view class="choice-type" @tap="seeAll">
 			<view class="choice-type1">我的广告包</view>
 			<view>
 				<text>查看全部</text><text class="iconfont icon">&#xea25;</text>
 			</view>
 		</view>
 		<view class="product-list">
-			<view class="product-list-item" v-for="(item,index) in productList" :key="item.id">
+			<view class="product-list-item" v-for="(item,index) in productList2" :key="item.id" @tap="myAdDetail(index)">
 				<view class="title">
 					<view class="font-bold font-middle">
-						{{item.IsDay}}
+						{{item.Name}}
 					</view>
 					<view class="desc">
-						{{item.NodeDay}}
+						{{item.State}}
 					</view>
 				</view>
 				<view class="">
-					<text class="percent percent-small">{{item.PenalSumRatio}}%</text> <text class="font-gray">年利率</text>
+					<text class="percent percent-small">{{item.Ratio}}%</text> <text class="font-gray">年利率</text>
 				</view>
 				<view class="title">
-					<text class="font-gray">投入金额:{{item.Yield}}</text>
-					<button class="blue detail-btn" hover-class="none">详情</button>
+					<text class="font-gray">投入金额:{{item.Number}}</text>
+					<button class="blue detail-btn" hover-class="none" >详情</button>
 				</view>
 				<view class="font-gray">
-					周期:{{item.dayText}}
+					周期:10天
 				</view>
 			</view>
 		</view>
-
-	</view>
+		<uni-load-more :status="loadingType"></uni-load-more>
 	</view>
 </template>
 
 <script>
+	import UniLoadMore from '@/components/uni-load-more.vue'
 	export default {
+		components: {
+			UniLoadMore
+		},
 		data() {
 			return {
-				hoverColor: '#4C70FF',
 				swiperImg: [{
 						Img: "../../../static/images/pagesA/login/banner.png"
 					},
@@ -86,73 +87,130 @@
 				],
 				current: 0,
 				swiperCurrent: 0,
-				activity: [{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					}
-				],
+				productList: [],
 				activityId: '',
-				productList: [{
-						dayText: '产品一号',
-						Yield: '2',
-						IsDay: '产品一号',
-						NodeDay: '放行',
-						PenalSumRatio: '5'
-					},
-					{
-						dayText: '1',
-						Yield: '2',
-						IsDay: '3',
-						NodeDay: '4',
-						PenalSumRatio: '5'
-					},
-					{
-						dayText: '1',
-						Yield: '2',
-						IsDay: '3',
-						NodeDay: '4',
-						PenalSumRatio: '5'
-					}
-				]
+				productList2: [],
+				curPage: 1,
+				loadingType: 'more',
+				total1:0,
+				total2:0,
 			};
 		},
 		onLoad() {
-
+			//此页做下拉刷新跟上拉加载
+			var _self = this
+			if(!uni.getStorageSync("token")){
+				this.$base._isLogin()
+			}
+			_self.getProduct()
 		},
+		onPageScroll(e) {
+			//兼容iOS端下拉时顶部漂移
+			// console.log(e.scrollTop)
+			if (e.scrollTop >= 0) {
+				this.headerPosition = "fixed";
+			} else {
+				this.headerPosition = "absolute";
+			}
+		},
+		//下拉刷新
+		onPullDownRefresh() {
+			this.curPage = 1;
+			this.getProduct('refresh')
+			
+		},
+		//上拉加载更多
+		onReachBottom() {
+			this.curPage++;
+			this.getProduct('add');
+		},
+
 		onNavigationBarButtonTap() {
 			console.log("22222")
 		},
-		onPullDownRefresh() {
 
-		},
 		methods: {
-
+			//加载奖品列表 ，带下拉刷新和上滑加载
+			getProduct(type = 'add', loading) {
+				//没有更多直接返回
+				if (type === 'add') {
+					if (this.loadingType === 'nomore') {
+						return;
+					}
+					this.loadingType = 'loading';
+					
+				} else {
+					this.loadingType = 'more'
+				}
+				if (type === 'refresh') {
+					
+					this.productList2 = [];
+				}
+				//产品列表
+				uni.request({
+					url: this.baseUrl + "/product-list",
+					data: {
+						page: 1,
+						count: 100000
+					},
+					header:{
+						Authorization:uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res)
+						if (this.$base._indexOf(res.data.status)) {
+							this.$base._isLogin()
+						} else if(res.data.status==1){
+							this.productList = res.data.data.List
+						}else{
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						}
+						
+					}
+				})
+				//我的广告包
+				uni.request({
+					url: this.baseUrl + "/my-product",
+					data: {
+						page: this.curPage,
+						count: 1
+					},
+					header:{
+						Authorization:uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res)
+						if (res.data.status == 1) {
+							this.productList2 = this.productList2.concat(res.data.data.List)
+							this.total2 = res.data.data.Total
+							if (this.productList2.length == 0) {
+								this.loadingType = '';
+							} else if (this.productList2.length >=this.total2 ) {
+								this.loadingType = 'nomore';
+							} else {
+								this.loadingType = 'more';
+							}
+							if (type === 'refresh') {
+								if (loading == 1) {
+									uni.hideLoading()
+								} else {
+									uni.stopPullDownRefresh();
+								}
+							}
+						} else {
+							uni.stopPullDownRefresh();
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						}
+					}
+				})
+				
+			},
 			changeSwiper(e) {
 				this.swiperCurrent = e.detail.current;
 			},
@@ -163,6 +221,24 @@
 					this.active = 0
 				}
 			},
+			jumpToProductDetail(index){
+				console.log(this.productList[index].Id)
+				//携带参数跳转到产品详情页
+				uni.navigateTo({
+					url:"./product-detail?id="+this.productList[index].Id
+				})
+			},
+			seeAll(){
+				uni.navigateTo({
+					url:"./profit"
+				})
+			},
+			myAdDetail(index){
+				uni.navigateTo({
+					//携带参数跳转到详情页
+					url:"./detail?id="+this.productList2[index].Id
+				})
+			}
 
 		}
 
@@ -176,16 +252,19 @@
 		font-size: 24rpx;
 		color: #333;
 		height: 100%;
+
 		.percent {
 			margin-top: 20rpx;
 			font-size: 58rpx;
 			color: #FF3400;
 			font-weight: bold;
 		}
-		.percent-small{
+
+		.percent-small {
 			font-size: 36rpx;
 		}
-		.detail-btn{
+
+		.detail-btn {
 			width: 140rpx;
 			height: 60rpx;
 			text-align: center;
@@ -193,7 +272,7 @@
 			font-size: 26rpx;
 			margin: 0;
 		}
-		
+
 		.swiper {
 			width: 700rpx;
 			height: 300rpx;
@@ -282,7 +361,7 @@
 			height: 262rpx;
 			width: 332rpx;
 			box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
-			text-align: center;
+			text-align: left;
 			line-height: 60rpx;
 
 			.title {
@@ -296,7 +375,7 @@
 				color: #999;
 			}
 
-			
+
 
 			.profit {
 				font-size: 24rpx;
@@ -325,13 +404,15 @@
 			padding: 30rpx 0;
 			box-sizing: border-box;
 			border-top: 2rpx solid #E6E6E6;
-			.title{
+
+			.title {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
 				line-height: 60rpx;
 			}
-			.desc{
+
+			.desc {
 				display: inline-block;
 				text-align: center;
 				line-height: 36rpx;

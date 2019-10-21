@@ -1,12 +1,19 @@
 {
   "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
   "navigationBarTitleText": "首页",
   "titleNView": {
     "type": "default",
     "titleColor": "#333333",
     "backgroundColor": "#fff",
-    "titleSize": "36rpx",
+    "titleSize": "18px",
     "buttons": [
+      {
+        "text": "EVC",
+        "fontSrc": "/static/font/iconfont.ttf",
+        "fontSize": "13px",
+        "float": "left"
+      },
       {
         "text": "",
         "fontSrc": "/static/font/iconfont.ttf",
@@ -16,5 +23,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more"
+  }
 }

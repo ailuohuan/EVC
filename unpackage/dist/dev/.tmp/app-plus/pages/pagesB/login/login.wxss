@@ -24,29 +24,30 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content.data-v-2ed410e8 {
+page {
   background-color: #fff;
+}
+.content {
   padding: 0 56rpx;
   font-size: 24rpx;
   color: #999999;
-  height: 1334rpx;
 }
-.content .logo.data-v-2ed410e8 {
+.content .logo {
     width: 86px;
     height: 86rpx;
-    margin: 60rpx auto 50rpx;
+    margin: 116rpx auto 50rpx;
 }
-.content .logo-img.data-v-2ed410e8 {
-    width: 160rpx;
-    height: 160rpx;
+.content .logo-img {
+    width: 172rpx;
+    height: 172rpx;
 }
-.content .forget-password.data-v-2ed410e8 {
+.content .forget-password {
     margin-left: 500rpx;
 }
-.input-wrap.data-v-2ed410e8 {
+.input-wrap {
   margin-top: 120rpx;
 }
-.input-wrap > view.data-v-2ed410e8 {
+.input-wrap > view {
   border-bottom: 1px solid #ECECEC;
   padding: 20rpx 0;
   margin-bottom: 40rpx;
@@ -59,21 +60,15 @@
       -ms-flex-align: center;
           align-items: center;
 }
-.input-wrap input.data-v-2ed410e8 {
+.input-wrap input {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-button.blue.data-v-2ed410e8 {
+button.blue {
   margin-bottom: 20rpx;
   margin-top: 80rpx;
   opacity: 0.5;
-}
-.footer.data-v-2ed410e8 {
-  position: fixed;
-  width: 100%;
-  text-align: center;
-  bottom: 60rpx;
 }
 

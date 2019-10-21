@@ -11,7 +11,7 @@
 							"fontSrc": "/static/font/iconfont.ttf",
 							"fontSize": "13px",
 							"float": "left"
-						},{
+						}, {
 							"text": "\ue74b",
 							"fontSrc": "/static/font/iconfont.ttf",
 							"fontSize": "22px",
@@ -21,44 +21,43 @@
 				}
 			}
 		},
-	    {
-            "path" : "pages/wallet/create",
-            "style" : {
+		{
+			"path": "pages/wallet/create",
+			"style": {
 				"navigationBarTitleText": "创建钱包"
 			}
-        },
-	    {
-		   "path" : "pages/wallet/backupMnemonic1",
-		   "style" : {
+		},
+		{
+			"path": "pages/wallet/backupMnemonic1",
+			"style": {
 				"navigationBarTitleText": "备份助记词"
 			}
 		},
 		{
-            "path" : "pages/wallet/backupMnemonic",
-            "style" : {
+			"path": "pages/wallet/backupMnemonic",
+			"style": {
 				"navigationBarTitleText": "备份助记词"
 			}
-        },
+		},
 		{
-		    "path" : "pages/wallet/import",
-		    "style" : {
+			"path": "pages/wallet/import",
+			"style": {
 				"navigationBarTitleText": "助记词导入"
 			}
 		},
 		{
-		    "path" : "pages/wallet/resetPin",
-		    "style" : {
+			"path": "pages/wallet/resetPin",
+			"style": {
 				"navigationBarTitleText": "重置PIN码"
 			}
-		},{
-		    "path" : "pages/wallet/backup",
-		    "style" : {
+		}, {
+			"path": "pages/wallet/backup",
+			"style": {
 				"navigationBarTitleText": "管理"
 			}
-		}
-		,{
-		   "path" : "pages/wallet/manage",
-		   "style" : {
+		}, {
+			"path": "pages/wallet/manage",
+			"style": {
 				"navigationBarTitleText": "钱包管理",
 				"app-plus": {
 					"titleNView": {
@@ -72,18 +71,9 @@
 					}
 				}
 			}
-		}
-        ,{
-            "path" : "pages/market/market",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/dapp/dapp",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/user/user",
-            "style" : {
+		}, {
+			"path": "pages/user/user",
+			"style": {
 				"navigationBarTextStyle": "white",
 				"navigationBarTitleText": "我的",
 				"app-plus": {
@@ -102,134 +92,391 @@
 				}
 			}
 
-        },
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息中心"
+			}
+		}, {
+			"path": "pages/message/detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		}, {
+			"path": "pages/coin/detail",
+			"style": {
+				"navigationBarTitleText": "USDT"
+			}
+		}, {
+			"path": "pages/coin/charge",
+			"style": {
+				"navigationBarTitleText": "收款"
+			}
+		}, {
+			"path": "pages/coin/transfer",
+			"style": {
+				"navigationBarTitleText": "转账"
+			}
+		}, {
+			"path": "pages/coin/transferDetail",
+			"style": {
+				"navigationBarTitleText": "记录详情"
+			}
+		},
+		{
+			"path": "pages/market/market",
+			"style": {
+				"navigationBarTitleText": "行情"
+			}
+		}, {
+			"path": "pages/dapp/dapp",
+			"style": {
+				"navigationBarTitleText": "DAPP"
+			}
+		},
 		{
 			"path": "pages/pagesB/login/login",
 			"style": {
-				"navigationBarTitleText": "登录",
-				"app-plus": {
-					"titleNView": false,
-					"animationType": "slide-in-bottom"
-				}
+				"navigationBarTitleText": "登录"
 			}
-		},{
+		}, {
 			"path": "pages/pagesB/login/register",
 			"style": {
-				"navigationBarTitleText": "注册",
-				"app-plus": {
-					"titleNView": false,
-					"animationType": "slide-in-bottom"
-				}
+				"navigationBarTitleText": "邮箱注册"
 			}
-		},{
+		}, {
 			"path": "pages/pagesB/login/setPassword",
 			"style": {
-				"navigationBarTitleText": "设置密码",
-				"app-plus": {
-					"titleNView": false,
-					"animationType": "slide-in-bottom"
-				}
+				"navigationBarTitleText": "设置密码"
 			}
 		},
 		{
-			"path": "pages/pagesB/login/forgetPassword",
+			"path": "pages/pagesB/index/index",
 			"style": {
-				"navigationBarTitleText": "忘记密码",
-				"app-plus": {
-					"titleNView": false,
-					"animationType": "slide-in-bottom"
-				}
-			}
-		},
-		{
-			"path": "pages/pagesB/login/resetPassword",
-			"style": {
-				"navigationBarTitleText": "重置密码",
-				"app-plus": {
-					"titleNView": false,
-					"animationType": "slide-in-bottom"
-				}
-			}
-		},
-		{
-		    "path" : "pages/pagesB/index/index",
-		    "style" : {
 				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": true,
 				"navigationBarTitleText": "首页",
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
 						"titleColor": "#333333",
 						"backgroundColor": "#fff",
-						"titleSize":"36rpx",
+						"titleSize": "18px",
 						"buttons": [{
-							"text": "\ue63e",
-							"fontSrc": "/static/font/iconfont.ttf",
-							"fontSize": "22px",
-							"float": "right",
-							"background": "rgba(0,0,0,0)"
-						}]
+								"text": "EVC",
+								"fontSrc": "/static/font/iconfont.ttf",
+								"fontSize": "13px",
+								"float": "left"
+							},{
+								"text": "\ue63e",
+								"fontSrc": "/static/font/iconfont.ttf",
+								"fontSize": "22px",
+								"float": "right",
+								"background": "rgba(0,0,0,0)"
+							}
+						]
 					}
 				}
 			}
 		},
 		{
-		    "path" : "pages/pagesB/index/product-detail",
-		    "style" : {
-				"navigationBarTextStyle": "white",
-				"navigationBarTitleText": "产品详情",
+			"path": "pages/pagesB/index/product-detail",
+			"style": {
+				"navigationBarTitleText": "产品详情"
+			}
+		},
+		{
+			"path": "pages/pagesB/login/forgetPassword",
+			"style": {
+				"navigationBarTitleText": "忘记密码"
+			}
+		},
+		{
+			"path": "pages/pagesB/login/resetPassword",
+			"style": {
+				"navigationBarTitleText": "重置密码"
+			}
+		},
+		
+		{
+			"path": "pages/pagesB/index/buy",
+			"style": {
+				"navigationBarTitleText": "购买"
+			}
+		},
+		{
+			"path": "pages/pagesB/index/profit",
+			"style": {
+				"navigationBarTitleText": "收益账户"
+			}
+		},
+		{
+			"path": "pages/pagesB/index/detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "pages/pagesB/wallet/wallet",
+			"style": {
+				"navigationBarTitleText": "钱包",
 				"app-plus": {
 					"titleNView": {
 						"type": "default",
 						"titleColor": "#333333",
 						"backgroundColor": "#fff",
-						"titleSize":"36rpx"
+						"titleSize": "18px",
+						"buttons": [{
+								"text": "EVC",
+								"fontSrc": "/static/font/iconfont.ttf",
+								"fontSize": "13px",
+								"float": "left"
+							}
+						]
 					}
 				}
 			}
-		},{
-            "path" : "pages/message/message",
-            "style" : {
-				"navigationBarTitleText": "消息中心"
-			}
-        },{
-            "path" : "pages/message/detail",
-            "style" : {
-				"navigationBarTitleText": "详情"
-			}
-        }
-        ,{
-            "path" : "pages/coin/detail",
-            "style" : {
-				"navigationBarTitleText": "USDT"
-			}
-        }
-		,{
-		    "path" : "pages/coin/charge",
-		    "style" : {
-				"navigationBarTitleText": "收款"
-			}
-		}
-		,{
-		    "path" : "pages/coin/transfer",
-		    "style" : {
+		},
+		{
+			"path": "pages/pagesB/wallet/transfer-num",
+			"style": {
 				"navigationBarTitleText": "转账"
 			}
-		},{
-		    "path" : "pages/coin/transferDetail",
-		    "style" : {
+		},
+		{
+			"path": "pages/pagesB/wallet/receivables-qrcode",
+			"style": {
+				"navigationBarTitleText": "收款"
+			}
+		},
+		{
+			"path": "pages/pagesB/wallet/charging-record",
+			"style": {
+				"navigationBarTitleText": "充提记录"
+			}
+		},
+		{
+			"path": "pages/pagesB/wallet/record-details",
+			"style": {
+				"navigationBarTitleText": "记录详情",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+		},
+		{
+			"path": "pages/pagesB/wallet/currency-detail",
+			"style": {
+
+				"navigationBarTitleText": "币种详情",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+		},
+		{
+			"path": "pages/pagesB/wallet/recharge-record",
+			"style": {
+
+				"navigationBarTitleText": "充提记录",
+				"app-plus": {
+					"titleNView": false,
+					"animationType": "slide-in-bottom"
+				}
+			}
+		},
+		{
+			"path": "pages/pagesB/my/my-team",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "我的团队",
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleColor": "#333333",
+						"backgroundColor": "#fff",
+						"titleSize": "36rpx",
+						"buttons": [{
+								"text": "EVC",
+								"fontSrc": "/static/font/iconfont.ttf",
+								"fontSize": "13px",
+								"float": "left"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/pagesB/my/my-team2",
+			"style": {
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "我的团队",
+				"app-plus": {
+					"titleNView": {
+						"type": "default",
+						"titleColor": "#333333",
+						"backgroundColor": "#fff",
+						"titleSize": "36rpx",
+						"buttons": [{
+								"text": "EVC",
+								"fontSrc": "/static/font/iconfont.ttf",
+								"fontSize": "13px",
+								"float": "left"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/personal",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"titleNView": {
+					"type": "default",
+					"titleColor": "#333333",
+					"backgroundColor": "#fff",
+					"titleSize": "36rpx",
+					"buttons": [{
+							"text": "EVC",
+							"fontSrc": "/static/font/iconfont.ttf",
+							"fontSize": "13px",
+							"float": "left"
+						}
+					]
+				}
+			}
+		},
+		
+		{
+			"path": "pages/pagesB/personal/unsealing",
+			"style": {
+				"navigationBarTitleText": "账号解封"
+			
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/problem",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/real-name",
+			"style": {
+				"navigationBarTitleText": "实名认证"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/set-password",
+			"style": {
+				"navigationBarTitleText": "修改登录密码"
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/set-paypassword",
+			"style": {
+				"navigationBarTitleText": "修改交易密码"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/self-in",
+			"style": {
+				"navigationBarTitleText": "安全中心"
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/real-photo",
+			"style": {
+				"navigationBarTitleText": "实名认证"
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/personal-info",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/set-nickname",
+			"style": {
+				"navigationBarTitleText": "设置昵称"
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/my-bill",
+			"style": {
+				"navigationBarTitleText": "我的账单"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/recorde-detail",
+			"style": {
 				"navigationBarTitleText": "记录详情"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/binding-phone",
+			"style": {
+				"navigationBarTitleText": "绑定手机"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/dapp/dapp",
+			"style": {
+				"navigationBarTitleText": "Dapp"
+			
+			}
+		},
+		{
+			"path": "pages/pagesB/dapp/text-detail",
+			"style": {
+				"navigationBarTitleText": "正文详情"
+				
+			}
+		},
+
+		{
+			"path": "pages/pagesB/dapp/public-notification",
+			"style": {
+				"navigationBarTitleText": "公告"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/dapp/public-detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/quotation/quotation",
+			"style": {
+				"navigationBarTitleText": "行情"
+			
 			}
 		}
 
-    ],
+
+	],
 	"condition": { //模式配置，仅开发期间生效
-			"current": 0, //当前激活的模式（list 的索引项）
-			"list": [{
-				"name": "test", //模式名称
-				"path": "pages/pagesB/index/index" //启动页面，必选
-			}]
-	
+		"current": 0, //当前激活的模式（list 的索引项）
+		"list": [{
+			"name": "test", //模式名称
+			"path": "pages/pagesB/personal/personal" //启动页面，必选
+		}]
+
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -241,7 +488,7 @@
 		"color": "#777777",
 		"selectedColor": "#0099FF",
 		"borderStyle": "black",
-		"backgroundColor": "#FFFFFF",		
+		"backgroundColor": "#FFFFFF",
 		"list": [{
 				"pagePath": "pages/wallet/wallet",
 				"iconPath": "static/images/nav/index.png",
@@ -266,5 +513,4 @@
 			}
 		]
 	}
-
 }

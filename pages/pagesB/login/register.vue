@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-		<page-head2 :headerTitle="headerTitle"></page-head2>
 		<view class="logo">
 			<image class="logo-img" src="../../../static/images/pagesA/login/logo.png" mode="aspectFill"></image>
 		</view>
@@ -15,89 +14,82 @@
 				<view class="iconfont font-blue font-big">
 					&#xe63d;
 				</view>
-				<input class="input-left"  placeholder="请输入短信验证码" placeholder-class="input-placeholder" v-model="password">
-				<button ref="getCode1" class="get-indentify" :disabled="nosendCode" @click="sendMsgCodeTimer">{{sendbtn.text}}</button>				
+				<input class="input-left" placeholder="请输入短信验证码" placeholder-class="input-placeholder" v-model="checkCode">
+				<button class="get-indentify" :disabled="nosendCode" @click="sendCode">{{sendbtn.text}}</button>
 			</view>
 		</view>
 		<view>
-			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="backupMnemonic">下一步</button>
+			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="next">下一步</button>
 			<navigator url="./login">
-			<view class="font-small text-center">
-				<text class="font-gray">已有账号?</text>
-				<text class="font-blue">去登录</text>
-			</view>
+				<view class="font-small text-center">
+					<text class="font-gray">已有账号?</text>
+					<text class="font-blue">去登录</text>
+				</view>
 			</navigator>
 			<view class="bottom">
 				<text class="font-blue">使用邮箱注册</text>
 			</view>
 		</view>
-
 	</view>
 </template>
 
 <script>
-	import pageHead2 from '../../../components/page-head2.vue';
 	export default {
-		components: {
-			pageHead2
-		},
 		data() {
 			return {
-				headerTitle: '邮箱注册',
-				emailNum:'',
-				password:'',
-				opcity:0.5,
+				emailNum: '',
+				
+				opcity: 0.5,
 				nosendCode: false,
 				sendbtn: {
 					text: '获取验证码',
 					codeTime: 60
 				},
+				checkCode:''
+			
 			}
 		},
 		onLoad() {
-			
+
 		},
 		onReady() {
-			
+
 		},
 		methods: {
-			backupMnemonic() {
-				uni.navigateTo({
-					url: "backupMnemonic1"
-				})
-			},
-			change(e){
-				console.log(e.detail.value.length)
+			change(e) {
 				if (e.detail.value.length >= 3) {
 					this.opcity = 1
-				}else{
+				} else {
 					this.opcity = 0.5
 				}
 			},
-			// 发送短信验证码绑定手机号
-			// sendCode(e) {
-			// 	// 防止表单重复提交方案
-			// 	rpx.nosendCode = true
-			// 	// 请求短信验证码
-			// 	this.$api.userSmscode({
-			// 		phone: this.userPhone
-			// 	}).then(res => {
-			// 		this.smsCode = res.data.data.smsCode;
-			// 		this.$refs.getCode1.$el.style.backgroundColor = "#aaaaaa"
-			// 		this.sendMsgCodeTimer();
-			// 		uni.showToast({
-			// 			title: '短信已发送',
-			// 			icon: 'none'
-			// 		})
-			
-			// 	}).catch(err => {
-			// 		this.nosendCode = false
-			// 		uni.showToast({
-			// 			title: err.data.data,
-			// 			icon: "none"
-			// 		})
-			// 	});
-			// },
+			//发送邮箱注册验证码
+			sendCode(e) {
+				this.nosendCode = true
+				uni.request({
+					url: this.baseUrl + "/email-register-code",
+					data: {
+						Email: this.emailNum
+					},
+					method: "POST",
+					success: (res) => {
+						console.log(res)
+						if (res.data.status == 1) {
+							this.sendMsgCodeTimer()
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						} else {
+							this.nosendCode = false
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						}
+					}
+				})
+			},
 			// 发送短信验证码计时器
 			sendMsgCodeTimer() {
 				this.timerId = setInterval(() => {
@@ -110,38 +102,55 @@
 						this.sendbtn.text = "重新获取";
 						this.nosendCode = false
 						this.sendbtn.codeTime = 60;
-						this.$refs.getCode1.$el.style.backgroundColor = "rgba(127, 204, 255, 1)"
 					}
 				}, 1000);
 			},
+			//跳转到下一步
+			next(){
+				if(this.checkCode!=''&&this.opcity==1){
+					uni.navigateTo({
+						url:"./setPassword?checkCode="+this.checkCode+"&emailNum="+this.emailNum
+					})
+				}else{
+					uni.showToast({
+						title:"请输入验证码",
+						icon:"none"
+					})
+				}
+			}
 		}
 	}
 </script>
 
-<style scoped lang="scss">
-	.content {
+<style lang="scss">
+	page {
 		background-color: #fff;
+	}
+	.content {
 		padding: 0 56rpx;
 		font-size: 24rpx;
 		color: #999999;
-		height: 1334rpx;
+
 		.logo {
 			width: 86px;
 			height: 86rpx;
-			margin: 60rpx auto 50rpx;
+			margin: 116rpx auto 50rpx;
 		}
 
 		.logo-img {
 			width: 160rpx;
 			height: 160rpx;
 		}
-		.forget-password{
+
+		.forget-password {
 			margin-left: 500rpx;
 		}
-		.bottom{
+
+		.bottom {
 			margin-top: 280rpx;
 			text-align: center;
 		}
+
 		.get-indentify {
 			height: 70rpx;
 			line-height: 70rpx;
@@ -150,7 +159,7 @@
 			border: none;
 			color: #007AFF;
 		}
-		
+
 	}
 
 
