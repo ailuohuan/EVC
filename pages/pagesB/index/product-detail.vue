@@ -3,7 +3,7 @@
 		<view class="bgbox">
 		</view>
 		<view class="recommend-product">
-			<view class="hot">
+			<view class="hot" :style="{background:showLevelBgc(level)}">
 				V{{level}}
 			</view>
 			<view class="title">
@@ -168,7 +168,16 @@
 				uni.navigateTo({
 					url:"../login/login"
 				})
-			}
+			},
+			showLevelBgc(level){
+				if(level==1){
+					return  'linear-gradient(#FF727C, #FFA8AE)'
+				}else if(level==2){
+					return  'linear-gradient(#7FCCFF, #0099FF)'
+				}else if(level==3){
+					return  'linear-gradient(#FFC744, #FF9100)'
+				}
+			},
 		}
 	}
 </script>

@@ -45,7 +45,7 @@
 		<view class="bgbox">
 
 		</view>
-		<view class="font-bold flex title padding font-middle flex-between">
+		<view class="font-bold flex title padding font-middle flex-between" @tap="jumpToCurrencyDetail">
 			<text class="font-bold">我的资产</text> <text class="iconfont">&#xea25;</text>
 		</view>
 		<view class="padding">
@@ -177,6 +177,11 @@
 				self.coinList = JSON.parse(JSON.stringify(self.coinList))
 				
 			},
+			jumpToCurrencyDetail(){
+				// uni.navigateTo({
+				// 	url:"./currency-detail?coinId="+this.coinList[index].Id+"&money="+this.coinList[index].Money+"&forzen="+this.coinList[index].Forzen+"&price="+this.coinList[index].Price
+				// })
+				},
 			jumpToTransferNum(){
 				uni.navigateTo({
 					url:"./transfer-num?money="+this.money
@@ -188,13 +193,16 @@
 				})
 			},
 			jumpToRecord(){
-				uni.navigateTo({
-					url:"./charging-record"
-				})
+				// uni.navigateTo({
+				// 	url:"./charging-record?id="+this.coinList[index].Id
+				// })
 			},
 			jumpTocurrencyDetail(index){
+				// uni.navigateTo({
+				// 	url:"./currency-detail?coinId="+this.coinList[index].Id+"&money="+this.coinList[index].Money+"&forzen="+this.coinList[index].Forzen+"&price="+this.coinList[index].Price
+				// })
 				uni.navigateTo({
-					url:"./currency-detail?coinId="+this.coinList[index].Id+"&money="+this.coinList[index].Money+"&forzen="+this.coinList[index].Forzen+"&price="+this.coinList[index].Price
+					url:"./charging-record?id="+this.coinList[index].Id
 				})
 			}
 

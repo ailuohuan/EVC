@@ -1,0 +1,8 @@
+{
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more"
+  }
+}

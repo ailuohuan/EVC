@@ -1,9 +1,6 @@
 <template>
 	<view class="content">
-		<view class="page-head2-padding">
-			<page-head2 :headerTitle="headerTitle"></page-head2>
-
-		</view>
+	
 		<view class="bgbox">
 
 		</view>
@@ -94,9 +91,6 @@
 					</view>
 				</view>
 			</view>
-
-
-
 		</block>
 		<view class="nav flot-bottom">
 			<view class="nav-text nav-btn" v-for="(item,index) in twoBtn" :key="item.id" :class="currentNumberBtn == index ? 'active-btn' : ''"
@@ -109,16 +103,12 @@
 </template>
 
 <script>
-	import pageHead2 from '@/components/page-head2.vue';
 	export default {
-		components: {
-			pageHead2
-		},
+		
 		data() {
 			return {
 				currentNumber: 0, // 用来判断active样式类是否显示
 				currentNumberBtn: 0,
-				headerTitle: 'BTC',
 				statusChange: '',
 				curPage: 1,
 				status: 0,

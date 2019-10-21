@@ -1,0 +1,1 @@
+<view class="header-content"><view data-event-opts="{{[['tap',[['jumpToBack',['$event']]]]]}}" class="header-left" bindtap="__e"><view class="iconfont icon"></view></view><view class="header-middle">{{''+headerTitle+''}}</view></view>

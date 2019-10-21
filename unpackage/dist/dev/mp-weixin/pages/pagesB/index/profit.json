@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收益账户",
+  "usingComponents": {
+    "uni-load-more": "/components/uni-load-more"
+  }
+}

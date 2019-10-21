@@ -1,0 +1,26 @@
+
+page{background-color: #FFFFFF;}
+.coin-choose{border-top: 10px solid #F8F8F8;border-bottom: 10px solid #F8F8F8;padding: 24rpx;}
+.coin-choose .logo{width: 56rpx;height: 56rpx;}
+.coin-choose .coinname{font-weight: bold;margin-left: 12rpx;}
+.coin-choose .iconfont{position: relative;top: 6rpx;}
+.address-wrap{padding-top: 60rpx;}
+.address-wrap .address{margin-bottom: 12rpx;}
+.ercode image{width: 300rpx;height: 300rpx;margin: 100rpx 0;}
+.coin-list{background-color: #FFFFFF;text-align: center;}
+.coin-list>view{border-bottom: 1px solid #F7F7F7;padding: 30rpx 0;}
+.coin-list .cancle{border-top: 20rpx solid #F8F8F8;}
+.coin-list .active{color: #0099FF;font-weight: bold;}
+.transfer-wrap{padding: 30rpx 24rpx;}
+.transfer-wrap>view{margin-top: 40rpx;}
+.transfer-wrap .input-wrap{margin-top: 20rpx;position: relative;}
+.transfer-wrap .input-wrap .flag{position: absolute;top: 30rpx;right: 20rpx;}
+.transfer-wrap input{background-color: #F8F8F8;height: 88rpx;border-radius: 12rpx;padding: 0 20rpx;}
+.transfer-wrap button{margin-top: 60rpx;}
+.password-wrap{background-color: #FFFFFF;}
+.password-wrap .title{text-align: center;position: relative;padding: 30rpx 0;}
+.password-wrap .title .iconfont{position: absolute;right: 20rpx;top: 32rpx;}
+.password-wrap .input-wrap{display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;padding: 30rpx 50rpx 60rpx;}
+.password-wrap input{border: 1px solid #EDEDED;margin-right: 30rpx;width: 90%;height: 80rpx;border-radius: 12rpx;padding: 0 20rpx;-webkit-box-sizing: border-box;box-sizing: border-box;}
+.password-wrap button{height: 80rpx;line-height: 80rpx;opacity: 0.5;}
+

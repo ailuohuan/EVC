@@ -10,6 +10,10 @@
 			<view class="flex-between">
 				<text>团队人数：{{team}}</text>｜<text>有效直推人数：{{invite}}</text>
 			</view>
+			<view class="level">
+				<image class="level-img" src="../../../static/images/pagesA/my/reporter.png" mode=""></image>
+				<text>{{level}}</text>
+			</view>
 		</view>
 		<view class="team-text font-bold font-middle">
 			团队列表
@@ -19,9 +23,17 @@
 				<view class="list-item-left">
 					<image class="img" :src="item.Avatar" mode="widthFix"></image>
 					<view class="">
-						<view class="font-middle">
-							{{item.Name}}
+						<view class="flex-row">
+							<view class="font-middle">
+								{{item.Name}}
+							</view>
+							<view class="list-level">
+								<image class="list-level-img" src="../../../static/images/pagesA/my/reporter.png" mode=""></image>
+								<text>{{item.Level}}</text>
+								
+							</view>
 						</view>
+						
 						<view class="name-ch">
 							{{item.Phone}}
 						</view>
@@ -32,7 +44,6 @@
 						团队：{{item.TeamNumber}}人
 					</view>
 				</view>
-				
 			</view>
 			<view class="flex-between padding border-bottom padding-bottom ">
 				<view class="">
@@ -156,6 +167,44 @@
 		height: 100%;
 		box-sizing: border-box;
 		font-size: 30rpx;
+		.level{
+			position: absolute;
+			top: 30rpx;
+			right: 0;
+			width: 142rpx;
+			height: 60rpx;
+			background: #fff;
+			border-bottom-left-radius: 30rpx;
+			border-top-left-radius: 30rpx;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			font-size: 24rpx;
+			color: #0099FF;
+			.level-img{
+				height: 36rpx;
+				width: 34rpx;
+			}
+		}
+		.list-level{
+			width: 120rpx;
+			height: 32rpx;
+			border:2rpx solid #0099FF;
+			border-radius: 18rpx;
+			font-size: 20rpx;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			color: #0099FF;
+			margin-left: 10rpx;
+			.list-level-img{
+				width: 20rpx;
+				height: 20rpx;
+				margin-right: 6rpx;
+			}
+		}
 		
 		.top {
 			display: flex;
@@ -180,7 +229,7 @@
 			margin-top: 24rpx;
 			color: #fff;
 			padding: 30rpx 36rpx;
-
+			position: relative;
 			.all {
 				font-size: 24rpx;
 			}

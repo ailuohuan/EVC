@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "钱包管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup"
+  }
+}

@@ -10,6 +10,10 @@
 			<view class="flex-between">
 				<text>团队人数：{{team}}</text>｜<text>有效直推人数：{{invite}}</text>
 			</view>
+			<view class="level">
+				<image class="level-img" src="../../../static/images/pagesA/my/reporter.png" mode=""></image>
+				<text>{{level}}</text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -108,6 +112,7 @@
 		box-sizing: border-box;
 		font-size: 30rpx;
 		
+		
 		.top {
 			display: flex;
 			flex-direction: row;
@@ -131,7 +136,27 @@
 			margin-top: 24rpx;
 			color: #fff;
 			padding: 30rpx 36rpx;
-
+			position: relative;
+			.level{
+				position: absolute;
+				top: 30rpx;
+				right: 0;
+				width: 142rpx;
+				height: 60rpx;
+				background: #fff;
+				border-bottom-left-radius: 30rpx;
+				border-top-left-radius: 30rpx;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				font-size: 24rpx;
+				color: #0099FF;
+				.level-img{
+					height: 36rpx;
+					width: 34rpx;
+				}
+			}
 			.all {
 				font-size: 24rpx;
 			}

@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "个人中心",
+  "titleNView": {
+    "type": "default",
+    "titleColor": "#333333",
+    "backgroundColor": "#fff",
+    "titleSize": "36rpx",
+    "buttons": [
+      {
+        "text": "EVC",
+        "fontSrc": "/static/font/iconfont.ttf",
+        "fontSize": "13px",
+        "float": "left"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

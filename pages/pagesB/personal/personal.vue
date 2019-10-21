@@ -11,7 +11,7 @@
 						{{nickname}} <text class="iconfont" @tap="jumpToPersonalInfo">&#xe64a;</text>
 					</view>
 					<view class="flex-around">
-						<view class="">
+						<view class="" @tap="jumpToInvite">
 							<view class="">
 								<image class="choice-img" src="../../../static/images/pagesA/my/re-name.png" mode=""></image>
 							</view>

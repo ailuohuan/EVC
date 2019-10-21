@@ -61,6 +61,7 @@
 			};
 		},
 		onLoad(options) {
+			this.id = options.id
 			if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
 				this.$base._isLogin()
 			}
@@ -100,13 +101,15 @@
 					}
 				})
 			},
-			//我的理财列表 显示全部
+			//充提记录接口报错
+			
 			getCoreDetail() {
 				uni.request({
 					url: this.baseUrl + "/recharge-withdraw",
 					data:{
 						page:1,
-						count:10000
+						count:10000,
+						Id:this.id
 					},
 					header: {
 						//除注册登录外其他的请求都携带用户token和秘钥

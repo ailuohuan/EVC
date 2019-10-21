@@ -22,7 +22,7 @@
 			热门产品
 		</view>
 		<view class="recommend-product" v-for="(item,index) in productList" :key="item.id" @tap="jumpToProductDetail(index)">
-			<view class="hot">
+			<view class="hot" :style="{background:showLevelBgc(item.NeedLevel)}">
 				V{{item.NeedLevel}}
 			</view>
 			<view class="title">
@@ -94,6 +94,7 @@
 				loadingType: 'more',
 				total1:0,
 				total2:0,
+				levelBgc:''
 			};
 		},
 		onLoad() {
@@ -162,6 +163,7 @@
 							this.$base._isLogin()
 						} else if(res.data.status==1){
 							this.productList = res.data.data.List
+							
 						}else{
 							uni.showToast({
 								title: res.data.message,
@@ -219,6 +221,15 @@
 					this.active += 1
 				} else {
 					this.active = 0
+				}
+			},
+			showLevelBgc(level){
+				if(level==1){
+					return  'linear-gradient(#FF727C, #FFA8AE)'
+				}else if(level==2){
+					return  'linear-gradient(#7FCCFF, #0099FF)'
+				}else if(level==3){
+					return  'linear-gradient(#FFC744, #FF9100)'
 				}
 			},
 			jumpToProductDetail(index){
@@ -359,11 +370,13 @@
 			display: inline-block;
 			margin-top: 30rpx;
 			height: 262rpx;
-			width: 332rpx;
+			width: 334rpx;
 			box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
 			text-align: left;
 			line-height: 60rpx;
-
+			box-sizing: border-box;
+			padding: 5rpx;
+			
 			.title {
 				padding-top: 30rpx;
 				font-weight: bold;
