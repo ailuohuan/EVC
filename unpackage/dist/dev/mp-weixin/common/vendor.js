@@ -734,7 +734,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1606,9 +1606,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!***************************************!*\
-  !*** E:/罗欢窝的狗屎/EVC/common/js/base.js ***!
-  \***************************************/
+/*!*****************************************************!*\
+  !*** C:/Users/Admin/Desktop/EVC/common/js/base1.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7177,7 +7177,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7198,14 +7198,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7281,7 +7281,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7658,10 +7658,10 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 254:
-/*!****************************************!*\
-  !*** E:/罗欢窝的狗屎/EVC/common/wxqrcode.js ***!
-  \****************************************/
+/***/ 238:
+/*!*****************************************************!*\
+  !*** C:/Users/Admin/Desktop/EVC/common/wxqrcode.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9323,9 +9323,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!********************************!*\
-  !*** E:/罗欢窝的狗屎/EVC/pages.json ***!
-  \********************************/
+/*!*********************************************!*\
+  !*** C:/Users/Admin/Desktop/EVC/pages.json ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10233,21 +10233,21 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ }),
 
 /***/ 7:
-/*!*************************************************!*\
-  !*** E:/罗欢窝的狗屎/EVC/pages.json?{"type":"style"} ***!
-  \*************************************************/
+/*!**************************************************************!*\
+  !*** C:/Users/Admin/Desktop/EVC/pages.json?{"type":"style"} ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/wallet/wallet": { "navigationBarTitleText": "钱包", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/wallet/create": { "navigationBarTitleText": "创建钱包", "usingComponents": {} }, "pages/wallet/backupMnemonic1": { "navigationBarTitleText": "备份助记词", "usingComponents": {} }, "pages/wallet/backupMnemonic": { "navigationBarTitleText": "备份助记词", "usingComponents": {} }, "pages/wallet/import": { "navigationBarTitleText": "助记词导入", "usingComponents": {} }, "pages/wallet/resetPin": { "navigationBarTitleText": "重置PIN码", "usingComponents": {} }, "pages/wallet/backup": { "navigationBarTitleText": "管理", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/wallet/manage": { "navigationBarTitleText": "钱包管理", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/user/user": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "usingComponents": {} }, "pages/message/message": { "navigationBarTitleText": "消息中心", "usingComponents": {} }, "pages/message/detail": { "navigationBarTitleText": "详情", "usingComponents": {} }, "pages/coin/detail": { "navigationBarTitleText": "USDT", "usingComponents": {} }, "pages/coin/charge": { "navigationBarTitleText": "收款", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/coin/transfer": { "navigationBarTitleText": "转账", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/coin/transferDetail": { "navigationBarTitleText": "记录详情", "usingComponents": {} }, "pages/market/market": { "navigationBarTitleText": "行情", "usingComponents": {} }, "pages/dapp/dapp": { "navigationBarTitleText": "DAPP", "usingComponents": {} }, "pages/pagesB/login/login": { "navigationBarTitleText": "登录", "usingComponents": {} }, "pages/pagesB/login/register": { "navigationBarTitleText": "邮箱注册", "usingComponents": {} }, "pages/pagesB/login/setPassword": { "navigationBarTitleText": "设置密码", "usingComponents": {} }, "pages/pagesB/index/index": { "navigationBarTextStyle": "white", "enablePullDownRefresh": true, "navigationBarTitleText": "首页", "usingComponents": { "uni-load-more": "/components/uni-load-more" } }, "pages/pagesB/index/product-detail": { "navigationBarTitleText": "产品详情", "usingComponents": {} }, "pages/pagesB/login/forgetPassword": { "navigationBarTitleText": "忘记密码", "usingComponents": {} }, "pages/pagesB/login/resetPassword": { "navigationBarTitleText": "重置密码", "usingComponents": {} }, "pages/pagesB/index/buy": { "navigationBarTitleText": "购买", "usingComponents": {} }, "pages/pagesB/index/profit": { "navigationBarTitleText": "收益账户", "usingComponents": { "uni-load-more": "/components/uni-load-more" } }, "pages/pagesB/index/detail": { "navigationBarTitleText": "详情", "usingComponents": {} }, "pages/pagesB/wallet/wallet": { "navigationBarTitleText": "钱包", "usingComponents": {} }, "pages/pagesB/wallet/transfer-num": { "navigationBarTitleText": "转账", "usingComponents": {} }, "pages/pagesB/wallet/receivables-qrcode": { "navigationBarTitleText": "收款", "usingComponents": {} }, "pages/pagesB/wallet/charging-record": { "navigationBarTitleText": "充提记录", "usingComponents": {} }, "pages/pagesB/wallet/record-details": { "navigationBarTitleText": "记录详情", "usingComponents": { "page-head2": "/components/page-head2" } }, "pages/pagesB/wallet/currency-detail": { "navigationBarTitleText": "币种详情", "usingComponents": {} }, "pages/pagesB/wallet/recharge-record": { "navigationBarTitleText": "充提记录", "usingComponents": {} }, "pages/pagesB/my/my-team": { "navigationBarTitleText": "我的团队", "usingComponents": {} }, "pages/pagesB/my/my-team2": { "navigationBarTitleText": "我的团队", "usingComponents": {} }, "pages/pagesB/personal/personal": { "navigationBarTitleText": "个人中心", "titleNView": { "type": "default", "titleColor": "#333333", "backgroundColor": "#fff", "titleSize": "36rpx", "buttons": [{ "text": "EVC", "fontSrc": "/static/font/iconfont.ttf", "fontSize": "13px", "float": "left" }] }, "usingComponents": {} }, "pages/pagesB/personal/unsealing": { "navigationBarTitleText": "账号解封", "usingComponents": {} }, "pages/pagesB/personal/problem": { "navigationBarTitleText": "常见问题", "usingComponents": {} }, "pages/pagesB/personal/real-name": { "navigationBarTitleText": "实名认证", "usingComponents": { "uni-steps": "/components/uni-steps" } }, "pages/pagesB/personal/set-password": { "navigationBarTitleText": "修改登录密码", "usingComponents": {} }, "pages/pagesB/personal/set-paypassword": { "navigationBarTitleText": "修改交易密码", "usingComponents": {} }, "pages/pagesB/personal/self-in": { "navigationBarTitleText": "安全中心", "usingComponents": {} }, "pages/pagesB/personal/real-photo": { "navigationBarTitleText": "实名认证", "usingComponents": { "uni-steps": "/components/uni-steps" } }, "pages/pagesB/personal/personal-info": { "navigationBarTitleText": "个人信息", "usingComponents": {} }, "pages/pagesB/personal/set-nickname": { "navigationBarTitleText": "设置昵称", "usingComponents": {} }, "pages/pagesB/personal/my-bill": { "navigationBarTitleText": "我的账单", "usingComponents": {} }, "pages/pagesB/personal/recorde-detail": { "navigationBarTitleText": "记录详情", "usingComponents": {} }, "pages/pagesB/personal/binding-phone": { "navigationBarTitleText": "绑定手机", "usingComponents": {} }, "pages/pagesB/dapp/dapp": { "navigationBarTitleText": "Dapp", "usingComponents": {} }, "pages/pagesB/dapp/text-detail": { "navigationBarTitleText": "正文详情", "usingComponents": {} }, "pages/pagesB/dapp/public-notification": { "navigationBarTitleText": "公告", "usingComponents": {} }, "pages/pagesB/dapp/public-detail": { "navigationBarTitleText": "详情", "usingComponents": {} }, "pages/pagesB/quotation/quotation": { "navigationBarTitleText": "行情", "usingComponents": {} }, "pages/pagesB/my/invite": { "navigationBarTitleText": "邀请好友" }, "pages/pagesB/personal/invite": { "navigationBarTitleText": "邀请好友", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "EVC", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/wallet/wallet": { "navigationBarTitleText": "钱包", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/wallet/create": { "navigationBarTitleText": "创建钱包", "usingComponents": {} }, "pages/wallet/backupMnemonic1": { "navigationBarTitleText": "备份助记词", "usingComponents": {} }, "pages/wallet/backupMnemonic": { "navigationBarTitleText": "备份助记词", "usingComponents": {} }, "pages/wallet/import": { "navigationBarTitleText": "助记词导入", "usingComponents": {} }, "pages/wallet/resetPin": { "navigationBarTitleText": "重置PIN码", "usingComponents": {} }, "pages/wallet/backup": { "navigationBarTitleText": "管理", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/wallet/manage": { "navigationBarTitleText": "钱包管理", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/user/user": { "navigationBarTextStyle": "white", "navigationBarTitleText": "我的", "usingComponents": {} }, "pages/message/message": { "navigationBarTitleText": "消息中心", "usingComponents": {} }, "pages/message/detail": { "navigationBarTitleText": "详情", "usingComponents": {} }, "pages/coin/detail": { "navigationBarTitleText": "USDT", "usingComponents": {} }, "pages/coin/charge": { "navigationBarTitleText": "收款", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/coin/transfer": { "navigationBarTitleText": "转账", "usingComponents": { "uni-popup": "/components/uni-popup" } }, "pages/coin/transferDetail": { "navigationBarTitleText": "记录详情", "usingComponents": {} }, "pages/market/market": { "navigationBarTitleText": "行情", "usingComponents": {} }, "pages/dapp/dapp": { "navigationBarTitleText": "DAPP", "usingComponents": {} }, "pages/pagesB/login/login": { "navigationBarTitleText": "登录", "usingComponents": {} }, "pages/pagesB/login/register": { "navigationBarTitleText": "邮箱注册", "usingComponents": {} }, "pages/pagesB/login/setPassword": { "navigationBarTitleText": "设置密码", "usingComponents": {} }, "pages/pagesB/index/index": { "navigationBarTextStyle": "white", "enablePullDownRefresh": true, "navigationBarTitleText": "首页", "usingComponents": { "uni-load-more": "/components/uni-load-more" } }, "pages/pagesB/index/product-detail": { "navigationBarTitleText": "产品详情", "usingComponents": {} }, "pages/pagesB/login/forgetPassword": { "navigationBarTitleText": "忘记密码", "usingComponents": {} }, "pages/pagesB/login/resetPassword": { "navigationBarTitleText": "重置密码", "usingComponents": {} }, "pages/pagesB/index/buy": { "navigationBarTitleText": "购买", "usingComponents": {} }, "pages/pagesB/index/profit": { "navigationBarTitleText": "收益账户", "usingComponents": { "uni-load-more": "/components/uni-load-more" } }, "pages/pagesB/index/detail": { "navigationBarTitleText": "详情", "usingComponents": {} }, "pages/pagesB/personal/invite": { "navigationBarTitleText": "邀请好友", "usingComponents": {} }, "pages/pagesB/wallet/wallet": { "navigationBarTitleText": "钱包", "usingComponents": { "evc-tabbar": "/components/evcTabbar" } }, "pages/pagesB/wallet/transfer-num": { "navigationBarTitleText": "转账", "usingComponents": {} }, "pages/pagesB/wallet/receivables-qrcode": { "navigationBarTitleText": "收款", "usingComponents": {} }, "pages/pagesB/wallet/charging-record": { "navigationBarTitleText": "充提记录", "usingComponents": {} }, "pages/pagesB/wallet/record-details": { "navigationBarTitleText": "记录详情", "usingComponents": { "page-head2": "/components/page-head2" } }, "pages/pagesB/wallet/currency-detail": { "navigationBarTitleText": "币种详情", "usingComponents": {} }, "pages/pagesB/wallet/recharge-record": { "navigationBarTitleText": "充提记录", "usingComponents": {} }, "pages/pagesB/my/my-team": { "navigationBarTitleText": "我的团队", "usingComponents": {} }, "pages/pagesB/my/my-team2": { "navigationBarTitleText": "我的团队", "usingComponents": {} }, "pages/pagesB/personal/personal": { "navigationBarTitleText": "个人中心", "titleNView": { "type": "default", "titleColor": "#333333", "backgroundColor": "#fff", "titleSize": "36rpx", "buttons": [{ "text": "EVC", "fontSrc": "/static/font/iconfont.ttf", "fontSize": "13px", "float": "left" }] }, "usingComponents": {} }, "pages/pagesB/personal/unsealing": { "navigationBarTitleText": "账号解封", "usingComponents": {} }, "pages/pagesB/personal/problem": { "navigationBarTitleText": "常见问题", "usingComponents": {} }, "pages/pagesB/personal/real-name": { "navigationBarTitleText": "实名认证", "usingComponents": { "uni-steps": "/components/uni-steps" } }, "pages/pagesB/personal/set-password": { "navigationBarTitleText": "修改登录密码", "usingComponents": {} }, "pages/pagesB/personal/set-paypassword": { "navigationBarTitleText": "修改交易密码", "usingComponents": {} }, "pages/pagesB/personal/forget-pay-password": { "navigationBarTitleText": "忘记交易密码", "usingComponents": {} }, "pages/pagesB/personal/self-in": { "navigationBarTitleText": "安全中心", "usingComponents": {} }, "pages/pagesB/personal/real-photo": { "navigationBarTitleText": "实名认证", "usingComponents": { "uni-steps": "/components/uni-steps" } }, "pages/pagesB/personal/personal-info": { "navigationBarTitleText": "个人信息", "usingComponents": {} }, "pages/pagesB/personal/set-nickname": { "navigationBarTitleText": "设置昵称", "usingComponents": {} }, "pages/pagesB/personal/my-bill": { "navigationBarTitleText": "我的账单", "usingComponents": {} }, "pages/pagesB/personal/recorde-detail": { "navigationBarTitleText": "记录详情", "usingComponents": {} }, "pages/pagesB/personal/binding-phone": { "navigationBarTitleText": "绑定手机", "usingComponents": {} }, "pages/pagesB/dapp/dapp": { "navigationBarTitleText": "Dapp", "usingComponents": {} }, "pages/pagesB/dapp/text-detail": { "navigationBarTitleText": "正文详情", "usingComponents": {} }, "pages/pagesB/dapp/public-notification": { "navigationBarTitleText": "公告", "usingComponents": {} }, "pages/pagesB/dapp/public-detail": { "navigationBarTitleText": "详情", "usingComponents": {} }, "pages/pagesB/quotation/quotation": { "navigationBarTitleText": "行情", "usingComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "EVC", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#FFFFFF" } };exports.default = _default;
 
 /***/ }),
 
 /***/ 8:
-/*!************************************************!*\
-  !*** E:/罗欢窝的狗屎/EVC/pages.json?{"type":"stat"} ***!
-  \************************************************/
+/*!*************************************************************!*\
+  !*** C:/Users/Admin/Desktop/EVC/pages.json?{"type":"stat"} ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

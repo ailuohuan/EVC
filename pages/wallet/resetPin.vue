@@ -2,24 +2,28 @@
 	<view>
 		<view class="input-wrap">
 			<view>
-				<input :type="hidden ? 'password' : 'text'" placeholder="设置PIN(8-20位数字和字母)" placeholder-class="input-placeholder">
+				<input :type="hidden ? 'password' : 'text'" placeholder="设置PIN(8-20位数字和字母)" placeholder-class="input-placeholder" v-model="pin">
 				<i class="iconfont font-gray" :class="hidden ? 'icon-yanjing-biyan' : 'icon-yanjing-zhengyan'" @click="hidden = !hidden"></i>
 			</view>
-			<view><input type="password" placeholder="确认PIN" placeholder-class="input-placeholder"></view>
+			<view><input type="password" placeholder="确认PIN" placeholder-class="input-placeholder" v-model="surepin"></view>
 		</view>
 		<button class="blue" hover-class="none">确认</button>
 	</view>
 </template>
 
 <script>
+	import wallet from "@/common/js/wallet.js";
 	export default {
 		data() {
 			return {
-				hidden: true
+				hidden: true,
+				pin: '',
+				surepin: '',
+				wallet: ''
 			}
 		},
 		onLoad() {
-
+			this.wallet = this.$Wallet.getCurrentWallet();
 		},
 		methods: {
 

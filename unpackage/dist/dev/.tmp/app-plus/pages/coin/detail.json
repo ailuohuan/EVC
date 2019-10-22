@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "USDT",
-  "usingComponents": {}
+  "usingComponents": {
+    "page-loading": "/components/pageloading"
+  }
 }

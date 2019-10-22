@@ -1,8 +1,4 @@
 {
   "navigationBarTitleText": "币种详情",
-  "titleNView": false,
-  "animationType": "slide-in-bottom",
-  "usingComponents": {
-    "page-head2": "/components/page-head2"
-  }
+  "usingComponents": {}
 }

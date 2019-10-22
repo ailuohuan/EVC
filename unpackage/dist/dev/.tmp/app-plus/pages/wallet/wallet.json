@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "钱包",
+  "enablePullDownRefresh": true,
   "titleNView": {
     "buttons": [
       {
@@ -17,6 +18,7 @@
     ]
   },
   "usingComponents": {
-    "uni-popup": "/components/uni-popup"
+    "uni-popup": "/components/uni-popup",
+    "tki-qrcode": "/components/tki-qrcode"
   }
 }

@@ -1,13 +1,11 @@
 <template>
 	<view class="content">
-	
 		<view class="bgbox">
-
 		</view>
 		<view class="padding">
 			<view class="flex-row padding-top">
 				<view class="name">
-					<image class="logo-img" src="../../../static/images/BTC@2x.png" mode=""></image>
+					<image class="logo-img" :src="logo" mode=""></image>
 				</view>
 				<view class="font-blue font-big font-bold">
 					{{money}}BTC
@@ -70,19 +68,19 @@
 				<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToManage(index)">
 					<view class="">
 						<view class="name-en">
-							{{item.title}}
+							{{item.Type==1?"充值":"提现"}}
 						</view>
 						<view class="name-ch">
-							{{item.time}}
+							{{ $base1._formatDate(item.AddTime)}}
 						</view>
 					</view>
 					<view class="list-item-right">
 						<view class="">
 							<view class="name-en">
-								{{item.money}}
+								{{item.Money}}
 							</view>
-							<view class="name-ch desc">
-								{{item.status}}
+							<view class="name-ch desc" :style="{color:showColor(item.Status)}">
+								{{showStatus(item.Status)}}
 							</view>
 						</view>
 						<view class="iconfont icon">
@@ -92,12 +90,12 @@
 				</view>
 			</view>
 		</block>
-		<view class="nav flot-bottom">
+	<!-- 	<view class="nav flot-bottom">
 			<view class="nav-text nav-btn" v-for="(item,index) in twoBtn" :key="item.id" :class="currentNumberBtn == index ? 'active-btn' : ''"
-			 @tap="currentInfo(index)">
+			 @tap="currentInfo2(index)">
 				{{item.title}}
 			</view>
-		</view>
+		</view> -->
 	</view>
 	</view>
 </template>
@@ -112,14 +110,10 @@
 				statusChange: '',
 				curPage: 1,
 				status: 0,
-				nameList: [{
-					title: '充值',
-					time: '2019-09-10 14:30:15',
-					money: '+1000BTC',
-					status: '已完成'
-				}],
+				nameList: [],
 				id: '',
 				acid: '',
+				logo:'',
 				list: [{
 						title: "币种详情"
 					},
@@ -182,6 +176,7 @@
 			this.money = options.money
 			this.forzen = options.foezen
 			this.price = options.price
+			this.logo = options.logo
 			this.getCoreDetail()
 		},
 		onPullDownRefresh() {
@@ -195,6 +190,8 @@
 				this.currentNumber = index;
 				if(this.currentNumber == 1){
 					this.showDetail=false
+				}else{
+					this.showDetail=true
 				}
 				//单个币种的充提记录
 				uni.request({
@@ -211,8 +208,9 @@
 					success: (res) => {
 						console.log(res)
 						 if (res.data.status == 1) {
-							// this.nameList = res.data.data.data
-							console.log(this.nameList)
+							this.nameList = res.data.data.list
+							console.log(JSON.stringify(this.nameList))
+	
 						} else {
 							uni.showToast({
 								title: res.data.message,
@@ -221,6 +219,50 @@
 						}
 					}
 				})
+			},
+			//处理状态返回的显示值
+			showStatus(status){
+				if(status){
+					if(status=="-1"){
+						return "驳回" 
+					}else if(status=="0"){
+						
+						return "待处理"
+					}else if(status=="1"){
+						
+						return "处理中"
+					}else if(status=="2"){
+						return "已处理"
+					}else if(status=="3"){
+						
+						return "失败"
+					}else if(status=="4"){
+						
+						return "处理成功"
+					}
+				}
+			},
+			//状态不同显示不同的颜色
+			showColor(status){
+				if(status){
+					if(status=="-1"){
+						return "red" 
+					}else if(status=="0"){
+						
+						return "green"
+					}else if(status=="1"){
+						
+						return "green"
+					}else if(status=="2"){
+						return "blue"
+					}else if(status=="3"){
+						
+						return "red"
+					}else if(status=="4"){
+						
+						return "blue"
+					}
+				}
 			},
 			currentBtnIndex(index) {
 				this.currentNumberBtn = index
@@ -238,8 +280,8 @@
 					},
 					success: (res) => {
 						console.log(res.data)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 
 

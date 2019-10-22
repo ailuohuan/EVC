@@ -1,4 +1,22 @@
-export default {
+module.exports = {
+	_cacheWallet: "evc_wallet",//钱包的缓存名字
+	_cacheCoin: "evc_coin",//币种缓存名称
+	_des3pwd: "ioqXdfdHfbSZaLeBQhLgxBNG",//des3加密秘钥
+	_platCoin(){ //平台币
+		return '';
+	},
+	_prePage(){ //获取上一个页面
+		let pages = getCurrentPages();
+		let prePage = pages[pages.length - 2];
+		return prePage;
+	},
+	_toast(msg){//自动消失的提示窗
+		uni.showToast({
+			icon: 'none',
+			title: msg,
+			duration: 2000
+		});
+	},
 	/**
 	 * 时间戳格式化
 	 * @param {String} 内容
@@ -42,38 +60,90 @@ export default {
 			return str + '.' + hanZeo(num);
 		}
 	},
-		/**
-		 * 检查登录状态
-		 * @param {String} 内容
-		 */
-		_isLogin(status){
-			if(!status){
-				uni.showModal({
-					content: "您还未登录，请先登录",
-					showCancel: false,
-					confirmText: "确定",
-					success: function (res) {
-						if (res.confirm) {
-							uni.navigateTo({
-								url:"/pages/pagesB/login/login"
-							})
-						}
-					}
-				});
-				return;
-			};
-		},
-		// 判断返回值以2开头为未登录跳转到登录信息
-		_indexOf(status){
-			var reg = new RegExp(/^2\d/)
-			return reg.test(status)
-		},
-		//返回值为空，不存在，null，undefine时显示为0
-		_showZero(number){
-			if(number=="null"||number==""||number==0||number==null||number==undefined||number=="undefined"){
-				return "0"
-			}else{
-				return number
-			}
+	_addressMethod(address){ //钱包地址中间用……代替
+		let frontLen = 10 , endLen = 10;
+		let len = address.length - frontLen - endLen;
+		let temp = '......';
+		return address.substring(0,frontLen) + temp +address.substring(address.length-endLen);
+	},
+	_phoneMethod(cellValue){ //电话号码中间用*代替
+		if (Number(cellValue) && String(cellValue).length === 11) {
+	        var mobile = String(cellValue);
+	        var reg = /^(\d{3})\d{4}(\d{4})$/;
+	        return mobile.replace(reg, '$1****$2');
+	    } else {
+	        return cellValue;
+	    }
+	},
+	_checkPwd(pwd) { //验证密码，必须8-20字母数字组成
+		if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/.test(pwd))) {
+			return false;
+		} else {
+			return true;
 		}
-};
+	},
+	_networkMethod(){ //网络监听
+		uni.getNetworkType({
+			success(res) {
+				console.log(res.networkType);
+				if(res.networkType == 'none'){
+					uni.showModal({
+						title: "提示",
+						content: "您当前处于无网络状态，请链接网络后操作",
+						showCancel: false,
+						confirmText: "确定"
+					})
+				}
+			}
+		});
+		uni.onNetworkStatusChange(function (res) {
+			console.log(res.isConnected);
+			console.log(res.networkType);
+			if(!res.isConnected){
+				uni.showModal({
+					title: "提示",
+					content: "您当前处于无网络状态，请链接网络后操作",
+					showCancel: false,
+					confirmText: "确定"
+				})
+			}
+		});
+	},
+	_accMul(arg1, arg2) { //乘法
+		var m = 0,
+			s1 = arg1.toString(),
+			s2 = arg2.toString();
+		try {
+			m += s1.split(".")[1].length
+		} catch(e) {}
+		try {
+			m += s2.split(".")[1].length
+		} catch(e) {}
+		return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+	},
+	_accDiv(arg1, arg2) { //除法
+		var t1=0,t2=0,r1,r2; 
+		try{t1=arg1.toString().split(".")[1].length}catch(e){} 
+		try{t2=arg2.toString().split(".")[1].length}catch(e){} 
+		r1 = Number(arg1.toString().replace(".","")); 
+		r2 = Number(arg2.toString().replace(".","")); 
+		return (r1/r2) * Math.pow(10,t2-t1); 
+	},
+	_datediff(date){ // 时间减去8小时
+		date = date.substring(0,19);    
+		date = date.replace(/-/g,'/'); 
+		var timestamp = new Date(date).getTime() - 8 * 60 * 60 * 1000;
+		return this._formatDate(timestamp / 1000);
+	},
+	_checkLoginStatus(status){ //检查登录状态
+		if(status == 1004 || status == 1003 || status == 1002 || status == 1001 || status == 2001 || status == 20002 || status == 20003 || status == 20004){
+			uni.clearStorageSync();
+			plus.nativeUI.toast("您的登录已过期，请重新登录", {
+				verticalAlign: 'center'
+			});
+			uni.reLaunch({
+				url: '/pages/account/login',
+			});
+		}
+	}
+}

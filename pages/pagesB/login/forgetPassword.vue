@@ -6,12 +6,12 @@
 			</view>
 			<view>
 				
-				<input class="input-left"  placeholder="请输入短信验证码" placeholder-class="input-placeholder" v-model="password">
-				<button ref="getCode1" class="get-indentify" :disabled="nosendCode" @click="sendMsgCodeTimer">{{sendbtn.text}}</button>				
+				<input class="input-left"  placeholder="请输入短信验证码" placeholder-class="input-placeholder" v-model="authcode">
+				<button class="get-indentify" :disabled="nosendCode" @click="sendCode">{{sendbtn.text}}</button>				
 			</view>
 		</view>
 		<view>
-			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="backupMnemonic">下一步</button>
+			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="next">下一步</button>
 		</view>
 	</view>
 </template>
@@ -21,7 +21,7 @@
 		data() {
 			return {
 				emailNum:'',
-				password:'',
+				authcode:'',
 				opcity:0.5,
 				nosendCode: false,
 				sendbtn: {
@@ -37,9 +37,36 @@
 			
 		},
 		methods: {
-			backupMnemonic() {
+			sendCode(){
+				uni.request({
+					url: this.baseUrl + "/email-modify-pass",
+					data:{
+						Email: this.emailNum
+					},
+					method:"POST",
+					// header: {
+					// 	//除注册登录外其他的请求都携带用户token和秘钥
+					// 	Authorization: uni.getStorageSync('token')
+					// },
+					success: (res) => {
+						console.log(res.data)
+						 if (res.data.status == 1) {
+							this.sendMsgCodeTimer()
+							uni.showToast({
+								title:res.data.message
+							})
+						} else {
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+						}
+					}
+				})
+			},
+			next() {
 				uni.navigateTo({
-					url: "backupMnemonic1"
+					url:"./resetPassword?emailNum="+this.emailNum+"&authcode"+this.authcode
 				})
 			},
 			change(e){
@@ -50,46 +77,22 @@
 					this.opcity = 0.5
 				}
 			},
-			// 发送短信验证码绑定手机号
-			// sendCode(e) {
-			// 	// 防止表单重复提交方案
-			// 	rpx.nosendCode = true
-			// 	// 请求短信验证码
-			// 	this.$api.userSmscode({
-			// 		phone: this.userPhone
-			// 	}).then(res => {
-			// 		this.smsCode = res.data.data.smsCode;
-			// 		this.$refs.getCode1.$el.style.backgroundColor = "#aaaaaa"
-			// 		this.sendMsgCodeTimer();
-			// 		uni.showToast({
-			// 			title: '短信已发送',
-			// 			icon: 'none'
-			// 		})
 			
-			// 	}).catch(err => {
-			// 		this.nosendCode = false
-			// 		uni.showToast({
-			// 			title: err.data.data,
-			// 			icon: "none"
-			// 		})
-			// 	});
-			// },
 			// 发送短信验证码计时器
-			// sendMsgCodeTimer() {
-			// 	this.timerId = setInterval(() => {
-			// 		let codeTime = this.sendbtn.codeTime;
-			// 		codeTime--;
-			// 		this.sendbtn.codeTime = codeTime;
-			// 		this.sendbtn.text = codeTime + "S";
-			// 		if (codeTime < 1) {
-			// 			clearInterval(this.timerId);
-			// 			this.sendbtn.text = "重新获取";
-			// 			this.nosendCode = false
-			// 			this.sendbtn.codeTime = 60;
-			// 			this.$refs.getCode1.$el.style.backgroundColor = "rgba(127, 204, 255, 1)"
-			// 		}
-			// 	}, 1000);
-			// },
+			sendMsgCodeTimer() {
+				this.timerId = setInterval(() => {
+					let codeTime = this.sendbtn.codeTime;
+					codeTime--;
+					this.sendbtn.codeTime = codeTime;
+					this.sendbtn.text = codeTime + "S";
+					if (codeTime < 1) {
+						clearInterval(this.timerId);
+						this.sendbtn.text = "重新获取";
+						this.nosendCode = false
+						this.sendbtn.codeTime = 60;
+					}
+				}, 1000);
+			},
 		}
 	}
 </script>

@@ -29,6 +29,7 @@ page {
 }
 .active {
   color: #0099FF;
+  border-bottom: 2rpx solid #007AFF;
 }
 .content {
   -webkit-box-sizing: border-box;

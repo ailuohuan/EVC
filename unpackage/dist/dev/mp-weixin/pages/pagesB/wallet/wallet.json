@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "钱包",
-  "usingComponents": {}
+  "usingComponents": {
+    "evc-tabbar": "/components/evcTabbar"
+  }
 }

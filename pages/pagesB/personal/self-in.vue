@@ -8,7 +8,7 @@
 				<text>修改登录密码</text><text class="iconfont icon">&#xea25;</text>
 			</view>
 		</navigator>
-		<navigator url="./set-password">
+		<navigator url="../login/forgetPassword">
 			<view class="top">
 				<text>忘记登录密码</text>
 				<text class="iconfont icon">&#xea25;</text>
@@ -23,7 +23,7 @@
 				</text><text class="iconfont icon">&#xea25;</text>
 			</view>
 		</navigator>
-		<navigator url="./set-paypassword">
+		<navigator url="./forget-pay-password">
 			<view class="top">
 				<text>忘记交易密码
 				</text><text class="iconfont icon">&#xea25;</text>

@@ -1,17 +1,22 @@
 <template>
 	<view>
 		<view class="nav">
-			<view class="active">助记词导入</view>
-			<view>私钥导入</view>
+			<view :class="type == 1 ? 'active' : ''" @click="typeChange(1)">助记词导入</view>
+			<view :class="type == 2 ? 'active' : ''" @click="typeChange(2)">私钥导入</view>
 		</view>
 		<view class="text-center import-wrap">
 			<image src="../../static/images/import.png" mode="widthFix"></image>
-			<view class="font-small font-gray">
+			<view class="font-small font-gray" v-if="type == 1">
 				<view>按顺序输入助记词</view>
 				<view>助记词之间请用英文“,”隔开</view>
 			</view>
+			<view class="font-small font-gray" v-if="type==2">
+				<view>请输入正确私钥</view>
+				<view>如未导出私钥，请选择助记词导入</view>
+			</view>
 			<view class="text-left">
-				<textarea placeholder="请输入助记词" placeholder-class="input-placeholder"></textarea>
+				<input value="foster punch guard crop vital swamp extra sun smooth celery brass good" />
+				<textarea :placeholder="type == 1 ? '请输入助记词' : '请输入私钥'" placeholder-class="input-placeholder" v-model="value"></textarea>
 			</view>
 			<view>
 				<button class="blue" hover-class="none" @click="importWallet">确认导入</button>
@@ -21,25 +26,49 @@
 				</view>
 			</view>
 		</view>
-		<navigator class="font-blue footer" hover-class="none">创建钱包</navigator>
+		<navigator open-type="navigateBack" class="font-blue footer" hover-class="none">创建钱包</navigator>
 	</view>
 </template>
 
 <script>
+	import wallet from "@/common/js/wallet.js";
 	export default {
 		data() {
 			return {
-				
+				type: 1,//1：助记词导入钱包，2：私钥导入钱包
+				value: ''
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
+			typeChange(val){
+				this.type = val;
+				if(val == 1){
+					uni.setNavigationBarTitle({
+						title: '助记词导入'
+					})
+				}else{
+					uni.setNavigationBarTitle({
+						title: '私钥导入'
+					})
+				}
+			},
 			importWallet(){
-				uni.navigateTo({
-					url: 'resetPin'
-				})
+				let wallet = this.$Wallet.getWalletList();
+				let templist = wallet.filter(item => {
+					return item.privateKey == this.value || item.mnemonic == this.value;
+				});
+				if(templist.length){
+					this.app._toast('钱包已经存在，不需再次导入');return;
+				}
+				if(!this.value){
+					if(this.type == 1) this.app._toast('请输入助记词');
+					else this.app._toast('请输入私钥');
+				}else{
+					let self = this;
+					uni.navigateTo({
+						url: `../forget/pwd?mold=2&type=${self.type}&value=${self.value}`
+					})
+				}
 			}
 		}
 	}

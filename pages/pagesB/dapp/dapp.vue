@@ -28,7 +28,7 @@
 		</view>
 
 		<view class="flex-around">
-			<image class="logo-img" src="../../../static/images/pagesA/dapp/logo1.png" mode=""></image>
+			<image @tap="jumpToPagesBlogin" class="logo-img" src="../../../static/images/pagesA/dapp/logo1.png" mode=""></image>
 			<image class="logo-img" src="../../../static/images/pagesA/dapp/logo2.png" mode=""></image>
 			<image class="logo-img" src="../../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 		</view>
@@ -248,7 +248,11 @@
 
 		},
 		methods: {
-
+			jumpToPagesBlogin(){
+				uni.navigateTo({
+					url:"./login/login"
+				})
+			},
 			changeSwiper(e) {
 				this.swiperCurrent = e.detail.current;
 			},

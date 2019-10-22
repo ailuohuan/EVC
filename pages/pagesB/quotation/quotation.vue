@@ -81,7 +81,7 @@
 		},
 		onLoad(options) {
 			if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
 			this.activityId = options.activityId
 			console.log(this.activityId)
@@ -108,8 +108,8 @@
 					},
 					success: (res) => {
 						console.log(res)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							this.nameList = res.data.data.data
 							console.log(this.nameList)
@@ -134,8 +134,8 @@
 					success: (res) => {
 						
 						console.log(res.data)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							this.nameList = res.data.data.data
 							

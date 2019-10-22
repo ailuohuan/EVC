@@ -66,6 +66,40 @@
     margin-top: 24rpx;
     color: #fff;
     padding: 30rpx 36rpx;
+    position: relative;
+}
+.content .middle .level {
+      position: absolute;
+      top: 30rpx;
+      right: 0;
+      width: 142rpx;
+      height: 60rpx;
+      background: #fff;
+      border-bottom-left-radius: 30rpx;
+      border-top-left-radius: 30rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      font-size: 24rpx;
+      color: #0099FF;
+}
+.content .middle .level .level-img {
+        height: 36rpx;
+        width: 34rpx;
 }
 .content .middle .all {
       font-size: 24rpx;

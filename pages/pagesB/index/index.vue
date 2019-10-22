@@ -16,7 +16,7 @@
 		</view>
 		<view class="notice">
 			<text class="iconfont icon1">&#xe63f;</text>
-			即将上线！
+			Aggregate ecology 1.0即将上线！
 		</view>
 		<view class="recommend">
 			热门产品
@@ -29,10 +29,10 @@
 				{{item.Name}}
 			</view>
 			<view>
-				<text class="percent">{{ $base._toFixed(item.Ratio,4) }}%</text><text class="font-gray">月利率</text>
+				<text class="percent">{{ $base1._toFixed(item.Ratio*30*100,2) }}%</text><text class="font-gray">月利率</text>
 			</view>
 			<view class="profit">
-				投入金额：{{ $base._toFixed(item.Number,4) }}USTD
+				投入金额：{{ $base1._toFixed(item.Number,4) }}USTD
 			</view>
 		</view>
 		<view class="choice-type" @tap="seeAll">
@@ -52,7 +52,7 @@
 					</view>
 				</view>
 				<view class="">
-					<text class="percent percent-small">{{item.Ratio}}%</text> <text class="font-gray">年利率</text>
+					<text class="percent percent-small">{{$base1._toFixed(item.Ratio*30*100,2) }}%</text> <text class="font-gray">月利率</text>
 				</view>
 				<view class="title">
 					<text class="font-gray">投入金额:{{item.Number}}</text>
@@ -64,15 +64,18 @@
 			</view>
 		</view>
 		<uni-load-more :status="loadingType"></uni-load-more>
+		<evc-tabbar :fontColor1="fontColor1" :indexImg="indexImgSelect"></evc-tabbar>
 	</view>
 </template>
 
 <script>
+	import evcTabbar from '@/components/evcTabbar.vue'
 	import UniLoadMore from '@/components/uni-load-more.vue'
 	export default {
 		components: {
-			UniLoadMore
-		},
+					UniLoadMore,
+					evcTabbar	
+				},
 		data() {
 			return {
 				swiperImg: [{
@@ -85,6 +88,8 @@
 						Img: "../../../static/images/pagesA/login/banner.png"
 					}
 				],
+				fontColor1:'#0099FF',
+				indexImgSelect:'../../../static/images/evctabbar/indexselect.png',
 				current: 0,
 				swiperCurrent: 0,
 				productList: [],
@@ -101,7 +106,7 @@
 			//此页做下拉刷新跟上拉加载
 			var _self = this
 			if(!uni.getStorageSync("token")){
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
 			_self.getProduct()
 		},
@@ -159,8 +164,8 @@
 					},
 					success: (res) => {
 						console.log(res)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else if(res.data.status==1){
 							this.productList = res.data.data.List
 							

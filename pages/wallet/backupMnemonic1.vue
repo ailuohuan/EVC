@@ -2,24 +2,28 @@
 	<view class="content">
 		<view class="text-center">
 			<i class="iconfont icon-xiangmuwancheng font-blue"></i>
-			<view class="font-gray font-small tip">助记词是您管理、导入EVC钱包的唯一凭证请务必牢记备份。</view>
+			<view class="font-gray font-small tip">
+				<view>为了保证您的钱包安全，请勿截屏</view>
+				<view>建议您抄写在纸上，以防止助记词被人盗用</view>
+			</view>
 		</view>
 		<view class="mnemonic-wrap">
-			<view class="item" v-for="(item,index) in 10" :key="index">adsfsdf</view>
+			<view class="item" v-for="(item,index) in mnemonic" :key="index">{{item}}</view>
 		</view>
 		<button class="blue" hover-class="none" @click="next">下一步</button>
 	</view>
 </template>
 
 <script>
+	import wallet from "@/common/js/wallet.js";
 	export default {
 		data() {
 			return {
-				
+				mnemonic: []
 			}
 		},
 		onLoad() {
-
+			this.mnemonic = this.$Wallet.getCurrentWallet().mnemonic.split(' ');
 		},
 		methods: {
 			next(){

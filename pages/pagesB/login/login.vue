@@ -16,7 +16,7 @@
 				</view>
 				<input class="input-left" type="password" placeholder="密码" placeholder-class="input-placeholder" v-model="password">
 			</view>
-			<text class="font-blue forget-password">忘记密码？</text>
+			<text class="font-blue forget-password" @tap="jumpToForgetPassword">忘记密码？</text>
 
 		</view>
 		<view>
@@ -89,6 +89,11 @@
 					this.opcity = 0.5
 					this.disabled = true
 				}
+			},
+			jumpToForgetPassword(){
+				uni.navigateTo({
+					url:"./forgetPassword"
+				})
 			}
 		}
 	}

@@ -67,7 +67,7 @@
 					//返回值为空Hash只是穿上去测试了
 					console.log(res.data)
 					if(res.data.status==20003){
-						this.$base._isLogin()
+						this.$base1._isLogin()
 					}else if(res.data.status==1){
 						uni.showToast({
 							title:res.data.message,

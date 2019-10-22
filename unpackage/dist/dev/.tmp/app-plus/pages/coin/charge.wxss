@@ -1,14 +1,7 @@
 
 page{background-color: #FFFFFF;}
-.coin-choose{border-top: 10px solid #F8F8F8;border-bottom: 10px solid #F8F8F8;padding: 24rpx;}
-.coin-choose .logo{width: 56rpx;height: 56rpx;}
-.coin-choose .coinname{font-weight: bold;margin-left: 12rpx;}
-.coin-choose .iconfont{position: relative;top: 6rpx;}
-.address-wrap{padding-top: 60rpx;}
-.address-wrap .address{margin-bottom: 12rpx;}
-.ercode image{width: 300rpx;height: 300rpx;margin: 100rpx 0;}
-.coin-list{background-color: #FFFFFF;text-align: center;}
-.coin-list>view{border-bottom: 1px solid #F7F7F7;padding: 30rpx 0;}
-.coin-list .cancle{border-top: 20rpx solid #F8F8F8;}
-.coin-list .active{color: #0099FF;font-weight: bold;}
+.address-wrap{padding: 60rpx 60rpx 0;
+}
+.address-wrap .address{margin-bottom: 12rpx;word-break: break-all;}
+.qrcode-wrap{width: 288rpx;margin: 60rpx auto;}
 

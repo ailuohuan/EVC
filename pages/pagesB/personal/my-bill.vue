@@ -1,5 +1,5 @@
 <template>
-	<!-- 充提记录 -->
+	<!-- 我的账单 -->
 	<view class="content">
 		<view class="nav">
 			<view class="nav-text" v-for="(item,index) in list" :key="item.id" :class="currentNumber == index ? 'active' : ''"
@@ -14,19 +14,16 @@
 			<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToRecorde(index)">
 				<view class="">
 					<view class="name-en">
-						{{item.title}}
+						{{item.MoldTitle}}
 					</view>
 					<view class="name-ch">
-						{{item.time}}
+						{{$base1._formatDate(item.AddTime)}}
 					</view>
 				</view>
 				<view class="list-item-right">
 					<view class="">
 						<view class="name-en">
-							{{item.money}}
-						</view>
-						<view class="name-ch desc">
-							{{item.status}}
+							{{item.Money}} USDT
 						</view>
 					</view>
 					<view class="iconfont icon">
@@ -63,7 +60,7 @@
 		},
 		onLoad(options) {
 			if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
 			this.getCoreDetail()
 		},
@@ -76,35 +73,14 @@
 		methods: {
 			currentInfo(index) {
 				this.currentNumber = index;
-				console.log(this.currentNumber)
+				
 				this.status = this.currentNumber
+				console.log(this.status)
 				//我的理财列表动态 显示
 				uni.request({
-					url: this.baseUrl + "/investment-list?status=" + this.status,
-					header: {
-						//除注册登录外其他的请求都携带用户token和秘钥
-						Authorization: uni.getStorageSync('token'),
-						SecretKey: uni.getStorageSync('SecretKey')
-					},
-					success: (res) => {
-						console.log(res)
-						 if (res.data.status == 1) {
-							this.nameList = res.data.data.data
-							console.log(this.nameList)
-						} else {
-							uni.showToast({
-								title: res.data.message,
-								icon: "none"
-							})
-						}
-					}
-				})
-			},
-			//我的理财列表 显示全部
-			getCoreDetail() {
-				uni.request({
-					url: this.baseUrl + "/recharge-withdraw",
+					url: this.baseUrl + "/finace-list",
 					data:{
+						Type:this.status,
 						page:1,
 						count:10000
 					},
@@ -114,10 +90,37 @@
 					},
 					success: (res) => {
 						console.log(res.data)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						 if (res.data.status == 1) {
+							this.nameList = res.data.data.list
+							
+						} else {
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+						}
+					}
+				})
+			},
+			//资金变动列表 显示全部
+			getCoreDetail() {
+				uni.request({
+					url: this.baseUrl + "/finace-list",
+					data:{
+						Type:0,
+						page:1,
+						count:10000
+					},
+					header: {
+						//除注册登录外其他的请求都携带用户token和秘钥
+						Authorization: uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res.data)
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else  if (res.data.status == 1) {
-							// this.nameList = res.data.data.data
+							this.nameList = res.data.data.list
 							
 						} else {
 							uni.showToast({
@@ -154,6 +157,7 @@
 	}
 	.active {
 		color: #0099FF;
+		border-bottom: 2rpx solid #007AFF;
 	}
 
 	.content {

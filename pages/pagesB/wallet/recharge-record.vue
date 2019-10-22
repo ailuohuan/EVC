@@ -138,7 +138,7 @@
 					success: (res) => {
 						console.log(res)
 						if (res.data.status == 20003) {
-							this.$base._isLogin()
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							// this.nameList = res.data.data.data
 							console.log(this.nameList)
@@ -167,7 +167,7 @@
 						
 						console.log(res.data)
 						if (res.data.status == 20003) {
-							this.$base._isLogin()
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							// this.nameList = res.data.data.data
 							

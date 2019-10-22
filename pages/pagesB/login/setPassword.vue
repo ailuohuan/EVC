@@ -74,10 +74,10 @@
 							RepeatPassword:this.password2,
 							PayPassword :this.transactionPassword,
 							RepeatPayPassword:this.transactionPassword2,
-							// InviteCode:this.inviteCode,
-							InviteCode:280951,
-							// AuthCode:this.checkCode
-							AuthCode:101101
+							InviteCode:this.inviteCode,
+							// InviteCode:280951,
+							AuthCode:this.checkCode
+							// AuthCode:101101
 						},
 						method: "POST",
 						success: (res) => {

@@ -3,15 +3,15 @@
 		
 		<view class="input-wrap">
 			<view>
-				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的密码" placeholder-class="input-placeholder" v-model="emailNum" @input="change">
+				<input class="input-left" type="password" placeholder="请输入8-20位字母数字组成的密码" placeholder-class="input-placeholder" v-model="password" @input="change">
 			</view>
 			<view>
-				<input class="input-left" type="password"  placeholder="请再次输入密码" placeholder-class="input-placeholder" v-model="password">
+				<input class="input-left" type="password"  placeholder="请再次输入密码" placeholder-class="input-placeholder" v-model="surepassword">
 				
 			</view>
 		</view>
 		<view>
-			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="backupMnemonic">下一步</button>
+			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="comfirme">下一步</button>
 		</view>
 
 	</view>
@@ -24,34 +24,63 @@
 		data() {
 			return {
 				emailNum:'',
-				password:'',
+				autocode:'',
 				opcity:0.5,
-				
+				password:'',
+				surepassword:''
 			}
 		},
-		onLoad() {
-			
+		onLoad(options) {
+			this.emailNum = options.emailNum
+			this.autocode = options.autocode
 		},
 		onReady() {
 			
 		},
 		methods: {
-			backupMnemonic() {
-				if(this.emailNum!=this.password){
+			comfirme() {
+				if(this.password!=this.surepassword){
 					uni.showToast({
 						title:"两次密码不一致",
 						icon:"none"	
 					})
 				}else{
-					uni.navigateTo({
-						url: "backupMnemonic1"
+					uni.request({
+						url: this.baseUrl + "/member-forget-password",
+						data:{
+							Email: this.emailNum,
+							AuthCode:this.autocode,
+							NewPassword:this.password,
+							RepeatPassword:this.surepassword
+						},
+						method:"POST",
+						// header: {
+						// 	//除注册登录外其他的请求都携带用户token和秘钥
+						// 	Authorization: uni.getStorageSync('token')
+						// },
+						success: (res) => {
+							console.log(res.data)
+							 if (res.data.status == 1) {
+								uni.showToast({
+									title:res.data.message
+								})
+								uni.navigateTo({
+									url:"./login"
+								})
+							} else {
+								uni.showToast({
+									title: res.data.message,
+									icon: "none"
+								})
+							}
+						}
 					})
 				}
 				
 			},
 			change(e){
 				console.log(e.detail.value.length)
-				if (e.detail.value.length >= 3) {
+				if (e.detail.value.length >= 8) {
 					this.opcity = 1
 				}else{
 					this.opcity = 0.5

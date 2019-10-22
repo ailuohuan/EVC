@@ -1,16 +1,17 @@
 <template>
 	<view>
 		<view class="block text-center assets-wrap">
-			<view class="font-blue money">00.234234 BTC</view>
-			<view class="font-gray">￥0.00</view>
+			<view class="font-blue money">{{num}} {{coinItem.EnName}}</view>
+			<view class="font-gray">￥{{money}}</view>
 		</view>
 		<view class="block transfer-wrap">
 			<view class="title">转账记录</view>
-			<view>
+			<page-loading v-if="!pageLoad"></page-loading>
+			<view v-else>
 				<view class="nav">
-					<text class="active">全部</text>
-					<text>收款</text>
-					<text>转账</text>
+					<text :class="mold == 0 ? 'active' : ''" @click="mold = 0">全部</text>
+					<text :class="mold == 1 ? 'active' : ''" @click="mold = 1">收款</text>
+					<text :class="mold == 2 ? 'active' : ''" @click="mold = 2">转账</text>
 				</view>
 				<view>
 					<view class="no-data" v-if="1==2">
@@ -34,20 +35,50 @@
 		</view>
 		<view class="footer">
 			<navigator class="item" hover-class="none" url="charge">收款</navigator>
-			<navigator class="blue item" hover-class="none" url="transfer">转账</navigator>
+			<navigator class="blue item" hover-class="none" :url="'transfer?coinItem='+JSON.stringify(coinItem)">转账</navigator>
 		</view>
 	</view>
 </template>
 
 <script>
+	import wallet from "@/common/js/wallet.js";
 	export default {
 		data() {
 			return {
-				
+				mold: 0, //0：全部，1：收款，2：转账
+				pageLoad: true,
+				wallet: {},
+				coinItem: {},
+				num: '',
+				money: ''
 			}
 		},
+		onLoad(opt) {
+			this.wallet = this.$Wallet.getCurrentWallet();
+			console.log(opt.num);
+			console.log(opt.money);
+			this.num = opt.num;
+			this.money = opt.money;
+			this.coinItem = JSON.parse(opt.coinItem);
+			uni.setNavigationBarTitle({
+				title: this.coinItem.EnName
+			});
+			this.getList();
+		},
 		methods: {
-			
+			getList(){
+				let self = this , sendPara = {UnkowUrl1: 'https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0xd26114cd6EE289AccF82350c8d8487fedB8A0C07&address=0xA2B0f0bDc42f79E51838aC8c625609B3535c9Bd3&page=1&offset=1000&sort=desc'};
+				uni.request({
+					url: self.baseUrl + '/etherscan',
+					method: 'GET',
+					data: sendPara,
+					success: res => {
+						console.log(res.data);
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
 		}
 	}
 </script>

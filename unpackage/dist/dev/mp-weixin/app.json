@@ -43,6 +43,7 @@
     "pages/pagesB/personal/real-name",
     "pages/pagesB/personal/set-password",
     "pages/pagesB/personal/set-paypassword",
+    "pages/pagesB/personal/forget-pay-password",
     "pages/pagesB/personal/self-in",
     "pages/pagesB/personal/real-photo",
     "pages/pagesB/personal/personal-info",

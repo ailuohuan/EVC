@@ -53,8 +53,8 @@
 					},
 					success: (res) => {
 						console.log(res.data)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							this.sendMsgCodeTimer()
 							uni.showToast({
@@ -85,8 +85,8 @@
 					},
 					success: (res) => {
 						console.log(res.data)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							uni.showToast({
 								title: res.data.message,

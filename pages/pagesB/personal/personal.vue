@@ -19,7 +19,7 @@
 								邀请好友
 							</view>
 						</view>
-						<view class="">
+						<view class="" @tap="jumpToRealName">
 							<view class="">
 								<image class="choice-img" src="../../../static/images/pagesA/my/invite.png" mode=""></image>
 							</view>
@@ -27,15 +27,15 @@
 								实名认证
 							</view>
 						</view>
-						<view class="">
+						<view class="" @tap="jumpToMyBill">
 							<view class="">
 								<image class="choice-img" src="../../../static/images/pagesA/my/film.png" mode=""></image>
 							</view>
-							<navigator url="./my-bill">
+							
 								<view class="font22">
 									我的账单
 								</view>
-							</navigator>
+							
 						</view>
 					</view>
 				</view>
@@ -61,11 +61,13 @@
 				</view>
 			</navigator>
 			<view class="item flex-between border-bottom">
+				
 				<view class="flex">
 					<i class="iconfont font-big  icon-bangzhu"></i>
 					<text>帮助与反馈</text>
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
+				
 			</view>
 			<view class="item flex-between border-bottom">
 				<view class="flex">
@@ -90,14 +92,22 @@
 				解封后收益正常产生
 			</view>
 		</view>
+		<evc-tabbar :fontColor4="fontColor4" :myImg="myImgSelect"></evc-tabbar>
 		
+	
 	</view>
 </template>
 
 <script>
+	import evcTabbar from '@/components/evcTabbar.vue'
 	export default {
+		components: {
+					evcTabbar	
+				},
 		data() {
 			return {
+				fontColor4: '#0099FF',
+				myImgSelect: '../../../static/images/evctabbar/myselect.png',
 				nickname: '',
 				avatar: '',
 				status:''
@@ -121,13 +131,13 @@
 				},
 				success: (res) => {
 					console.log(res.data)
-					if (this.$base._indexOf(res.data.status)) {
-						this.$base._isLogin()
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.nickname = res.data.data.NickName
 						this.avatar = res.data.data.Avatar
 						this.status = res.data.data.IsForbidden
-						this.status = 1
+						// this.status = 1
 						
 					} else {
 						uni.showToast({
@@ -139,6 +149,11 @@
 			})
 		},
 		methods: {
+			jumpToInvite(){
+				uni.navigateTo({
+						url: "./invite"
+				})
+			},
 			jumpToPersonalInfo() {
 				uni.navigateTo({
 					url: "./personal-info"
@@ -149,6 +164,17 @@
 					url:"./unsealing"
 				})
 				
+			},
+			jumpToRealName(){
+				uni.navigateTo({
+					url:"./real-name"
+				})
+				
+			},
+			jumpToMyBill(){
+				uni.navigateTo({
+					url:"./my-bill"
+				})
 			}
 		}
 	}

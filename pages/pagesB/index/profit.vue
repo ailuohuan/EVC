@@ -25,18 +25,18 @@
 		<view class="font-bold flex title padding font-middle border-bottom">
 			我的资产
 		</view>
-		<view class="list-item font-middle">
+		<view class="list-item font-middle" v-for="item in profitList" :key="item.id">
 			<view class="rule padding flex-between border-bottom">
 				<view class="">
 					<view class="">
-						产品一号(静态收益)
+						{{ showType(item.Type)}}
 					</view>
 					<view class="font-gray font-small">
-						2019-09-10 14:30:15
+						{{$base1._formatDate(item.AddTime)}}
 					</view>
 				</view>
 				<view class="">
-					+1000 USDT
+					{{item.Number}} USDT
 				</view>
 			</view>
 		</view>
@@ -68,10 +68,10 @@
 			
 			</view>
 			<view class="flex-between prompt-input">
-				<input  type="text" v-model="payPassword" placeholder="请输入资金密码" />
+				<input  type="text" password="" v-model="payPassword" placeholder="请输入资金密码" />
 			</view>
 			<view class="font-gray font20 margin-top20">
-				手续费：{{num}} BTC≈{{num*radio}} CNY
+				手续费：{{num*radio}} USDT≈{{num*radio*7}} CNY
 			</view>
 			<view class="font28 margin-top20">
 				到账金额：{{num-(num*radio)}}USDT
@@ -106,14 +106,15 @@
 				balance: '',
 				num:'',
 				radio:'',
-				payPassword:''
+				payPassword:'',
+				
 			};
 		},
 		onLoad() {
 			//此页做下拉刷新跟上拉加载
 			var _self = this
 			if (!uni.getStorageSync("token")) {
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
 			_self.getProfit()
 			//获取收益提现手续费比例
@@ -124,9 +125,8 @@
 				},
 				success: (res) => {
 					console.log(res)
-					
-					if (this.$base._indexOf(res.data.status)) {
-						this.$base._isLogin()
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
 					} else if(res.data.status==1){
 						this.radio = res.data.data
 					}else{
@@ -185,16 +185,14 @@
 					url: this.baseUrl + "/balance-list",
 					data: {
 						page: this.curPage,
-						count: 2
+						count: 100000
 					},
 					header: {
 						Authorization: uni.getStorageSync('token')
 					},
 					success: (res) => {
 						console.log(res)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
-						} else if (res.data.status == 1) {
+						 if (res.data.status == 1) {
 							this.profitList = this.profitList.concat(res.data.data.List)
 							this.total = res.data.data.Total
 							this.balance = res.data.data.Balance
@@ -226,9 +224,7 @@
 				this.num = this.balance
 			},
 			balanceWithdraw(){
-				console.log('1111111')
 				this.showPinMask = true
-				
 			},
 			comfirm(){
 				uni.request({
@@ -243,11 +239,12 @@
 					},
 					success: (res) => {
 						console.log(res)
-						
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
-						} else if(res.data.status==1){
-							this.productList = res.data.data.List
+						 if(res.data.status==1){
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+							this.showPinMask = false
 						}else{
 							uni.showToast({
 								title: res.data.message,
@@ -257,6 +254,24 @@
 						
 					}
 				})
+			},
+			showType(type){
+				if(type==1){
+					return "静态奖励"
+				}else if(type==2){
+					return "邀请奖励"
+				}else if(type==3){
+					return "社区奖励"
+				}else if(type==4){
+					return "封号清空收益"
+				}else if(type==5){
+					return "平级奖励"
+				}else if(type==6){
+					return "全球分红"
+				}else if(type==7){
+					return "收益余额提现"
+				}
+				
 			}
 
 		}

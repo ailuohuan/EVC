@@ -28,9 +28,9 @@
 		</view>
 
 		<view class="flex-around">
-			<image class="logo-img" src="../../../static/images/pagesA/dapp/logo1.png" mode=""></image>
-			<image class="logo-img" src="../../../static/images/pagesA/dapp/logo2.png" mode=""></image>
-			<image class="logo-img" src="../../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+			<image @tap="jumpToLogin" class="logo-img" src="../../static/images/pagesA/dapp/logo1.png" mode=""></image>
+			<image class="logo-img" src="../../static/images/pagesA/dapp/logo2.png" mode=""></image>
+			<image class="logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 		</view>
 		<view class="flex-around">
 			<view class="logo-img-text text-center">
@@ -54,7 +54,7 @@
 			<view class="product-list-item ">
 				<view class="flex padding">
 					<view>
-						<image class="more-logo-img" src="../../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 					</view>
 					<view class="">
 						<view class="">
@@ -69,7 +69,7 @@
 			<view class="product-list-item ">
 				<view class="flex padding">
 					<view>
-						<image class="more-logo-img" src="../../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 					</view>
 					<view class="">
 						<view class="">
@@ -84,7 +84,7 @@
 			<view class="product-list-item ">
 				<view class="flex padding">
 					<view>
-						<image class="more-logo-img" src="../../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 					</view>
 					<view class="">
 						<view class="">
@@ -99,7 +99,7 @@
 			<view class="product-list-item ">
 				<view class="flex padding">
 					<view>
-						<image class="more-logo-img" src="../../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 					</view>
 					<view class="">
 						<view class="">
@@ -129,7 +129,7 @@
 				</view>
 			</view>
 			<view class="">
-				<image class="desc-img" src="../../../static/images/pagesA/dapp/desc1.png" mode=""></image>
+				<image class="desc-img" src="../../static/images/pagesA/dapp/desc1.png" mode=""></image>
 			</view>
 		</view>
 		<view class="flex-between desc-box">
@@ -143,7 +143,7 @@
 				</view>
 			</view>
 			<view class="">
-				<image class="desc-img" src="../../../static/images/pagesA/dapp/desc1.png" mode=""></image>
+				<image class="desc-img" src="../../static/images/pagesA/dapp/desc1.png" mode=""></image>
 			</view>
 		</view>
 		<view class="flex-between desc-box">
@@ -157,7 +157,7 @@
 				</view>
 			</view>
 			<view class="">
-				<image class="desc-img" src="../../../static/images/pagesA/dapp/desc1.png" mode=""></image>
+				<image class="desc-img" src="../../static/images/pagesA/dapp/desc1.png" mode=""></image>
 			</view>
 		</view>
 
@@ -171,13 +171,13 @@
 			return {
 				hoverColor: '#4C70FF',
 				swiperImg: [{
-						Img: "../../../static/images/pagesA/login/banner.png"
+						Img: "../../static/images/pagesA/login/banner.png"
 					},
 					{
-						Img: "../../../static/images/pagesA/login/banner.png"
+						Img: "../../static/images/pagesA/login/banner.png"
 					},
 					{
-						Img: "../../../static/images/pagesA/login/banner.png"
+						Img: "../../static/images/pagesA/login/banner.png"
 					}
 				],
 				current: 0,
@@ -248,7 +248,11 @@
 
 		},
 		methods: {
-
+			jumpToLogin(){
+				uni.navigateTo({
+					url:"../pagesB/login/login"
+				})
+			},
 			changeSwiper(e) {
 				this.swiperCurrent = e.detail.current;
 			},

@@ -10,7 +10,7 @@
 				{{name}}
 			</view>
 			<view>
-				<text class="percent">{{ $base._toFixed(ratio,4) }}%</text><text class="font-gray">月利率</text>
+				<text class="percent">{{ $base1._toFixed(ratio*30*100,2) }}%</text><text class="font-gray">月利率</text>
 			</view>
 			<view class="profit">
 				周期10天
@@ -100,7 +100,7 @@
 		</view>
 		<view class="bgbox">
 		</view>
-		<view class="padding font-middle flex-between rule problem">
+		<view class="padding font-middle flex-between rule problem" @tap="jumptoproblem">
 			<text>常见问题</text> <text class="iconfont">&#xea25;</text>
 		</view>
 		<view class="bgbox">
@@ -140,8 +140,8 @@
 					},
 					success: (res) => {
 						console.log(res)
-						if(this.$base._indexOf(res.data.status)){
-							this.$base._isLogin()
+						if(this.$base1._indexOf(res.data.status)){
+							this.$base1._isLogin()
 						}else if (res.data.status == 1) {
 							this.level = res.data.data.NeedLevel
 							this.name = res.data.data.Name
@@ -163,12 +163,6 @@
 					url:"./buy?id="+this.id
 				})
 			},
-			forgetPassword(){
-				//忘记密码
-				uni.navigateTo({
-					url:"../login/login"
-				})
-			},
 			showLevelBgc(level){
 				if(level==1){
 					return  'linear-gradient(#FF727C, #FFA8AE)'
@@ -178,6 +172,11 @@
 					return  'linear-gradient(#FFC744, #FF9100)'
 				}
 			},
+			jumptoproblem(){
+				uni.navigateTo({
+					url:"../personal/problem"
+				})
+			}
 		}
 	}
 </script>

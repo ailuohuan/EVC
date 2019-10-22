@@ -153,11 +153,14 @@
     display: inline-block;
     margin-top: 30rpx;
     height: 262rpx;
-    width: 332rpx;
+    width: 334rpx;
     -webkit-box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
             box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
     text-align: left;
     line-height: 60rpx;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 5rpx;
 }
 .content .recommend-product .title {
       padding-top: 30rpx;

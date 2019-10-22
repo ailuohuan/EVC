@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<view class="wallet-list">
-			<view class="item" v-for="(item,index) in 3" :key="index">
+			<view class="item" v-for="(item,index) in walletList" :key="index" @click="toggleWallet(item)">
 				<view class="text-right dott" @click.stop="manage"><i class="iconfont icon-more"></i></view>
 				<view class="address">
 					<view class="title">ETH-Wallet</view>
-					<view class="text-overflow font-small">asdfasdfhlasdfgsdfgsdfg</view>
+					<view class="text-overflow font-small">{{app._addressMethod(item.address)}}</view>
 				</view>
 				<image src="../../static/images/ETH@2x.png" class="bg" mode="widthFix"></image>
 			</view>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	import wallet from "@/common/js/wallet.js";
 	import uniPopup from '@/components/uni-popup.vue'
 	export default {
 		components: {
@@ -29,12 +30,31 @@
 		},
 		data() {
 			return {
+				wallet: {},
+				walletList: [],
+				pageHide: false,
 			}
 		},
 		onNavigationBarButtonTap(e) {
 			if(e.index == 0){
 				this.togglePopup();
 			}
+		},
+		onHide() {
+			this.pageHide = true;
+			this.canclePopup();
+		},
+		onShow() {
+			if(this.pageHide){
+				this.pageHide = false;
+				this.wallet = this.$Wallet.getCurrentWallet()
+				this.walletList = this.$Wallet.getWalletList();
+			}
+			console.log(JSON.stringify(this.walletList));
+		},
+		onLoad() {
+			this.wallet = this.$Wallet.getCurrentWallet()
+			this.walletList = this.$Wallet.getWalletList();
 		},
 		methods: {
 			togglePopup() {
@@ -47,6 +67,23 @@
 				uni.navigateTo({
 					url: 'backup'
 				});
+			},
+			toggleWallet(item){
+				console.log(JSON.stringify(item));
+				let ecodeWallet = [];
+				if(this.wallet.address == item.address){
+					this.app._toast('已切换至当前钱包');
+				}else{
+					for(let i in this.walletList){
+						this.walletList[i].isDefault = 0;
+						if(item.privateKey === this.walletList[i].privateKey){
+							this.walletList[i].isDefault = 1;
+						}
+						ecodeWallet.push(this.$Wallet.ecodeDes3JSON(this.walletList[i]));
+					}
+					uni.setStorageSync(this.app._cacheWallet,ecodeWallet);
+					this.app._toast('钱包切换成功');
+				}
 			}
 		}
 	}

@@ -1,7 +1,5 @@
 <template>
 	<view class="content">
-		
-
 		<view class="hideCanvasView">
 			<canvas class="hideCanvas" canvas-id="default_PosterCanvasId" :style="{width: (poster.width||0) + 'px', height: (poster.height||0) + 'px'}"></canvas>
 		</view>
@@ -21,11 +19,11 @@
 				扫描二维码下载APP
 			</view>
 			<view class="flex-row font-bold adress-box">
-				<text class="adress text-overflow">下载链接：https://lanhuapplanhuapplanhuapplanhuapplanhuapp.com/web</text>
-				<image class="copy-img" src="../../../static/images/pagesA/personal/copy.png" mode=""></image>
+				<text class="adress text-overflow">下载链接：{{address}}</text>
+				<image @tap="copy" class="copy-img" src="../../../static/images/pagesA/personal/copy.png" mode=""></image>
 			</view>
 			<view class="code-num">
-				邀请码:{{inviteCode}}1234567489
+				邀请码:{{inviteCode}}
 			</view>			
 		</view>
 		<view class="">
@@ -43,76 +41,89 @@
 			return {
 				img: '',
 				inviteCode: '',
-				disabled: false
+				disabled: false,
+				address:'www.265.im/evc'
 			};
 		},
 		onLoad() {
 			if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
-			this.img = QR.createQrCodeImg('www.265.im/core', {
+			this.img = QR.createQrCodeImg('www.265.im/evc', {
 				size: parseInt(300) //二维码大小  
 			})
 			//用户资料
-			// uni.request({
-			// 	url: this.baseUrl + "/member-info",
-			// 	header: {
-			// 		//除注册登录外其他的请求都携带用户token和秘钥
-			// 		Authorization: uni.getStorageSync('token'),
-			// 		SecretKey: uni.getStorageSync('SecretKey')
-			// 	},
-			// 	success: (res) => {
-			// 		// console.log(res.data)
-			// 		if (this.$base._indexOf(res.data.status)) {
-			// 			this.$base._isLogin()
-			// 		} else if (res.data.status == 1) {
-			// 			this.inviteCode = res.data.data.InviteCode
+			uni.request({
+				url: this.baseUrl + "/member-info",
+				header: {
+					//除注册登录外其他的请求都携带用户token和秘钥
+					Authorization: uni.getStorageSync('token')
+				},
+				success: (res) => {
+					console.log(res.data)
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
+					} else if (res.data.status == 1) {
+						this.inviteCode = res.data.data.InviteCode
 
-			// 		} else {
-			// 			uni.showToast({
-			// 				title: res.data.message,
-			// 				icon: "none"
-			// 			})
-			// 		}
-			// 	}
-			// })
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: "none"
+						})
+					}
+				}
+			})
 		},
 		methods: {
-			// saveImg() {
-			// 	//截屏绘制图片
-			// 	let self = this;
-			// 	this.disabled = true;
-			// 	var pages = getCurrentPages();
-			// 	var page = pages[pages.length - 1];
-			// 	var bitmap = null;
-			// 	var currentWebview = page.$getAppWebview();
-			// 	bitmap = new plus.nativeObj.Bitmap('amway_img');
-			// 	// 将webview内容绘制到Bitmap对象中  
-			// 	currentWebview.draw(bitmap, function() {
-			// 		console.log('截屏绘制图片成功');
-			// 		bitmap.save("_doc/a.jpg", {}, function(i) {
-			// 			console.log('保存图片成功：' + JSON.stringify(i));
-			// 			uni.saveImageToPhotosAlbum({
-			// 				filePath: i.target,
-			// 				success: function() {
-			// 					bitmap.clear(); //销毁Bitmap图片  
-			// 					uni.showToast({
-			// 						title: '保存图片成功',
-			// 						mask: false,
-			// 						duration: 1500
-			// 					});
-			// 				}
-			// 			});
-			// 			self.disabled = false;
-			// 		}, function(e) {
-			// 			console.log('保存图片失败：' + JSON.stringify(e));
-			// 			self.disabled = false;
-			// 		});
-			// 	}, function(e) {
-			// 		console.log('截屏绘制图片失败：' + JSON.stringify(e));
-			// 		self.disabled = false;
-			// 	});
-			// }
+			saveImg() {
+				//截屏绘制图片
+				let self = this;
+				this.disabled = true;
+				var pages = getCurrentPages();
+				var page = pages[pages.length - 1];
+				var bitmap = null;
+				var currentWebview = page.$getAppWebview();
+				bitmap = new plus.nativeObj.Bitmap('amway_img');
+				// 将webview内容绘制到Bitmap对象中  
+				currentWebview.draw(bitmap, function() {
+					console.log('截屏绘制图片成功');
+					bitmap.save("_doc/a.jpg", {}, function(i) {
+						console.log('保存图片成功：' + JSON.stringify(i));
+						uni.saveImageToPhotosAlbum({
+							filePath: i.target,
+							success: function() {
+								bitmap.clear(); //销毁Bitmap图片  
+								uni.showToast({
+									title: '保存图片成功',
+									mask: false,
+									duration: 1500
+								});
+							}
+						});
+						self.disabled = false;
+					}, function(e) {
+						console.log('保存图片失败：' + JSON.stringify(e));
+						self.disabled = false;
+					});
+				}, function(e) {
+					console.log('截屏绘制图片失败：' + JSON.stringify(e));
+					self.disabled = false;
+				});
+			},
+			copy() {
+				console.log(this.address)
+			
+				uni.setClipboardData({
+					data: this.address,
+					success: function() {
+						uni.showToast({
+							title: '复制成功',
+							icon: 'none'
+						})
+					}
+				});
+			}
 		}
 	}
 </script>

@@ -1,7 +1,5 @@
 {
   "navigationBarTitleText": "记录详情",
-  "titleNView": false,
-  "animationType": "slide-in-bottom",
   "usingComponents": {
     "page-head2": "/components/page-head2"
   }

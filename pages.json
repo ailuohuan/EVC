@@ -1,5 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	
 		{
 			"path": "pages/wallet/wallet",
 			"style": {
@@ -18,7 +19,8 @@
 							"float": "right"
 						}]
 					}
-				}
+				},
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -382,6 +384,13 @@
 			}
 		},
 		{
+			"path": "pages/pagesB/personal/forget-pay-password",
+			"style": {
+				"navigationBarTitleText": "忘记交易密码"
+			
+			}
+		},
+		{
 			"path": "pages/pagesB/personal/self-in",
 			"style": {
 				"navigationBarTitleText": "安全中心"
@@ -462,14 +471,46 @@
 			
 			}
 		}
-
-
-	],
+        ,{
+            "path" : "pages/forget/privatekey",
+            "style" : {
+				"navigationBarTitleText": "忘记密码"
+			}
+        },{
+            "path" : "pages/forget/pwd",
+            "style" : {
+				"navigationBarTitleText": "重置密码"
+			}
+        }
+        ,{
+            "path" : "pages/export/mnemonic",
+            "style" : {
+				"navigationBarTitleText": "导出助记词"
+			}
+        },{
+            "path" : "pages/export/privatekey",
+            "style" : {
+				"navigationBarTitleText": "导出私钥"
+			}
+        }
+        ,{
+            "path" : "pages/question/question",
+            "style" : {
+				"navigationBarTitleText": "常见问题"
+			}
+        }
+		,{
+		    "path" : "pages/question/answer",
+		    "style" : {
+				"navigationBarTitleText": "问题解答"
+			}
+		}
+    ],
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式（list 的索引项）
 		"list": [{
 			"name": "test", //模式名称
-			"path": "pages/pagesB/personal/invite" //启动页面，必选
+			"path": "pages/pagesB/wallet/wallet" //启动页面，必选
 		}]
 
 	},

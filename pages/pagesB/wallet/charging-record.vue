@@ -2,8 +2,7 @@
 	<!-- 充提记录 -->
 	<view class="content">
 		<view class="nav">
-			<view class="nav-text" v-for="(item,index) in list" :key="item.id" :class="currentNumber == index ? 'active' : ''"
-			 @tap="currentInfo(index)">
+			<view class="nav-text" v-for="(item,index) in list" :key="item.id" :class="currentNumber == index ? 'active' : ''" @tap="currentInfo(index)">
 				{{item.title}}
 			</view>
 		</view>
@@ -11,22 +10,22 @@
 		
 		</view>
 		<view class="list">
-			<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToManage(index)">
+			<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToRecordDetail(index)">
 				<view class="">
 					<view class="name-en">
-						{{item.title}}
+						{{item.Type==1?"充值":"提现"}}
 					</view>
 					<view class="name-ch">
-						{{item.time}}
+						{{ $base1._formatDate(item.AddTime)}}
 					</view>
 				</view>
 				<view class="list-item-right">
 					<view class="">
 						<view class="name-en">
-							{{item.money}}
+							{{item.Money}}{{item.CoinName}}
 						</view>
-						<view class="name-ch desc">
-							{{item.status}}
+						<view class="name-ch desc" :style="{color:showColor(item.Status)}">
+							{{ showStatus(item.Status) }}
 						</view>
 					</view>
 					<view class="iconfont icon">
@@ -63,7 +62,7 @@
 		onLoad(options) {
 			this.id = options.id
 			if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
 			this.getCoreDetail()
 		},
@@ -74,42 +73,13 @@
 			  }, 1000);
 		  },
 		methods: {
-			
-			currentInfo(index) {
-				this.currentNumber = index;
-				console.log(this.currentNumber)
-				this.status = this.currentNumber
-				//我的理财列表动态 显示
-				uni.request({
-					url: this.baseUrl + "/investment-list?status=" + this.status,
-					header: {
-						//除注册登录外其他的请求都携带用户token和秘钥
-						Authorization: uni.getStorageSync('token'),
-						SecretKey: uni.getStorageSync('SecretKey')
-					},
-					success: (res) => {
-						console.log(res)
-						 if (res.data.status == 1) {
-							// this.nameList = res.data.data.data
-							console.log(this.nameList)
-						} else {
-							uni.showToast({
-								title: res.data.message,
-								icon: "none"
-							})
-						}
-					}
-				})
-			},
-			//充提记录接口报错
-			
+			//充提记录
 			getCoreDetail() {
 				uni.request({
 					url: this.baseUrl + "/recharge-withdraw",
 					data:{
 						page:1,
-						count:10000,
-						Id:this.id
+						count:100000,
 					},
 					header: {
 						//除注册登录外其他的请求都携带用户token和秘钥
@@ -117,10 +87,10 @@
 					},
 					success: (res) => {
 						console.log(res.data)
-						if (this.$base._indexOf(res.data.status)) {
-							this.$base._isLogin()
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
 						} else  if (res.data.status == 1) {
-							// this.nameList = res.data.data.data
+							this.nameList = res.data.data.list
 							
 						} else {
 							uni.showToast({
@@ -131,15 +101,73 @@
 					}
 				})
 			},
-			showState(state){
-				if(state==1){
-					return  "待理财";
-				}else if(state==2){
-					return "理财中"
-				}else if(state==3){
-					return "已撤资"
-				}else if(state==4){
-					return "已完结"
+			currentInfo(index) {
+				this.currentNumber = index;
+			     
+				if(this.currentNumber==1){
+					//充提记录根据返回的Type动态显示 1充值 2提现
+					for(var i=0; i<this.nameList.length;i++){
+						if(this.nameList[i].Type==2){
+						 this.nameList.splice(i--,1)
+						}
+					}
+				} else{
+					if(this.currentNumber==2){
+						for(var i=0; i < this.nameList.length; i++){
+							if(this.nameList[i].Type==1){
+							 this.nameList.splice(i--,1)
+							}
+						}
+					}else{
+						this.getCoreDetail()
+					}
+					
+				}
+				
+				
+			},
+			//处理状态返回的显示值
+			showStatus(status){
+				if(status){
+					if(status=="-1"){
+						return "驳回" 
+					}else if(status=="0"){
+						
+						return "待处理"
+					}else if(status=="1"){
+						
+						return "处理中"
+					}else if(status=="2"){
+						return "已处理"
+					}else if(status=="3"){
+						
+						return "失败"
+					}else if(status=="4"){
+						
+						return "处理成功"
+					}
+				}
+			},
+			//状态不同显示不同的颜色
+			showColor(status){
+				if(status){
+					if(status=="-1"){
+						return "red" 
+					}else if(status=="0"){
+						
+						return "green"
+					}else if(status=="1"){
+						
+						return "green"
+					}else if(status=="2"){
+						return "blue"
+					}else if(status=="3"){
+						
+						return "red"
+					}else if(status=="4"){
+						
+						return "blue"
+					}
 				}
 			},
 			jumpToManage(index) {
@@ -161,6 +189,7 @@
 	}
 	.active {
 		color: #0099FF;
+		border-bottom: 2rpx solid #007AFF;
 	}
 
 	.content {

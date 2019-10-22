@@ -12,7 +12,7 @@
 				</view>
 				<view class="flex-between margin-top15">
 					<view class="">
-						<text class="percent percent-small">{{ratio}}%</text> <text class="font-gray font-small">年利率</text>
+						<text class="percent percent-small">{{$base1._toFixed(ratio*30*100,2) }}%</text> <text class="font-gray font-small">月利率</text>
 					</view>
 					<view class="">
 						周期10天
@@ -99,16 +99,16 @@
 				},
 				success: (res) => {
 					console.log(res)
-					if (this.$base._indexOf(res.data.status)) {
-						this.$base._isLogin()
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
 					} else if(res.data.status==1){
 						this.name = res.data.data.Name
 						this.ratio = res.data.data.Ratio
 						this.state = res.data.data.State
 						this.number = res.data.data.Number
-						this.addtime= this.$base._formatDate(res.data.data.AddTime) 
-						this.passtime=this.$base._formatDate(res.data.data.PassTime)  
-						this.paytime= this.$base._formatDate(res.data.data.PayTime)
+						this.addtime= this.$base1._formatDate(res.data.data.AddTime) 
+						this.passtime=this.$base1._formatDate(res.data.data.PassTime)  
+						this.paytime= this.$base1._formatDate(res.data.data.PayTime)
 						this.numEVC= res.data.data.NumberEVC
 					}else{
 						uni.showToast({

@@ -32,7 +32,7 @@
 
 		onLoad() {
 			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
-				this.$base._isLogin()
+				this.$base1._isLogin()
 			}
 		},
 		data() {
