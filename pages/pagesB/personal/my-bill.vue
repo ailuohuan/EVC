@@ -76,7 +76,7 @@
 				
 				this.status = this.currentNumber
 				console.log(this.status)
-				//我的理财列表动态 显示
+				//账单列表动态 显示
 				uni.request({
 					url: this.baseUrl + "/finace-list",
 					data:{

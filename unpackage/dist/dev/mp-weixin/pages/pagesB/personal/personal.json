@@ -14,5 +14,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "evc-tabbar": "/components/evcTabbar"
+  }
 }

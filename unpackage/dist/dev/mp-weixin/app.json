@@ -51,11 +51,16 @@
     "pages/pagesB/personal/my-bill",
     "pages/pagesB/personal/recorde-detail",
     "pages/pagesB/personal/binding-phone",
-    "pages/pagesB/dapp/dapp",
-    "pages/pagesB/dapp/text-detail",
-    "pages/pagesB/dapp/public-notification",
-    "pages/pagesB/dapp/public-detail",
-    "pages/pagesB/quotation/quotation"
+    "pages/dapp/text-detail",
+    "pages/dapp/public-notification",
+    "pages/dapp/public-detail",
+    "pages/pagesB/quotation/quotation",
+    "pages/forget/privatekey",
+    "pages/forget/pwd",
+    "pages/export/mnemonic",
+    "pages/export/privatekey",
+    "pages/question/question",
+    "pages/question/answer"
   ],
   "subPackages": [],
   "window": {
@@ -96,5 +101,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "page-loading": "/components/pageloading"
+  }
 }

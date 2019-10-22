@@ -12,7 +12,7 @@
 			　　本基金投资股指期货的，基金管理人应在季度报告、半年度报告、年度报告等定期报告和招募说明书（更新）等文件中披露股指期货交易情况，包括投资政策、持仓情况、损益情况、风险指标等，并充分揭示股指期货交易对基金总体风险的影响以及是否符合既定的投资政策和投资目标。收益分配原则本基金分级份额存续期间暂不进行收益分配。
 		</view>
 		<view class="img">
-			<image class="desc-img" src="../../../static/images/pagesA/dapp/desc-img.png" mode=""></image>
+			<image class="desc-img" src="../../static/images/pagesA/dapp/desc-img.png" mode=""></image>
 		</view>
 	</view>
 </template>

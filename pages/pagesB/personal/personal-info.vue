@@ -46,9 +46,7 @@
 						Authorization: uni.getStorageSync('token')
 					},
 					success: (res) => {
-						if(this.$base1._indexOf(res.data.status)){
-							this.$base1._isLogin()
-						}else if (res.data.status == 1) {
+						if (res.data.status == 1) {
 							//获取七牛返回的token
 							this.token = res.data.data.token
 							//选择头像图片获取临时地址
@@ -110,6 +108,9 @@
 			},
 			jumpToSetNickname(){
 				//修改用户昵称
+				uni.navigateTo({
+					url:"./set-nickname"
+				})
 			},
 			getUserInfo(){
 				//获取用户信息

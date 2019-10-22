@@ -169,15 +169,6 @@
 						return "blue"
 					}
 				}
-			},
-			jumpToManage(index) {
-				this.id = this.nameList[index].Id
-				this.acid = this.nameList[index].ActivityId
-				console.log(this.id)//我的理财id
-				console.log(this.acid)//理财活动id
-				uni.navigateTo({
-					url: "./manage-in?id=" + this.id +"&acid="+this.acid//需要传一个investmentId过去,还需传一个acid过去获取天数
-				})
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <template>
 	<view class="content" >
-		<view class="tabbar">
+		<view class="tabbar" :disabled="disabled">
 			<image @tap="jumpToIndex" class="tabbar-img" :src="indexImg" mode=""></image>
 			<view @tap="jumpToIndex" class="" :style="{color:fontColor1}">
 				首页
@@ -65,32 +65,32 @@
 		data(){
 			return{
 			
-				
+				disabled:true
 			}
 		},
 		
 		methods:{
 			jumpToIndex(){
 				
-				uni.navigateTo({
+				uni.redirectTo({
 					url:"/pages/pagesB/index/index"
 				})
 			},
 			jumpToWallet(){
 				
-				uni.navigateTo({
+				uni.redirectTo({
 					url:"/pages/pagesB/wallet/wallet"
 				})
 			},
 			jumpToTeam(){
 				
-				uni.navigateTo({
+				uni.redirectTo({
 					url:"/pages/pagesB/my/my-team"
 				})
 			},
 			jumpToMy(){
 			
-				uni.navigateTo({
+				uni.redirectTo({
 					url:"/pages/pagesB/personal/personal"
 				})
 			}

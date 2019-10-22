@@ -3,6 +3,7 @@
   "enablePullDownRefresh": true,
   "navigationBarTitleText": "首页",
   "usingComponents": {
-    "uni-load-more": "/components/uni-load-more"
+    "uni-load-more": "/components/uni-load-more",
+    "evc-tabbar": "/components/evcTabbar"
   }
 }
