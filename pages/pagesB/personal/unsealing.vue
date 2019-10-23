@@ -84,6 +84,9 @@
 								title: res.data.message,
 								icon: "none"
 							})
+							uni.navigateTo({
+								url:"./psersonal"
+							})
 						} else {
 							uni.showToast({
 								title: res.data.message,

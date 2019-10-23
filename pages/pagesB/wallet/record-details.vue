@@ -1,20 +1,20 @@
 <template>
 	<view class="content">		
-		<page-head2 :headerTitle="headerTitle"></page-head2>
+		
 		<view class="bgbox">
 			
 		</view>
 		<view class="middle">
 			<view class="all">
 				<view class="name">
-				USTD
+				{{name}}
 				</view>
 				<view class="transfer-accounts">
-					收款/转账
+				{{type == 1 ?"充值":"提现"}}
 				</view>
 			</view>
 			<view class="all-num blue">
-				+0.6920USTD
+				{{money}}{{name}}
 			</view>
 				
 		</view>		
@@ -32,55 +32,97 @@
 </template>
 
 <script>
-	import pageHead2 from '@/components/page-head2.vue';
+	
 	export default {
-		components:{
-			pageHead2
-		},
+		
 		data() {
 			return {
 				nameList:[					
 					{leftText:'时间戳:',rightText:'2019-09-19 14:58:03'},
-					{leftText:'区块高度:',rightText:'6984112（43282块确认'},
+					// {leftText:'区块高度:',rightText:'6984112（43282块确认'},
 					{leftText:'接收地址：',rightText:'udwgufewfjiebufbwfbwjegbwv'},
 					
 					{leftText:'哈希值：',rightText:'liodoiuendjfhwofnkovidoshwq90375kdmc...'},
 					
 				],
-				headerTitle:'记录详情'
+			
+				id:'',
+				money:'',
+				status:'',
+				name:'',
+				time:'',
+				type:''
 			};
 		},
-		onLoad() {
+		onLoad(options) {
+			//
+			this.id = options.id
+			this.money = options.money
+			// this.status = options.status
+			this.time = options.time
+			this.name =options.name
 			
-			//根据hash值获取转账收款详情
-			//转账详情
-			//hash值传页面的hash值应该传哪个？？？
-		
-			uni.request({
-			    url: this.baseUrl+"/core-recharge_detail?Hash=receivables",
-				header:{
-					//除注册登录外其他的请求都携带用户token和秘钥
-					Authorization:uni.getStorageSync('token'),
-					SecretKey:uni.getStorageSync('SecretKey')
-				},
-			    success: (res) => {	
-					//返回值为空Hash只是穿上去测试了
-					console.log(res.data)
-					if(res.data.status==20003){
-						this.$base1._isLogin()
-					}else if(res.data.status==1){
-						uni.showToast({
-							title:res.data.message,
-							icon:"none"
-						})
-					}else{
-						uni.showToast({
-							title:res.data.message,
-							icon:"none"
-						})
-					}
-			    }
-			})	
+			this.type = options.type
+			console.log(this.type)
+			if(this.type==1){
+				//充值详情
+				uni.request({
+				    url: this.baseUrl+"/recharge-detail",
+					data:{
+						Id:this.id
+					},
+					header:{
+						//除注册登录外其他的请求都携带用户token和秘钥
+						Authorization:uni.getStorageSync('token')
+					},
+				    success: (res) => {	
+						//返回值为空Hash只是穿上去测试了
+						console.log(res.data)
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
+						} else if(res.data.status==1){
+							this.nameList[0].rightText = this.$base1._formatDate(this.time) 
+							this.nameList[1].rightText = res.data.data.RecvAddress
+							this.nameList[2].rightText = res.data.data.Hash
+							
+						}else{
+							uni.showToast({
+								title:res.data.message,
+								icon:"none"
+							})
+						}
+				    }
+				})	
+			}else if(this.type==2){
+				//充值详情
+				uni.request({
+				    url: this.baseUrl+"/withdraw-detail",
+					data:{
+						Id:this.id
+					},
+					header:{
+						//除注册登录外其他的请求都携带用户token和秘钥
+						Authorization:uni.getStorageSync('token')
+					},
+				    success: (res) => {	
+						//返回值为空Hash只是穿上去测试了
+						console.log(res.data)
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
+						} else if(res.data.status==1){
+							this.nameList[0].rightText = this.$base1._formatDate(this.time)
+							this.nameList[1].rightText = res.data.data.RecvAddress
+							this.nameList[2].rightText = res.data.data.Hash
+						}else{
+							uni.showToast({
+								title:res.data.message,
+								icon:"none"
+							})
+						}
+				    }
+				})	
+			}
+			
 		}
 	}
 </script>

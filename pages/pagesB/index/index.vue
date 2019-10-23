@@ -32,7 +32,7 @@
 				<text class="percent">{{ $base1._toFixed(item.Ratio*30*100,2) }}%</text><text class="font-gray">月利率</text>
 			</view>
 			<view class="profit">
-				投入金额：{{ $base1._toFixed(item.Number,4) }}USTD
+				投入金额：{{ $base1._toFixed(item.Number,4) }}USDT
 			</view>
 		</view>
 		<view class="choice-type" @tap="seeAll">
@@ -48,14 +48,14 @@
 						{{item.Name}}
 					</view>
 					<view class="desc">
-						{{item.State}}
+						{{showStatus(item.State)}}
 					</view>
 				</view>
 				<view class="">
 					<text class="percent percent-small">{{$base1._toFixed(item.Ratio*30*100,2) }}%</text> <text class="font-gray">月利率</text>
 				</view>
 				<view class="title">
-					<text class="font-gray">投入金额:{{item.Number}}</text>
+					<text class="font-gray">投入金额:{{$base1._toFixed(item.Number,4)}}USDT</text>
 					<button class="blue detail-btn" hover-class="none" >详情</button>
 				</view>
 				<view class="font-gray">
@@ -78,16 +78,7 @@
 				},
 		data() {
 			return {
-				swiperImg: [{
-						Img: "../../../static/images/pagesA/login/banner.png"
-					},
-					{
-						Img: "../../../static/images/pagesA/login/banner.png"
-					},
-					{
-						Img: "../../../static/images/pagesA/login/banner.png"
-					}
-				],
+				swiperImg: [],
 				fontColor1:'#0099FF',
 				indexImgSelect:'../../../static/images/evctabbar/indexselect.png',
 				current: 0,
@@ -103,12 +94,37 @@
 			};
 		},
 		onLoad() {
+			//获取首页banner
+			//产品列表
+			uni.request({
+				url: this.baseUrl + "/banner-list",
+				
+				header:{
+					Authorization:uni.getStorageSync('token')
+				},
+				success: (res) => {
+					console.log(res)
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
+					} else if(res.data.status==1){
+						this.swiperImg = res.data.data
+						
+					}else{
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none'
+						})
+					}
+					
+				}
+			})
 			//此页做下拉刷新跟上拉加载
 			var _self = this
 			if(!uni.getStorageSync("token")){
 				this.$base1._isLogin()
 			}
 			_self.getProduct()
+			console.log(uni.getStorageSync("token"))
 		},
 		onPageScroll(e) {
 			//兼容iOS端下拉时顶部漂移
@@ -131,8 +147,13 @@
 			this.getProduct('add');
 		},
 
-		onNavigationBarButtonTap() {
-			console.log("22222")
+		onNavigationBarButtonTap(e) {
+			
+			if(e.index==1){
+				uni.navigateTo({
+					url:"./profit"
+				})
+			}
 		},
 
 		methods: {
@@ -218,6 +239,19 @@
 				})
 				
 			},
+			showStatus(status){
+				if(status==0){
+					return '未报单'
+				}else if(status==1){
+					return '已报单'
+				}else if(status==2){
+					return '已出局'
+				}else if(status==3){
+					return '已放行'
+				}else if(status==4){
+					return '违约'
+				}
+			},
 			changeSwiper(e) {
 				this.swiperCurrent = e.detail.current;
 			},
@@ -246,7 +280,7 @@
 			},
 			seeAll(){
 				uni.navigateTo({
-					url:"./profit"
+					url:"./myad"
 				})
 			},
 			myAdDetail(index){
@@ -271,7 +305,7 @@
 
 		.percent {
 			margin-top: 20rpx;
-			font-size: 58rpx;
+			font-size: 50rpx;
 			color: #FF3400;
 			font-weight: bold;
 		}
@@ -375,12 +409,13 @@
 			display: inline-block;
 			margin-top: 30rpx;
 			height: 262rpx;
-			width: 334rpx;
+			width: 320rpx;
 			box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
 			text-align: left;
 			line-height: 60rpx;
 			box-sizing: border-box;
 			padding: 5rpx;
+			margin-right: 20rpx;
 			
 			.title {
 				padding-top: 30rpx;

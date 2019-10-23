@@ -10,7 +10,7 @@
 				{{name}}
 			</view>
 			<view>
-				<text class="percent">{{ratio}}%</text><text class="font-gray">月利率</text>
+				<text class="percent">{{$base1._toFixed(ratio*30*100,2) }}%</text><text class="font-gray">月利率</text>
 			</view>
 			<view class="profit">
 				周期:10天
@@ -21,7 +21,7 @@
 		</view>
 		<view class="padding">
 			<view class="font-middle rule flex-between">
-				<text class="font-middle">合计金额</text><text class="font-gray">可用：{{balance}}USTD</text>
+				<text class="font-middle">合计金额</text><text class="font-gray">可用：{{$base1._toFixed(balance,4) }}USDT</text>
 			</view>
 			<view class="">
 				<input class="input-num" type="text" value="10USDT" />
@@ -100,12 +100,11 @@
 					}
 				}
 			})
-			//账户余额
+			//单个币种余额
 			uni.request({
-				url: this.baseUrl + "/balance-list",
+				url: this.baseUrl + "/coin-single-balance",
 				data: {
-					page: 1,
-					count:1
+					Id:10
 				},
 				header: {
 					Authorization: uni.getStorageSync('token')
@@ -115,7 +114,8 @@
 					if (this.$base1._indexOf(res.data.status)) {
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
-						this.balance = res.data.data.Balance
+						this.balance = res.data.data.Money
+					
 					} else {
 						uni.showToast({
 							title: res.data.message,

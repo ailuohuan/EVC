@@ -33,7 +33,7 @@
 }
 .content .percent {
     margin-top: 20rpx;
-    font-size: 58rpx;
+    font-size: 50rpx;
     color: #FF3400;
     font-weight: bold;
 }
@@ -153,7 +153,7 @@
     display: inline-block;
     margin-top: 30rpx;
     height: 262rpx;
-    width: 334rpx;
+    width: 320rpx;
     -webkit-box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
             box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
     text-align: left;
@@ -161,6 +161,7 @@
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     padding: 5rpx;
+    margin-right: 20rpx;
 }
 .content .recommend-product .title {
       padding-top: 30rpx;

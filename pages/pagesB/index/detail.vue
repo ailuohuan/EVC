@@ -7,7 +7,7 @@
 						{{name}}
 					</view>
 					<view class="desc">
-						{{state}}
+						{{showStatus(state) }}
 					</view>
 				</view>
 				<view class="flex-between margin-top15">
@@ -64,7 +64,22 @@
 				</view>
 			</view>
 		</view>
-
+		
+		<view class="" v-show="state==3">
+			<button class="blue margin-top" @tap="declarationForm">立即报单</button>
+		</view>
+		<!-- 输入支付密码的弹窗 -->
+		<view class="prompt-box" v-show="showPinMask" @tap="closePinMask"></view>
+		<view class="prompt-content" v-show="showPinMask">
+			<view class="">请输入资金密码 <text class="iconfont icon" @tap="closePinMask">&#xe723;</text></view>
+			<input class="prompt-input" type="text" password v-model="password" placeholder="请输入资金密码" />
+			<view class="font-blue text-right margin-top" @tap="jumpToForgetPassword">
+				忘记密码？
+			</view>
+			<view class="margin-top">
+				<button class="blue" @tap="confirm">提交密码</button>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -72,8 +87,8 @@
 	export default {
 		data() {
 			return {
-				showPinMask: true,
-				
+				showPinMask: false,
+				password:'',
 				id:'',
 				name:'',
 				state:'',
@@ -109,6 +124,13 @@
 						this.addtime= this.$base1._formatDate(res.data.data.AddTime) 
 						this.passtime=this.$base1._formatDate(res.data.data.PassTime)  
 						this.paytime= this.$base1._formatDate(res.data.data.PayTime)
+						if(this.state==0){
+							this.paytime=''
+							this.passtime=''
+						}
+						if(this.state==3){
+							this.paytime=''
+						}
 						this.numEVC= res.data.data.NumberEVC
 					}else{
 						uni.showToast({
@@ -124,7 +146,63 @@
 			
 		},
 		methods: {
-
+			closePinMask(){
+				this.showPinMask = false
+			},
+			declarationForm(){
+				//报单
+				this.showPinMask = true
+				
+				
+			},
+			jumpToForgetPassword(){
+				uni.navigateTo({
+					url:"../personal/forget-pay-password"
+				})
+			},
+			showStatus(status){
+				if(status==0){
+					return '未报单'
+				}else if(status==1){
+					return '已报单'
+				}else if(status==2){
+					return '已出局'
+				}else if(status==3){
+					return '已放行'
+				}else if(status==4){
+					return '违约'
+				}
+			},
+			confirm(){
+				//我的广告包
+				uni.request({
+					url: this.baseUrl + "/pay-product",
+					data: {
+						PayPassword: this.password
+					},
+					method:"POST",
+					header:{
+						Authorization:uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res)
+						 if(res.data.status==1){
+							 this.showPinMask = false
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+							
+						}else{
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						}
+						
+					}
+				})
+			}
 
 		}
 	}
@@ -191,5 +269,52 @@
 			margin-top: 15rpx;
 		}
 
+	}
+	
+	/*弹窗样式*/
+	.prompt-box {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 11;
+		background: rgba(0, 0, 0, 0.3);
+	}
+	
+	.prompt-content {
+		position: absolute;
+		left: 50%;
+		top: 40%;
+		z-index: 20;
+		width: 80%;
+		height: 380upx;
+		max-width: 600upx;
+		border: 2upx solid #ccc;
+		border-radius: 8rpx;
+		box-sizing: bordre-box;
+		transform: translate(-50%, -50%);
+		overflow: hidden;
+		background: #fff;
+		text-align: center;
+		padding: 34rpx 50rpx 56rpx;
+	
+		.icon {
+			position: absolute;
+			right: 52rpx;
+			top: 36rpx;
+		}
+	
+	}
+	
+	.prompt-input {
+		margin-top: 80rpx;
+		width: 100%;
+		height: 88rpx;
+		background-color: #F5F5F5;
+		border-radius: 8rpx;
+		font-size: 24rpx;
+		text-align: left;
+		padding-left: 26rpx;
 	}
 </style>

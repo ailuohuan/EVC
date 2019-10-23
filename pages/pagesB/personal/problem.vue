@@ -3,21 +3,11 @@
 		<view class="bgbox">
 
 		</view>
-		<view class="top" @tap="jumpToproblemDetail">
-			<text>如何登录?</text><text class="iconfont icon">&#xea25;</text>
+		<view  v-for="item in list" :key="item.id">
+			<view class="top">{{item.Question}}?</view>
+			<view class="answer">答： {{item.Answer}}</view>
 		</view>
-		<view class="top">
-			<text>如何注册？
-			</text><text class="iconfont icon">&#xea25;</text>
-		</view>
-		<view class="top">
-			<text>忘记交易密码怎么办？
-			</text><text class="iconfont icon">&#xea25;</text>
-		</view>
-		<view class="top">
-			<text>如何邀请朋友？
-			</text><text class="iconfont icon">&#xea25;</text>
-		</view>
+		
 
 	</view>
 </template>
@@ -27,18 +17,38 @@
 
 		data() {
 			return {
-				headerTitle: '常见问题'
+				
+				list:[]
 			}
 		},
 		onLoad() {
 			
+			//常见问题
+			uni.request({
+				url: this.baseUrl + "/common-question",
+				header: {
+					//除注册登录外其他的请求都携带用户token和秘钥
+					Authorization: uni.getStorageSync('token')
+				},
+				success: (res) => {
+					console.log(res.data)
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
+					} else if (res.data.status == 1) {
+						
+						this.list = res.data.data
+						
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: "none"
+						})
+					}
+				}
+			})
 		},
 		methods: {
-			jumpToproblemDetail() {
-				uni.navigateTo({
-					url: "./problem-deail"
-				})
-			}
+			
 		}
 	}
 </script>
@@ -62,13 +72,12 @@
 			box-sizing: border-box;
 			border-bottom: 2rpx solid #F1F1F1;
 
-			.icon {
-				color: #999;
-				font-size: 30rpx;
-				margin-left: 24rpx;
-			}
+			
 		}
-
+		.answer{
+			margin-top: 20rpx;
+			padding: 0 20rpx;
+		}
 
 	}
 </style>

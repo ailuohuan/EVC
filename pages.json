@@ -208,6 +208,12 @@
 			}
 		},
 		{
+			"path": "pages/pagesB/index/myad",
+			"style": {
+				"navigationBarTitleText": "我的广告包"
+			}
+		},
+		{
 			"path": "pages/pagesB/index/profit",
 			"style": {
 				"navigationBarTitleText": "收益账户"
@@ -425,6 +431,13 @@
 			"path": "pages/pagesB/personal/recorde-detail",
 			"style": {
 				"navigationBarTitleText": "记录详情"
+				
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/resetPayPassword",
+			"style": {
+				"navigationBarTitleText": "忘记交易密码"
 				
 			}
 		},

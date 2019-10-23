@@ -103,6 +103,7 @@ function doUpload(filePath, success, fail, options, progress, cancelTask) {
         //     dataString = String.fromCharCode.apply(null, res.data.data)
         //   }
           try {
+			console.log(res);
             var dataObject = JSON.parse(dataString);
             //do something
             var fileUrl = config.qiniuImageURLPrefix + '/' + dataObject.key;

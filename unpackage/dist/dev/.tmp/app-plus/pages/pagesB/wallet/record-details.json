@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "记录详情",
-  "usingComponents": {
-    "page-head2": "/components/page-head2"
-  }
+  "usingComponents": {}
 }

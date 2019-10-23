@@ -24,30 +24,30 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content.data-v-c3953dfc {
+.content.data-v-2acc05a2 {
   background-color: #fff;
   padding: 0 56rpx;
   font-size: 24rpx;
   color: #999999;
   height: 1334rpx;
 }
-.content .logo.data-v-c3953dfc {
+.content .logo.data-v-2acc05a2 {
     width: 86px;
     height: 86rpx;
     margin: 60rpx auto 50rpx;
 }
-.content .logo-img.data-v-c3953dfc {
+.content .logo-img.data-v-2acc05a2 {
     width: 160rpx;
     height: 160rpx;
 }
-.content .forget-password.data-v-c3953dfc {
+.content .forget-password.data-v-2acc05a2 {
     margin-left: 500rpx;
 }
-.content .bottom.data-v-c3953dfc {
+.content .bottom.data-v-2acc05a2 {
     margin-top: 280rpx;
     text-align: center;
 }
-.content .get-indentify.data-v-c3953dfc {
+.content .get-indentify.data-v-2acc05a2 {
     height: 70rpx;
     line-height: 70rpx;
     width: 180rpx;
@@ -55,7 +55,7 @@
     border: none;
     color: #007AFF;
 }
-.input-wrap > view.data-v-c3953dfc {
+.input-wrap > view.data-v-2acc05a2 {
   border-bottom: 1px solid #ECECEC;
   padding: 20rpx 0;
   margin-bottom: 40rpx;
@@ -68,18 +68,18 @@
       -ms-flex-align: center;
           align-items: center;
 }
-.input-wrap input.data-v-c3953dfc {
+.input-wrap input.data-v-2acc05a2 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-button.blue.data-v-c3953dfc {
+button.blue.data-v-2acc05a2 {
   margin-bottom: 20rpx;
   margin-top: 80rpx;
   opacity: 0.5;
 }
-.footer.data-v-c3953dfc {
+.footer.data-v-2acc05a2 {
   position: fixed;
   width: 100%;
   text-align: center;

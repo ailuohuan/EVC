@@ -32,7 +32,7 @@
 		},
 		onLoad(options) {
 			this.emailNum = options.emailNum
-			this.autocode = options.autocode
+			this.autocode = options.authcode
 		},
 		onReady() {
 			

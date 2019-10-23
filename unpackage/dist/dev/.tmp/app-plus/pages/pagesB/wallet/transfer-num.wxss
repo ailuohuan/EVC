@@ -31,6 +31,14 @@
   background-color: #F8F8F8;
   height: 20rpx;
 }
+.get-indentify {
+  height: 70rpx;
+  line-height: 70rpx;
+  width: 180rpx;
+  padding: 0;
+  border: none;
+  color: #007AFF;
+}
 .content {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

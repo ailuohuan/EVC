@@ -2,15 +2,16 @@
 	<!-- 充提记录 -->
 	<view class="content">
 		<view class="nav">
-			<view class="nav-text" v-for="(item,index) in list" :key="item.id" :class="currentNumber == index ? 'active' : ''" @tap="currentInfo(index)">
+			<view class="nav-text" v-for="(item,index) in list" :key="item.id" :class="currentNumber == index ? 'active' : ''"
+			 @tap="currentInfo(index)">
 				{{item.title}}
 			</view>
 		</view>
 		<view class="bgbox">
-		
+
 		</view>
 		<view class="list">
-			<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToRecordDetail(index)">
+			<view class="list-item" v-for="(item,index) in nameList " :key="index" @tap="jumpToRecordDetail(index)">
 				<view class="">
 					<view class="name-en">
 						{{item.Type==1?"充值":"提现"}}
@@ -45,8 +46,11 @@
 				curPage: 1,
 				status: 0,
 				nameList: [],
+				nameList1: [],
+				nameList2: [],
+				nameList3: [],
 				id: '',
-				acid:'',
+				acid: '',
 				list: [{
 						title: "全部"
 					},
@@ -61,25 +65,25 @@
 		},
 		onLoad(options) {
 			this.id = options.id
-			if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
+			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
 				this.$base1._isLogin()
 			}
 			this.getCoreDetail()
 		},
 		onPullDownRefresh() {
 			this.getCoreDetail()
-			  setTimeout(function () {
-				  uni.stopPullDownRefresh();
-			  }, 1000);
-		  },
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
+		},
 		methods: {
 			//充提记录
 			getCoreDetail() {
 				uni.request({
 					url: this.baseUrl + "/recharge-withdraw",
-					data:{
-						page:1,
-						count:100000,
+					data: {
+						page: 1,
+						count: 100000,
 					},
 					header: {
 						//除注册登录外其他的请求都携带用户token和秘钥
@@ -89,9 +93,11 @@
 						console.log(res.data)
 						if (this.$base1._indexOf(res.data.status)) {
 							this.$base1._isLogin()
-						} else  if (res.data.status == 1) {
+						} else if (res.data.status == 1) {
 							this.nameList = res.data.data.list
-							
+							this.nameList2 = res.data.data.list
+							this.nameList3 = res.data.data.list
+
 						} else {
 							uni.showToast({
 								title: res.data.message,
@@ -103,81 +109,104 @@
 			},
 			currentInfo(index) {
 				this.currentNumber = index;
-			     
-				if(this.currentNumber==1){
-					//充提记录根据返回的Type动态显示 1充值 2提现
-					for(var i=0; i<this.nameList.length;i++){
-						if(this.nameList[i].Type==2){
-						 this.nameList.splice(i--,1)
-						}
+				
+				var newArray = []
+				var j = 0
+				for (let i in this.nameList3) {
+					if (this.nameList3[i].Type == 1) {
+						newArray[j++] = this.nameList3[i]
 					}
-				} else{
-					if(this.currentNumber==2){
-						for(var i=0; i < this.nameList.length; i++){
-							if(this.nameList[i].Type==1){
-							 this.nameList.splice(i--,1)
-							}
-						}
-					}else{
-						this.getCoreDetail()
-					}
-					
 				}
+				// console.log(JSON.stringify(newArray) )
 				
 				
+				var newArray2 = []
+				var j2 = 0
+				for (let i in this.nameList2) {
+					if (this.nameList2[i].Type == "2") {
+						newArray2[j2++] = this.nameList2[i]
+					}
+				}
+				// console.log(JSON.stringify(newArray2) )
+
+				//充提记录根据返回的Type动态显示 1充值 2提现
+
+				if (this.currentNumber == 1) {
+					
+					this.nameList = newArray
+				} 
+				if(this.currentNumber == 2) {
+					
+					this.nameList = newArray2
+				}
+				if(this.currentNumber == 0){
+					this.getCoreDetail()
+				}
+
+
 			},
 			//处理状态返回的显示值
-			showStatus(status){
-				if(status){
-					if(status=="-1"){
-						return "驳回" 
-					}else if(status=="0"){
-						
+			showStatus(status) {
+				if (status) {
+					if (status == "-1") {
+						return "驳回"
+					} else if (status == "0") {
+
 						return "待处理"
-					}else if(status=="1"){
-						
+					} else if (status == "1") {
+
 						return "处理中"
-					}else if(status=="2"){
+					} else if (status == "2") {
 						return "已处理"
-					}else if(status=="3"){
-						
+					} else if (status == "3") {
+
 						return "失败"
-					}else if(status=="4"){
-						
+					} else if (status == "4") {
+
 						return "处理成功"
 					}
 				}
 			},
 			//状态不同显示不同的颜色
-			showColor(status){
-				if(status){
-					if(status=="-1"){
-						return "red" 
-					}else if(status=="0"){
-						
-						return "green"
-					}else if(status=="1"){
-						
-						return "green"
-					}else if(status=="2"){
-						return "blue"
-					}else if(status=="3"){
-						
+			showColor(status) {
+				if (status) {
+					if (status == "-1") {
 						return "red"
-					}else if(status=="4"){
-						
+					} else if (status == "0") {
+
+						return "green"
+					} else if (status == "1") {
+
+						return "green"
+					} else if (status == "2") {
+						return "blue"
+					} else if (status == "3") {
+
+						return "red"
+					} else if (status == "4") {
+
 						return "blue"
 					}
 				}
+			},
+			jumpToRecordDetail(index){
+				//充提记录的详情
+				//携带金额携带状态携带时间名称
+				console.log(this.nameList[index].Money)
+				uni.navigateTo({
+					url:"./record-details?id="+this.nameList[index].Id+"&money="+this.nameList[index].Money+"&type="+this.nameList[index].Type+"&time="+this.nameList[index].AddTime+"&name="+this.nameList[index].CoinName
+				})
+				
 			}
 		}
 	}
 </script>
 
 <style lang="scss">
-	page{
+	page {
 		background-color: #fff;
 	}
+
 	.active {
 		color: #0099FF;
 		border-bottom: 2rpx solid #007AFF;
@@ -187,7 +216,7 @@
 		box-sizing: border-box;
 		font-size: 30rpx;
 		color: #333;
-		
+
 		.nav {
 			display: flex;
 			flex-direction: row;

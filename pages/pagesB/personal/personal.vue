@@ -135,7 +135,7 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.nickname = res.data.data.NickName
-						this.avatar = res.data.data.Avatar
+						this.avatar ='http://ceshi.8kpay.com/' + res.data.data.Avatar
 						this.status = res.data.data.IsForbidden
 						// this.status = 1
 						

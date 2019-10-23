@@ -53,7 +53,7 @@
 			 :key="item.id">
 				<view class="flex-row flex">
 					<view class="">
-						<image class="img" :src="item.Logo" mode=""></image>
+						<image class="img" :src="'http://ceshi.8kpay.com/'+item.Logo" mode=""></image>
 					</view>
 					<view class="">
 						<view class="">
@@ -208,7 +208,7 @@
 			jumpTocurrencyDetail(index) {
 				uni.navigateTo({
 					url: "./currency-detail?coinId=" + this.coinList[index].Id + "&money=" + this.coinList[index].Money + "&forzen=" +
-						this.coinList[index].Forzen + "&price=" + this.coinList[index].Price + "&logo=" + this.coinList[index].Logo
+						this.coinList[index].Forzen + "&price=" + this.coinList[index].Price + "&logo=" + this.coinList[index].Logo+"&name="+this.coinList[index].EnName
 				})
 
 			}

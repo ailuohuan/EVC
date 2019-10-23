@@ -23,7 +23,7 @@
 				<view class="list-item-right">
 					<view class="">
 						<view class="name-en">
-							{{item.Money}} USDT
+							{{item.Money}} {{item.CoinName}}
 						</view>
 					</view>
 					<view class="iconfont icon">
@@ -43,19 +43,13 @@
 				statusChange: '',
 				curPage: 1,
 				status: 0,
-				nameList: [],
+				nameList: [
+					
+				],
 				id: '',
 				acid:'',
-				list: [{
-						title: "全部"
-					},
-					{
-						title: "充值"
-					},
-					{
-						title: "提现"
-					}
-				]
+				list: []
+				
 			};
 		},
 		onLoad(options) {
@@ -63,6 +57,7 @@
 				this.$base1._isLogin()
 			}
 			this.getCoreDetail()
+			this.getfinacemolds()
 		},
 		onPullDownRefresh() {
 			this.getCoreDetail()
@@ -71,16 +66,37 @@
 			  }, 1000);
 		  },
 		methods: {
+			getfinacemolds(){
+				//
+				uni.request({
+					url: this.baseUrl + "/finace-molds",
+					header: {
+						//除注册登录外其他的请求都携带用户token和秘钥
+						Authorization: uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res.data)
+						 if (res.data.status == 1) {
+							 this.list = res.data.data
+						} else {
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+						}
+					}
+				})
+			},
 			currentInfo(index) {
+				
 				this.currentNumber = index;
 				
-				this.status = this.currentNumber
-				console.log(this.status)
-				//账单列表动态 显示
+				console.log(this.currentNumber)
+				console.log(this.list[index].id)
 				uni.request({
 					url: this.baseUrl + "/finace-list",
 					data:{
-						Type:this.status,
+						Type:this.list[index].id,
 						page:1,
 						count:10000
 					},
@@ -90,7 +106,9 @@
 					},
 					success: (res) => {
 						console.log(res.data)
-						 if (res.data.status == 1) {
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
+						} else  if (res.data.status == 1) {
 							this.nameList = res.data.data.list
 							
 						} else {
@@ -101,6 +119,7 @@
 						}
 					}
 				})
+				
 			},
 			//资金变动列表 显示全部
 			getCoreDetail() {
@@ -161,21 +180,26 @@
 	}
 
 	.content {
+		
 		box-sizing: border-box;
 		font-size: 30rpx;
 		color: #333;
 		
 		.nav {
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-
+			overflow-x: scroll;
+			white-space: nowrap;
+			// display: flex;
+			// flex-direction: row;
+			// justify-content: space-between;
+			
 			.nav-text {
+				display: inline-block;
 				height: 88rpx;
 				line-height: 88rpx;
-				width: 150rpx;
+				// width: 100%;
 				background-color: #fff;
 				text-align: center;
+				margin: 0 20rpx;
 			}
 		}
 

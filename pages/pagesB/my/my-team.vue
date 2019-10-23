@@ -2,16 +2,16 @@
 	<view class="content padding">
 		<view class="middle text-center" @tap="jumpToMyTeam2">
 			<view class="all">
-				<text>团队总业绩(社区收益{{ratio}}%)</text>
+				<text>团队总业绩(社区收益{{$base1._showZero(ratio) }}%)</text>
 			</view>
 			<view class="all-num ">
-				<text class="font-bold">{{teamAchievement}}</text>  <text class="font-middle">USTD</text>
+				<text class="font-bold">{{$base1._toFixed(teamAchievement,4)}}</text>  <text class="font-middle">USDT</text>
 			</view>
 			<view class="flex-between">
-				<text>团队人数：{{team}}</text>｜<text>有效直推人数：{{invite}}</text>
+				<text>团队人数：{{$base1._showZero(team) }}</text>｜<text>有效直推人数：{{$base1._showZero(invite)}}</text>
 			</view>
 			<view class="level">
-				<image class="level-img" src="../../../static/images/pagesA/my/reporter.png" mode=""></image>
+				<image class="level-img" :src="showLevelImg(level)" mode=""></image>
 				<text>{{level}}</text>
 			</view>
 		</view>
@@ -28,7 +28,7 @@
 								{{item.Name}}
 							</view>
 							<view class="list-level">
-								<image class="list-level-img" src="../../../static/images/pagesA/my/reporter.png" mode=""></image>
+								<image class="list-level-img" :src="showLevelImg(item.Level)" mode=""></image>
 								<text>{{item.Level}}</text>
 								
 							</view>
@@ -51,7 +51,7 @@
 						个人业绩
 					</view>
 					<view class="">
-						<text class="orange font-bold">{{item.Achievement}}</text><text>USDT</text>
+						<text class="orange font-bold">{{$base1._toFixed(item.Achievement,2) }}</text><text>USDT</text>
 					</view>
 				</view>
 				<view class="">
@@ -59,7 +59,7 @@
 						团队业绩
 					</view>
 					<view class="">
-						<text class="orange font-bold">{{item.TeamAchievement}}</text><text>USDT</text>
+						<text class="orange font-bold">{{$base1._toFixed(item.TeamAchievement,4) }}</text><text>USDT</text>
 					</view>
 				</view>
 			</view>
@@ -86,7 +86,8 @@
 				teamAchievement:'',
 				level:'',
 				invite:'',
-				inviteList:[]
+				inviteList:[],
+				levelImg:''
 			};
 		},
 		onLoad() {
@@ -161,6 +162,19 @@
 				uni.navigateTo({
 					url:"./my-team2"
 				})
+			},
+			showLevelImg(level){
+				if(level=="普通会员"){
+					return ''
+				}else if(level=="记者"){
+					return '../../../static/images/pagesA/my/reporter.png'
+				}else if(level=="主编"){
+					return '../../../static/images/pagesA/my/editor.png'
+				}else if(level=="台长"){
+					return '../../../static/images/pagesA/my/head.png'
+				}else if(level=="编辑"){
+					return '../../../static/images/pagesA/my/editor.png'
+				}
 			}
 		}
 	}

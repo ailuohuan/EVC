@@ -5,13 +5,13 @@
 				<text>团队总业绩(社区收益{{ratio}}%)</text>
 			</view>
 			<view class="all-num ">
-				<text class="font-bold">{{teamAchievement}}</text>  <text class="font-middle">USTD</text>
+				<text class="font-bold">{{$base1._toFixed(teamAchievement,4) }}</text>  <text class="font-middle">USDT</text>
 			</view>
 			<view class="flex-between">
-				<text>团队人数：{{team}}</text>｜<text>有效直推人数：{{invite}}</text>
+				<text>团队人数：{{$base1._showZero(team) }}</text>｜<text>有效直推人数：{{$base1._showZero(invite)}}</text>
 			</view>
 			<view class="level">
-				<image class="level-img" src="../../../static/images/pagesA/my/reporter.png" mode=""></image>
+				<image class="level-img" :src="showLevelImg(level)" mode=""></image>
 				<text>{{level}}</text>
 			</view>
 		</view>
@@ -73,30 +73,20 @@
 					}
 				})
 			},
-			jumpToCurrencyDetail() {
-				uni.navigateTo({
-					url: './currency-detail?coreId=' + this.coreId
-				})
-			},
-			scan() {
-				//扫一扫		
-				// 允许通过相机扫码和相册
-				uni.scanCode({
-					onlyFromCamera: false,
-					success: function(res) {
-						console.log('条码类型：' + res.scanType);
-						console.log('条码内容：' + res.result);
-					}
-				});
-			},
-			noSee() {
-				this.show = !this.show
-				if (this.show == false) {
-					this.password = true
-				} else {
-					this.password = false
+			showLevelImg(level){
+				if(level=="普通会员"){
+					return ''
+				}else if(level=="记者"){
+					return '../../../static/images/pagesA/my/reporter.png'
+				}else if(level=="主编"){
+					return '../../../static/images/pagesA/my/editor.png'
+				}else if(level=="台长"){
+					return '../../../static/images/pagesA/my/head.png'
+				}else if(level=="编辑"){
+					return '../../../static/images/pagesA/my/editor.png'
 				}
-			},
+			}
+			
 			
 		}
 	}

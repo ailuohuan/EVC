@@ -38,26 +38,16 @@ page {
   color: #333;
 }
 .content .nav {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    overflow-x: scroll;
+    white-space: nowrap;
 }
 .content .nav .nav-text {
+      display: inline-block;
       height: 88rpx;
       line-height: 88rpx;
-      width: 150rpx;
       background-color: #fff;
       text-align: center;
+      margin: 0 20rpx;
 }
 .content .list {
     margin-top: 20rpx;

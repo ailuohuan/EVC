@@ -107,17 +107,17 @@
 					success: (res) => {
 						console.log('999999999999999')
 						// console.log(res.data)
-						//  if (res.data.status == 1) {
-						// 	this.address = res.data.data.WalletAddress
-						// 	this.img = QR.createQrCodeImg(this.address, {
-						// 		size: parseInt(300) //二维码大小  
-						// 	})
-						// } else {
-						// 	uni.showToast({
-						// 		title: res.data.message,
-						// 		icon: "none"
-						// 	})
-						// }
+						 if (res.data.status == 1) {
+							this.address = res.data.data.WalletAddress
+							this.img = QR.createQrCodeImg(this.address, {
+								size: parseInt(300) //二维码大小  
+							})
+						} else {
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+						}
 					}
 				})
 			},

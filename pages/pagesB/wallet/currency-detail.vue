@@ -5,10 +5,10 @@
 		<view class="padding">
 			<view class="flex-row padding-top">
 				<view class="name">
-					<image class="logo-img" :src="logo" mode=""></image>
+					<image class="logo-img" :src="'http://ceshi.8kpay.com/'+logo" mode=""></image>
 				</view>
 				<view class="font-blue font-big font-bold">
-					{{money}}BTC
+					{{$base1._toFixed(money,4) }}{{name}}
 				</view>
 			</view>
 			<view class="flex-between padding-bottom">
@@ -17,7 +17,7 @@
 						冻结
 					</view>
 					<view class="font-bold font36">
-						{{forzen}}BTC
+						{{forzen}}{{name}}
 					</view>
 				</view>
 				<view class="">
@@ -77,7 +77,7 @@
 					<view class="list-item-right">
 						<view class="">
 							<view class="name-en">
-								{{item.Money}}
+								{{item.Money}}{{this.name}}
 							</view>
 							<view class="name-ch desc" :style="{color:showColor(item.Status)}">
 								{{showStatus(item.Status)}}
@@ -168,7 +168,8 @@
 				forzen: '',
 				price: '',
 				coinId: '',
-				showDetail: true
+				showDetail: true,
+				name:''
 			};
 		},
 		onLoad(options) {
@@ -177,6 +178,7 @@
 			this.forzen = options.foezen
 			this.price = options.price
 			this.logo = options.logo
+			this.name = options.name
 			this.getCoreDetail()
 		},
 		onPullDownRefresh() {

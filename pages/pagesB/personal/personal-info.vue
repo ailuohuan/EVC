@@ -24,8 +24,8 @@
 				nickname:'',
 				avatar:'',
 				email:'',
-				achievement:''
-				
+				achievement:'',
+				token:''
 			}
 		},
 		onLoad() {
@@ -49,6 +49,7 @@
 						if (res.data.status == 1) {
 							//获取七牛返回的token
 							this.token = res.data.data.token
+							console.log(this.token)
 							//选择头像图片获取临时地址
 							let _self = this
 							uni.chooseImage({
@@ -126,7 +127,7 @@
 							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							this.nickname = res.data.data.NickName
-							this.avatar = res.data.data.Avatar
+							this.avatar ='http://ceshi.8kpay.com/' + res.data.data.Avatar
 							this.email = res.data.data.Email
 							this.achievement = res.data.data.Achievement
 						} else {

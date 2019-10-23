@@ -24,48 +24,48 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content.data-v-412b69cd {
+.content.data-v-2adc1400 {
   background-color: #fff;
   padding: 0 56rpx;
   font-size: 24rpx;
   color: #333;
   height: 1334rpx;
 }
-.content .logo.data-v-412b69cd {
+.content .logo.data-v-2adc1400 {
     width: 86px;
     height: 86rpx;
     margin: 60rpx auto 50rpx;
 }
-.content .logo-img.data-v-412b69cd {
+.content .logo-img.data-v-2adc1400 {
     width: 160rpx;
     height: 160rpx;
 }
-.content .forget-password.data-v-412b69cd {
+.content .forget-password.data-v-2adc1400 {
     margin-left: 500rpx;
 }
-.input-wrap > view.data-v-412b69cd {
+.input-wrap > view.data-v-2adc1400 {
   padding: 20rpx 0;
   margin-bottom: 40rpx;
 }
-.input-num.data-v-412b69cd {
+.input-num.data-v-2adc1400 {
   background-color: #e5f5ff;
   height: 100rpx;
-  font-size: 12rpx;
+  font-size: 24rpx;
   border-radius: 10rpx;
   padding-left: 20rpx;
 }
-.input-wrap input.data-v-412b69cd {
+.input-wrap input.data-v-2adc1400 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-button.blue.data-v-412b69cd {
+button.blue.data-v-2adc1400 {
   margin-bottom: 20rpx;
   margin-top: 140rpx;
   opacity: 0.5;
 }
-.footer.data-v-412b69cd {
+.footer.data-v-2adc1400 {
   position: fixed;
   width: 100%;
   text-align: center;

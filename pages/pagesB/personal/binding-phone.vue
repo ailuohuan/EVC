@@ -71,7 +71,7 @@
 				})
 			},
 			comfirme() {
-				//修改登录密码
+				//绑定手机号
 				uni.request({
 					url: this.baseUrl + "/bind-phone",
 					data: {
