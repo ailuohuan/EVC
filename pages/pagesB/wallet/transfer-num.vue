@@ -23,7 +23,7 @@
 		<view class="bgbox "></view>
 		<view class="list padding">
 			<view class="list-top">
-				<text>转账数量</text><text class="font22">BTC可用: {{allmoneyNum}}</text>
+				<text>转账数量</text><text class="font22">{{array[index].enName}}可用: {{$base1._toFixed(allmoneyNum,4) }}</text>
 			</view>
 			<view class="list-input font-small">
 				<input class="font-small" type="text" value="" v-model="money" placeholder="输入转账数量" />
@@ -49,7 +49,7 @@
 
 		</view>
 		<view class="font-gray font22 padding">
-			手续费：{{money*chargeFee*0.01}} BTC≈{{money*chargeFee*0.01*7}} CNY
+			手续费：{{money*chargeFee*0.01}} {{array[index].enName}}≈{{money*chargeFee*0.01*7}} CNY
 		</view>
 		<view class="margin-top">
 			<button class="blue" type="primary" @tap="sureTransfer">转账</button>
@@ -125,7 +125,6 @@
 			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
 				this.$base1._isLogin()
 			}
-			this.allmoneyNum = options.money
 			//我的资产列表
 			uni.request({
 				url: this.baseUrl + "/coin-list",
@@ -138,18 +137,52 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.coinList = res.data.data
-						var self = this
-						for (var i = 0; i < self.coinList.length; i++) {
-							var coinListName = {
-								enName: self.coinList[i].EnName,
-								id: self.coinList[i].Id
+						//获取所有资产余额
+						//获取币种余额
+						uni.request({
+							url: this.baseUrl + "/coin-balance",
+							header: {
+								Authorization: uni.getStorageSync('token')
+							},
+							success: (res) => {
+								console.log(res)
+								if (res.data.status == 1) {
+									this.balanceList = res.data.data
+									this.set_balance();
+									
+									var self = this
+									for (var i = 0; i < self.coinList.length; i++) {
+										console.log(self.coinList[i].Money)
+										if(self.coinList[i].Money){
+											var coinListName = {
+												enName: self.coinList[i].EnName,
+												id: self.coinList[i].Id
+											}
+											self.array.push(coinListName)
+										}
+										
+									}
+									for (var j = 0; j < self.array.length; j++) {
+										this.arrayenName.push(this.array[j].enName)
+									}
+									
+									this.getChargeFee()
+									this.getsingleBanlence()
+									
+									
+									
+								} else {
+									uni.showToast({
+										title: res.data.message,
+										icon: 'none'
+									})
+								}
+						
 							}
-							self.array.push(coinListName)
-						}
-						for (var j = 0; j < self.array.length; j++) {
-							this.arrayenName.push(this.array[j].enName)
-						}
-						this.getChargeFee()
+						})
+						
+						
+						
 					} else {
 						uni.showToast({
 							title: res.data.message,
@@ -160,6 +193,20 @@
 			})
 		},
 		methods: {
+			set_balance() {
+				var self = this;
+				for (var i = 0; i < self.coinList.length; i++) {
+					for (var j = 0; j < self.balanceList.length; j++) {
+						if (self.coinList[i].Id == self.balanceList[j].CoinId) {
+							self.coinList[i].Money = self.balanceList[j].Money;
+							self.coinList[i].Forzen = self.balanceList[j].Forzen;
+							self.coinList[i].Price = (parseFloat(self.balanceList[j].Money) + parseFloat(self.balanceList[j].Forzen)) * self.coinList[i].Price;
+						}
+					};
+				};
+				self.coinList = JSON.parse(JSON.stringify(self.coinList))
+			
+			},
 			//转账获取验证码
 			sendCode() {
 				uni.request({
@@ -200,7 +247,8 @@
 				}, 1000);
 			},
 			getChargeFee() {
-				//币种列表
+				//id获取币种
+				console.log(this.array[this.index].id)
 				uni.request({
 					url: this.baseUrl + "/single-coin",
 					data: {
@@ -214,7 +262,8 @@
 						console.log(res.data)
 						if (res.data.status == 1) {
 							//获取转账手续费
-							this.chargeFee = parseInt(res.data.data.WithDrawFee)
+							this.chargeFee = res.data.data.WithDrawFee
+							console.log(this.chargeFee)
 						} else {
 
 							uni.showToast({
@@ -225,13 +274,42 @@
 						}
 					}
 				})
+				
+			},
+			getsingleBanlence(){
+				//id币种可用余额
+				uni.request({
+					url: this.baseUrl + "/coin-single-balance",
+					data: {
+						Id: this.array[this.index].id,
+					},
+					header: {
+						//除注册登录外其他的请求都携带用户token和秘钥
+						Authorization: uni.getStorageSync('token')
+					},
+					success: (res) => {
+						// console.log(res.data)
+						if (res.data.status == 1) {
+							//获取转账手续费
+							this.allmoneyNum = res.data.data.Money
+							console.log(this.allmoneyNum)
+						} else {
+				
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+				
+						}
+					}
+				})
 			},
 			bindPickerChange(e) {
 				this.index = e.target.value
 				console.log(this.index)
 
 				this.getChargeFee()
-
+				this.getsingleBanlence()
 			},
 			allmoney() {
 				this.money = this.allmoneyNum

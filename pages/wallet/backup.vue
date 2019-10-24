@@ -1,10 +1,10 @@
 <template>
 	<view class="content">
-		<view class="flex-between" @click="type=1;togglePopup()">
+		<view class="flex-between" v-if="wallet.mnemonic" @click="type=1;togglePopup()">
 			<text>导出助记词</text>
 			<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 		</view>
-		<view class="flex-between" @click="type=2;togglePopup()">
+		<view class="flex-between" v-if="wallet.privateKey" @click="type=2;togglePopup()">
 			<text>导出私钥</text>
 			<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 		</view>
@@ -37,13 +37,16 @@
 			return {
 				pwd: '',
 				type: 1,//1：导出助记词，2：导出私钥
+				wallet: {}
 			}
 		},
 		onHide() {
 			this.$refs['password'].close();
+			this.pwd = '';
 		},
 		onLoad() {
 			this.wallet = this.$Wallet.getCurrentWallet();
+			console.log(JSON.stringify(this.wallet));
 		},
 		methods: {
 			togglePopup() {

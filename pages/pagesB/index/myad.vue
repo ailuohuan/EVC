@@ -17,7 +17,7 @@
 					<text class="percent percent-small">{{$base1._toFixed(item.Ratio*30*100,2) }}%</text> <text class="font-gray">月利率</text>
 				</view>
 				<view class="title">
-					<text class="font-gray">投入金额:{{item.Number}}</text>
+					<text class="font-gray">投入金额:{{ $base1._toFixed(item.Number,4) }}USDT</text>
 					<button class="blue detail-btn" hover-class="none" >详情</button>
 				</view>
 				<view class="font-gray">

@@ -5,7 +5,7 @@
 		<view class="padding">
 			<view class="flex-row padding-top">
 				<view class="name">
-					<image class="logo-img" :src="'http://ceshi.8kpay.com/'+logo" mode=""></image>
+					<image class="logo-img" :src="logo" mode=""></image>
 				</view>
 				<view class="font-blue font-big font-bold">
 					{{$base1._toFixed(money,4) }}{{name}}
@@ -17,7 +17,7 @@
 						冻结
 					</view>
 					<view class="font-bold font36">
-						{{forzen}}{{name}}
+						{{$base1._toFixed(forzen,4) }}{{name}}
 					</view>
 				</view>
 				<view class="">
@@ -32,13 +32,13 @@
 		</view>
 		<view class="bgbox">
 		</view>
-		<view class="nav padding">
+		<!-- <view class="nav padding">
 			<view class="nav-text" v-for="(item,index) in list" :key="item.id" :class="currentNumber == index ? 'active' : ''"
 			 @tap="currentInfo(index)">
 				{{item.title}}
 			</view>
-		</view>
-		<block v-if="showDetail">
+		</view> -->
+		<!-- <block v-if="showDetail">
 			<view class="padding">
 				<view class="">
 					简介
@@ -62,8 +62,8 @@
 					</view>
 				</view>
 				</view>
-		</block>
-		<block v-else>
+		</block> -->
+		<!-- <block v-else> -->
 			<view class="list">
 				<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToManage(index)">
 					<view class="">
@@ -77,7 +77,7 @@
 					<view class="list-item-right">
 						<view class="">
 							<view class="name-en">
-								{{item.Money}}{{this.name}}
+								{{item.Money}}{{name}}
 							</view>
 							<view class="name-ch desc" :style="{color:showColor(item.Status)}">
 								{{showStatus(item.Status)}}
@@ -89,7 +89,7 @@
 					</view>
 				</view>
 			</view>
-		</block>
+		<!-- </block> -->
 	<!-- 	<view class="nav flot-bottom">
 			<view class="nav-text nav-btn" v-for="(item,index) in twoBtn" :key="item.id" :class="currentNumberBtn == index ? 'active-btn' : ''"
 			 @tap="currentInfo2(index)">
@@ -114,9 +114,10 @@
 				id: '',
 				acid: '',
 				logo:'',
-				list: [{
-						title: "币种详情"
-					},
+				list: [
+					// {
+					// 	title: "币种详情"
+					// },
 					{
 						title: "充提记录"
 					}
@@ -168,17 +169,18 @@
 				forzen: '',
 				price: '',
 				coinId: '',
-				showDetail: true,
+				showDetail: false,
 				name:''
 			};
 		},
-		onLoad(options) {
-			this.coinId = options.coinId
-			this.money = options.money
-			this.forzen = options.foezen
-			this.price = options.price
-			this.logo = options.logo
-			this.name = options.name
+		onLoad(options) {			
+			this.coinId = options.coinId;
+			this.money = options.money;
+			this.forzen = options.forzen;
+			this.price = options.price;
+			this.logo = options.logo;
+			this.name = options.Name;
+			//this.name = uni.getStorageSync('currencyName');
 			this.getCoreDetail()
 		},
 		onPullDownRefresh() {
@@ -195,6 +197,7 @@
 				}else{
 					this.showDetail=true
 				}
+				
 				//单个币种的充提记录
 				uni.request({
 					url: this.baseUrl + "/recharge-withdraw",
@@ -287,6 +290,32 @@
 						} else if (res.data.status == 1) {
 
 
+						} else {
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+						}
+					}
+				})
+				//单个币种的充提记录
+				uni.request({
+					url: this.baseUrl + "/recharge-withdraw",
+					data:{
+						page:1,
+						count:100000,
+						Id:this.coinId
+					},
+					header: {
+						//除注册登录外其他的请求都携带用户token和秘钥
+						Authorization: uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res)
+						 if (res.data.status == 1) {
+							this.nameList = res.data.data.list
+							console.log(JSON.stringify(this.nameList))
+					
 						} else {
 							uni.showToast({
 								title: res.data.message,

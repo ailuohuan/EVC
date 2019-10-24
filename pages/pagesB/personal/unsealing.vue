@@ -85,7 +85,7 @@
 								icon: "none"
 							})
 							uni.navigateTo({
-								url:"./psersonal"
+								url:"./personal"
 							})
 						} else {
 							uni.showToast({

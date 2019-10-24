@@ -24,7 +24,7 @@
 		data() {
 			return {
 				emailNum:'',
-				autocode:'',
+				authcode:'',
 				opcity:0.5,
 				password:'',
 				surepassword:''
@@ -32,7 +32,8 @@
 		},
 		onLoad(options) {
 			this.emailNum = options.emailNum
-			this.autocode = options.authcode
+			this.authcode = options.authcode
+			console.log(this.authcode )
 		},
 		onReady() {
 			
@@ -49,7 +50,7 @@
 						url: this.baseUrl + "/member-forget-password",
 						data:{
 							Email: this.emailNum,
-							AuthCode:this.autocode,
+							AuthCode:this.authcode,
 							NewPassword:this.password,
 							RepeatPassword:this.surepassword
 						},

@@ -135,12 +135,10 @@
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
 }
 .content .notice .icon2 {
-      font-size: 24rpx;
+      font-size: 36rpx;
+      margin-right: 20rpx;
 }
 .content .recommend {
     font-size: 32rpx;
@@ -161,7 +159,7 @@
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     padding: 5rpx;
-    margin-right: 20rpx;
+    margin-right: 24rpx;
 }
 .content .recommend-product .title {
       padding-top: 30rpx;

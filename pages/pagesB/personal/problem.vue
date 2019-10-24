@@ -3,9 +3,9 @@
 		<view class="bgbox">
 
 		</view>
-		<view  v-for="item in list" :key="item.id">
-			<view class="top">{{item.Question}}?</view>
-			<view class="answer">答： {{item.Answer}}</view>
+		<view>
+			<view class="top">{{question}}?</view>
+			<view class="answer">答： {{answer}}</view>
 		</view>
 		
 
@@ -18,7 +18,9 @@
 		data() {
 			return {
 				
-				list:[]
+				
+				question:'',
+				answer:''
 			}
 		},
 		onLoad() {
@@ -36,8 +38,9 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						
-						this.list = res.data.data
 						
+						this.question = res.data.data.Question 
+						this.answer = res.data.data.Answer
 					} else {
 						uni.showToast({
 							title: res.data.message,

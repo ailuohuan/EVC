@@ -6,7 +6,7 @@
 					可用余额(USDT)
 				</view>
 				<view class="font-big font-bold">
-					{{balance}}
+					{{$base1._toFixed(balance,4) }}
 				</view>
 			</view>
 			<view class="" @tap="balanceWithdraw">
@@ -36,7 +36,7 @@
 					</view>
 				</view>
 				<view class="">
-					{{item.Number}} USDT
+					{{$base1._toFixed(item.Number,4) }} USDT
 				</view>
 			</view>
 		</view>
@@ -52,7 +52,7 @@
 					提现数量
 				</view>
 				<view class="font-gray">
-					USDT 可用：{{balance}}
+					USDT 可用：{{$base1._toFixed(balance,4) }}
 				</view>
 			</view>
 			<view class="flex-between prompt-input">
@@ -71,10 +71,10 @@
 				<input  type="text" password="" v-model="payPassword" placeholder="请输入资金密码" />
 			</view>
 			<view class="font-gray font20 margin-top20">
-				手续费：{{num*radio}} USDT≈{{num*radio*7}} CNY
+				手续费：{{ $base1._toFixed(num*radio,2) }} USDT≈{{$base1._toFixed(num*radio*7,2)}} CNY
 			</view>
 			<view class="font28 margin-top20">
-				到账金额：{{num-(num*radio)}}USDT
+				到账金额：{{$base1._toFixed(num-(num*radio),2) }}USDT
 			</view>
 			<view class=" flex-row padding80 font28 ">
 				<view class="sure" @tap="closePinMask">

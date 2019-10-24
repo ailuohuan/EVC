@@ -66,7 +66,7 @@
 			},
 			next() {
 				uni.navigateTo({
-					url:"./resetPassword?emailNum="+this.emailNum+"&authcode"+this.authcode
+					url:"./resetPassword?emailNum="+this.emailNum+"&authcode="+this.authcode
 				})
 			},
 			change(e){

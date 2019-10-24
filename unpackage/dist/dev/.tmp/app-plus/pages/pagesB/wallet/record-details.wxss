@@ -24,14 +24,14 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content.data-v-573b26b4 {
+.content.data-v-6d8a7c81 {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-size: 30rpx;
   background-color: #fff;
   height: 1334rpx;
 }
-.content .top.data-v-573b26b4 {
+.content .top.data-v-6d8a7c81 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -47,45 +47,45 @@
             justify-content: space-between;
     margin-top: 68rpx;
 }
-.content .top .logo.data-v-573b26b4 {
+.content .top .logo.data-v-6d8a7c81 {
       width: 180rpx;
       height: 48rpx;
 }
-.content .top .icon.data-v-573b26b4 {
+.content .top .icon.data-v-6d8a7c81 {
       font-weight: 600;
 }
-.content .middle.data-v-573b26b4 {
+.content .middle.data-v-6d8a7c81 {
     height: 300rpx;
     margin-top: 30rpx;
     color: #333;
     text-align: center;
 }
-.content .middle .currency-img.data-v-573b26b4 {
+.content .middle .currency-img.data-v-6d8a7c81 {
       width: 80rpx;
       height: 80rpx;
 }
-.content .middle .name.data-v-573b26b4 {
+.content .middle .name.data-v-6d8a7c81 {
       font-size: 36rpx;
       font-weight: bold;
 }
-.content .middle .transfer-accounts.data-v-573b26b4 {
+.content .middle .transfer-accounts.data-v-6d8a7c81 {
       font-size: 28rpx;
       color: #999;
 }
-.content .middle .all-num.data-v-573b26b4 {
+.content .middle .all-num.data-v-6d8a7c81 {
       font-size: 60rpx;
       margin-top: 36rpx;
       font-weight: bold;
 }
-.content .middle .all-num-equal.data-v-573b26b4 {
+.content .middle .all-num-equal.data-v-6d8a7c81 {
       font-size: 30rpx;
       color: #999;
       margin-top: 34rpx;
 }
-.content .middle .blue.data-v-573b26b4 {
+.content .middle .blue.data-v-6d8a7c81 {
       color: #007AFF;
 }
-.content .list-item.data-v-573b26b4 {
+.content .list-item.data-v-6d8a7c81 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

@@ -57,9 +57,11 @@
 		methods: {
 			comfirme() {
 				//输入姓名身份证号
+				console.log(this.indentifyCardNum)
 				uni.navigateTo({
-					url:"./real-photo?name="+this.realname+"&cardnum="+this.indentifyCardNum
+					url:"./real-photo?name="+this.realname
 				})
+				uni.setStorageSync('indentifyCardNum',this.indentifyCardNum)
 			},
 			change(e) {
 				console.log(e.detail.value.length)

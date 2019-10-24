@@ -1,6 +1,6 @@
 <template>
 	<view class="content" >
-		<view class="tabbar" :disabled="disabled">
+		<view class="tabbar">
 			<image @tap="jumpToIndex" class="tabbar-img" :src="indexImg" mode="scaleToFill"></image>
 			<view @tap="jumpToIndex" class="" :style="{color:fontColor1}">
 				首页
@@ -39,6 +39,11 @@
 				type:String,
 				default: '/static/images/evctabbar/index.png'
 			},
+			tag: {
+				type: String,
+				default: ''
+			},
+			
 			fontColor2:{
 				type:String,
 			},
@@ -46,6 +51,7 @@
 				type:String,
 				default: '/static/images/evctabbar/wallet.png'
 			},
+			
 			fontColor3:{
 				type:String,
 				
@@ -54,6 +60,7 @@
 				type:String,
 				default: '/static/images/evctabbar/team.png'
 			},
+			
 			fontColor4:{
 				type:String
 			},
@@ -61,38 +68,48 @@
 				type:String,
 				default: '/static/images/evctabbar/my.png'
 			}
+			
 		},
 		data(){
 			return{
 			
-				disabled:true
+				
 			}
 		},
 		
 		methods:{
 			jumpToIndex(){
+				console.log(this.tag);
+				if(this.tag!='index'){
+					uni.navigateTo({
+						url:"/pages/pagesB/index/index"
+					})
+				}
 				
-				uni.redirectTo({
-					url:"/pages/pagesB/index/index"
-				})
 			},
 			jumpToWallet(){
+				if(this.tag!='wallet'){
+					uni.navigateTo({
+						url:"/pages/pagesB/wallet/wallet"
+					})
+				}
 				
-				uni.redirectTo({
-					url:"/pages/pagesB/wallet/wallet"
-				})
 			},
 			jumpToTeam(){
+				if(this.tag!="team"){
+					uni.navigateTo({
+						url:"/pages/pagesB/my/my-team"
+					})
+				}
 				
-				uni.redirectTo({
-					url:"/pages/pagesB/my/my-team"
-				})
 			},
 			jumpToMy(){
-			
-				uni.redirectTo({
-					url:"/pages/pagesB/personal/personal"
-				})
+				if(this.tag!="my"){
+					uni.navigateTo({
+						url:"/pages/pagesB/personal/personal"
+					})
+				}
+				
 			}
 		}
 	}

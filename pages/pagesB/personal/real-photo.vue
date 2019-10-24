@@ -65,7 +65,9 @@
 <script>
 	import qiniuUploader from '../../../common/qiniuUploader.js'
 	import uniSteps from '@/components/uni-steps.vue'
+	var photoArray = []
 	export default {
+        
 		components: {
 
 			uniSteps
@@ -87,12 +89,15 @@
 				photo2:'../../../static/images/pagesA/my/id-car2.png',
 				name:'',
 				carnum:'',
-				photoArray:[]
+				token: '',
+				photoArray: []
+				
 			}
 		},
 		onLoad(options) {
+			
 			this.name = options.name
-			this.carnum = options.carnum
+			// this.carnum = options.carnum
 			
 		},
 		onReady() {
@@ -111,7 +116,7 @@
 					success: (res) => {
 						if (res.data.status == 1) {
 							//获取七牛返回的token
-							this.token = res.data.data.token
+							this.token = res.data.data.token;
 							console.log(this.token)
 							//选择头像图片获取临时地址
 							let _self = this
@@ -121,34 +126,13 @@
 								sourceType: ['album', 'camera'], //从相册选择，或打开照相机
 								success: function(res) {
 									console.log('res1', res);
+									
 									//图片临时地址
-									qiniuUploader.upload(res.tempFilePaths[0], 
-									(success) => {
+									qiniuUploader.upload(res.tempFilePaths[0], (success) => {
 										console.log('===========' + success.imageURL);
-										this.photoArray[0]=success.imageURL
-										// uni.request({
-										// 	url: _self.baseUrl + '/member-modify-avatar',
-										// 	method: 'POST',
-										// 	header: {
-										// 		//除注册登录外其他的请求都携带用户token和秘钥
-										// 		Authorization: uni.getStorageSync('token'),
-										// 		SecretKey: uni.getStorageSync('SecretKey')
-										// 	},
-										// 	data: {
-										// 		Avatar: success.imageURL
-										// 	},
-										// 	success: res => {
-										// 		console.log(res.data);
-										// 		uni.showToast({
-										// 			title:res.data.message,
-										// 			icon:"none"
-										// 		})
-										// 		_self.getUserInfo()
-												
-										// 	},
-										// 	fail: () => {},
-										// 	complete: () => {}
-										// });
+										_self.photoArray.push(success.imageURL)
+										 _self.photo1 = 'http://ceshi.8kpay.com/'+success.imageURL
+										
 									}, (error) => {
 										console.log(error);
 									}, {
@@ -158,6 +142,7 @@
 									}, (res) => {
 										console.log('上传进度', res.progress);
 									})
+									
 								},
 								error: (e) => {
 									console.log(e);
@@ -194,38 +179,18 @@
 								sourceType: ['album', 'camera'], //从相册选择，或打开照相机
 								success: function(res) {
 									console.log('res1', res);
+									
 									//图片临时地址
 									qiniuUploader.upload(res.tempFilePaths[0], (success) => {
-										console.log('===========' + success.imageURL);
-										this.photoArray[1] = success.imageURL
-										// uni.request({
-										// 	url: _self.baseUrl + '/auth-member',
-										// 	method: 'POST',
-										// 	data:{
-										// 		IdCard:this.carnum,
-										// 		Name:this.name,
-										// 		IdCardImg:this.photoArray
-										// 	},
-										// 	header: {
-										// 		//除注册登录外其他的请求都携带用户token和秘钥
-										// 		Authorization: uni.getStorageSync('token'),
-										// 		SecretKey: uni.getStorageSync('SecretKey')
-										// 	},
-										// 	data: {
-										// 		Avatar: success.imageURL
-										// 	},
-										// 	success: res => {
-										// 		console.log(res.data);
-										// 		uni.showToast({
-										// 			title:res.data.message,
-										// 			icon:"none"
-										// 		})
-										// 		_self.getUserInfo()
-												
-										// 	},
-										// 	fail: () => {},
-										// 	complete: () => {}
-										// });
+									console.log('===========' + success.imageURL);
+									_self.photoArray.push(success.imageURL)
+									 _self.photo2 = 'http://ceshi.8kpay.com/'+success.imageURL
+									if (photoArray.length != 0) {
+										_self.opcity = 1
+									} else {
+										_self.opcity = 0.5
+									}	 
+										
 									}, (error) => {
 										console.log(error);
 									}, {
@@ -235,6 +200,8 @@
 									}, (res) => {
 										console.log('上传进度', res.progress);
 									})
+									
+									
 								},
 								error: (e) => {
 									console.log(e);
@@ -250,31 +217,34 @@
 				})
 			},
 			
-			
-			
-			
 			comfirme() {
-				//实名认证
+				var _self = this
+				console.log(_self.photoArray)
+				// var photoArray1 = (JSON.stringify(photoArray)).split(",")
+		
 				uni.request({
 					url: this.baseUrl + "/auth-member",
-					data:{
-						IdCard:this.carnum,
-						Name:this.name,
-						IdCardImg: this.photoArray//数组字符串
-					},
+					method:'POST',
 					header: {
 						//除注册登录外其他的请求都携带用户token和秘钥
 						Authorization: uni.getStorageSync('token')
+					},
+					data:{
+						IdCard:uni.getStorageSync('indentifyCardNum'),
+						Name:_self.name,
+						// IdCardImg:JSON.stringify(photoArray1),
+						IdCardImg:JSON.stringify(_self.photoArray)
 					},
 					success: (res) => {
 						console.log(res.data)
 						if (this.$base1._indexOf(res.data.status)) {
 							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
-							this.nickname = res.data.data.NickName
-							this.avatar ='http://ceshi.8kpay.com/' + res.data.data.Avatar
-							this.email = res.data.data.Email
-							this.achievement = res.data.data.Achievement
+							uni.showToast({
+								title: res.data.message,
+								icon: "none"
+							})
+							
 						} else {
 							uni.showToast({
 								title: res.data.message,
@@ -283,15 +253,19 @@
 						}
 					}
 				})
+				
+				
+				
+				
+				
+				
+				
+				
 			},
-			change(e) {
-				console.log(e.detail.value.length)
-				if (e.detail.value.length >= 3) {
-					this.opcity = 1
-				} else {
-					this.opcity = 0.5
-				}
-			}
+			
+				
+				
+			
 
 		}
 	}

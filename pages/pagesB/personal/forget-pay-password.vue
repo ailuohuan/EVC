@@ -67,7 +67,7 @@
 			},
 			next() {
 				uni.navigateTo({
-					url:"./resetPayPassword?emailNum="+this.emailNum+"&authcode"+this.authcode
+					url:"./resetPayPassword?emailNum="+this.emailNum+"&authcode="+this.authcode
 				})
 			},
 			change(e){

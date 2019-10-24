@@ -1,18 +1,16 @@
 <template>
 	<view class="content">
 		<view class="title margin-top">
-			国泰国证食品饮料行业指数分级2019年上 半年度盈利8亿元
+			{{title}}
 		</view>
 		<view class="time flex-between">
-			<text class="font-gray">25463阅读</text><text class="font-gray">2019-09-03 14:23:12</text>
+			<!-- <text class="font-gray">25463阅读</text> --><text class="font-gray">{{time}}</text>
 		</view>
-		<view class="desc font-gray">
-			      现在大家都会选择一些基金项目来进行投资，大家也会考虑基金项目的收益问题，大家都希望有好的收益，而基金项目也会为大家提供好收益，国泰国证食品饮料行业指数分级收益。接下来，小编就给大家介绍一下国泰国证食品饮料行业指数分级。
-			
-			　　本基金投资股指期货的，基金管理人应在季度报告、半年度报告、年度报告等定期报告和招募说明书（更新）等文件中披露股指期货交易情况，包括投资政策、持仓情况、损益情况、风险指标等，并充分揭示股指期货交易对基金总体风险的影响以及是否符合既定的投资政策和投资目标。收益分配原则本基金分级份额存续期间暂不进行收益分配。
+		<view class="desc font-gray" v-html="content">
+			    
 		</view>
 		<view class="img">
-			<image class="desc-img" src="../../static/images/pagesA/dapp/desc-img.png" mode=""></image>
+			<image class="desc-img" :src="img" mode=""></image>
 		</view>
 	</view>
 </template>
@@ -24,13 +22,44 @@
 		},
 		data() {
 			return {
-				showPinMask:true,
-				
+				title:'',
+				time:'',
+				content:'',
+				img:'',
+				id:''
 			};
 		},
 
 		onLoad(options) {
-
+			this.id = options.id
+			//根据id获取详情
+			//获取快讯列表
+			uni.request({
+				url: this.baseUrl + "/news-detail",
+				data:{
+					Id:this.id
+				},
+				header:{
+					Authorization:uni.getStorageSync('token')
+				},
+				success: (res) => {
+					console.log(res)
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
+					} else if(res.data.status==1){
+						this.title = res.data.data.Title
+						this.img = res.data.data.myImgs
+						this.content = res.data.data.Content
+						this.time = this.$base1._formatDate(res.data.data.AddTime)
+					}else{
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none'
+						})
+					}
+					
+				}
+			})
 		},
 		onPullDownRefresh() {
 

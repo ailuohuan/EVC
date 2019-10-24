@@ -24,37 +24,37 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.bgbox.data-v-5212d746 {
+.bgbox.data-v-7123524e {
   background-color: #F8F8F8;
   height: 20rpx;
 }
-.content.data-v-5212d746 {
+.content.data-v-7123524e {
   background-color: #fff;
   font-size: 24rpx;
   color: #333;
   height: 1334rpx;
 }
-.content .top.data-v-5212d746 {
+.content .top.data-v-7123524e {
     font-size: 30rpx;
     margin-top: 20rpx;
     padding: 20rpx 20rpx;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
-.content .list-item.data-v-5212d746 {
+.content .list-item.data-v-7123524e {
     line-height: 50rpx;
 }
-.content .font26.data-v-5212d746 {
+.content .font26.data-v-7123524e {
     font-size: 26rpx;
 }
-.content .product-list-item.data-v-5212d746 {
+.content .product-list-item.data-v-7123524e {
     height: 120rpx;
     width: 100%;
 }
-.content .product-list-item .title.data-v-5212d746 {
+.content .product-list-item .title.data-v-7123524e {
       line-height: 60rpx;
 }
-.content .product-list-item .desc.data-v-5212d746 {
+.content .product-list-item .desc.data-v-7123524e {
       display: inline-block;
       text-align: center;
       line-height: 36rpx;
@@ -66,20 +66,20 @@
       background-color: rgba(56, 194, 98, 0.1);
       border: 2rpx solid #38C262;
 }
-.content .percent.data-v-5212d746 {
+.content .percent.data-v-7123524e {
     margin-top: 20rpx;
     font-size: 36rpx;
     color: #FF3400;
     font-weight: bold;
 }
-.content .rule.data-v-5212d746 {
+.content .rule.data-v-7123524e {
     height: 100rpx;
 }
-.content .margin-top15.data-v-5212d746 {
+.content .margin-top15.data-v-7123524e {
     margin-top: 15rpx;
 }
 /*弹窗样式*/
-.prompt-box.data-v-5212d746 {
+.prompt-box.data-v-7123524e {
   position: absolute;
   left: 0;
   top: 0;
@@ -88,7 +88,7 @@
   z-index: 11;
   background: rgba(0, 0, 0, 0.3);
 }
-.prompt-content.data-v-5212d746 {
+.prompt-content.data-v-7123524e {
   position: absolute;
   left: 50%;
   top: 40%;
@@ -108,12 +108,12 @@
   text-align: center;
   padding: 34rpx 50rpx 56rpx;
 }
-.prompt-content .icon.data-v-5212d746 {
+.prompt-content .icon.data-v-7123524e {
     position: absolute;
     right: 52rpx;
     top: 36rpx;
 }
-.prompt-input.data-v-5212d746 {
+.prompt-input.data-v-7123524e {
   margin-top: 80rpx;
   width: 100%;
   height: 88rpx;

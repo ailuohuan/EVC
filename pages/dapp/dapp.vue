@@ -16,150 +16,80 @@
 
 		</view>
 
-		<view class="notice" @tap="jumpToManageMoney(0)">
+		<!-- <view class="notice" @tap="jumpToManageMoney(0)">
 			<text class="iconfont icon1">&#xe63f;</text>
 			sdfsdfsdsdfsdfsdfsddffsdfds哩哩啦啦即将上线！
-		</view>
+		</view> -->
 		<view class="bgbox">
 
 		</view>
 		<view class="recommend flex-between padding">
-			<text>热门推荐</text> <text class="iconfont font-gray">&#xea25;</text>
+			<text>热门推荐</text> <!-- <text class="iconfont font-gray">&#xea25;</text> -->
 		</view>
 
-		<view class="flex-around">
+		<view class="flex-around" >
 			<image @tap="jumpToLogin" class="logo-img" src="../../static/images/pagesA/dapp/logo1.png" mode=""></image>
-			<image class="logo-img" src="../../static/images/pagesA/dapp/logo2.png" mode=""></image>
-			<image class="logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+			<image  @tap="waiting" class="logo-img" src="../../static/images/pagesA/dapp/logo2.png" mode=""></image>
+			<image  @tap="waiting" class="logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
 		</view>
-		<view class="flex-around">
+		<view class="flex-around" @tap="waiting">
 			<view class="logo-img-text text-center">
 				Aggregate ecology
 			</view>
-			<view class="logo-img-text text-center">
+			<view class="logo-img-text text-center"  @tap="waiting">
 				U钱包
 			</view>
-			<view class="logo-img-text text-center">
+			<view class="logo-img-text text-center"  @tap="waiting">
 				平安壹钱包
 			</view>
 		</view>
 
 		<view class="choice-type padding">
 			<view class="choice-type1">最新</view>
-			<view class="font-gray">
+			<!-- <view class="font-gray">
 				<text>查看更多</text><text class="iconfont icon">&#xea25;</text>
-			</view>
+			</view> -->
 		</view>
 		<view class="product-list ">
-			<view class="product-list-item ">
+			<view class="product-list-item " @tap="waiting" v-for="item in applist" :key="item.id">
 				<view class="flex padding">
 					<view>
-						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
+						<image class="more-logo-img" :src="item.img" mode=""></image>
 					</view>
-					<view class="">
+					<view class="" @tap="waiting">
 						<view class="">
-							许多卡 Stocard
+							{{item.title}}
 						</view>
 						<view class="font-gray">
-							会员卡
+							{{item.desc}}
 						</view>
 					</view>
 				</view>
 			</view>
-			<view class="product-list-item ">
-				<view class="flex padding">
-					<view>
-						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
-					</view>
-					<view class="">
-						<view class="">
-							许多卡 Stocard
-						</view>
-						<view class="font-gray">
-							会员卡
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="product-list-item ">
-				<view class="flex padding">
-					<view>
-						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
-					</view>
-					<view class="">
-						<view class="">
-							许多卡 Stocard
-						</view>
-						<view class="font-gray">
-							会员卡
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="product-list-item ">
-				<view class="flex padding">
-					<view>
-						<image class="more-logo-img" src="../../static/images/pagesA/dapp/logo3.png" mode=""></image>
-					</view>
-					<view class="">
-						<view class="">
-							许多卡 Stocard
-						</view>
-						<view class="font-gray">
-							会员卡
-						</view>
-					</view>
-				</view>
-			</view>
+			
 		</view>
 		<view class="choice-type padding">
 			<view class="choice-type1">实时资讯</view>
-			<view class="font-gray">
+			<!-- <view class="font-gray">
 				<text>查看更多</text><text class="iconfont icon">&#xea25;</text>
-			</view>
+			</view> -->
 		</view>
-		<view class="flex-between desc-box">
+		<view class="flex-between desc-box" v-for="(item,index) in newsList" :key="item.id" @tap="jumpToTextDetail(index)">
 			<view class="">
 				<view class="desc-text ">
-					国泰国证食品饮料行业指数分级 2019年上半年度盈利
-					国泰国证食品饮料行业指数分级 2019年上半年度盈利
+					{{item.Title}}
 				</view>
 				<view class="flex-between font-gray">
-					<text class="">36分钟前</text><text class="">25463阅读</text>
+					<text class="">{{$base1._formatDate(AddTime)}}</text>
+					<!-- <text class="">25463阅读</text> -->
 				</view>
 			</view>
 			<view class="">
-				<image class="desc-img" src="../../static/images/pagesA/dapp/desc1.png" mode=""></image>
+				<image class="desc-img" :src="item.Imgs" mode=""></image>
 			</view>
 		</view>
-		<view class="flex-between desc-box">
-			<view class="">
-				<view class="desc-text ">
-					国泰国证食品饮料行业指数分级 2019年上半年度盈利
-					国泰国证食品饮料行业指数分级 2019年上半年度盈利
-				</view>
-				<view class="flex-between font-gray">
-					<text class="">36分钟前</text><text class="">25463阅读</text>
-				</view>
-			</view>
-			<view class="">
-				<image class="desc-img" src="../../static/images/pagesA/dapp/desc1.png" mode=""></image>
-			</view>
-		</view>
-		<view class="flex-between desc-box">
-			<view class="">
-				<view class="desc-text ">
-					国泰国证食品饮料行业指数分级 2019年上半年度盈利
-					国泰国证食品饮料行业指数分级 2019年上半年度盈利
-				</view>
-				<view class="flex-between font-gray">
-					<text class="">36分钟前</text><text class="">25463阅读</text>
-				</view>
-			</view>
-			<view class="">
-				<image class="desc-img" src="../../static/images/pagesA/dapp/desc1.png" mode=""></image>
-			</view>
-		</view>
+	
+		
 
 	</view>
 	</view>
@@ -172,74 +102,47 @@
 				hoverColor: '#4C70FF',
 				swiperImg: [{
 						Img: "../../static/images/pagesA/login/banner.png"
-					},
-					{
-						Img: "../../static/images/pagesA/login/banner.png"
-					},
-					{
-						Img: "../../static/images/pagesA/login/banner.png"
 					}
 				],
 				current: 0,
 				swiperCurrent: 0,
-				activity: [{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					},
-					{
-						Title: '1',
-						MaxDay: '',
-						Remark: '2',
-						MaxRate: '3'
-					}
+				applist:[
+					{img:'../../static/images/pagesA/dapp/logo4.png',title:'许多卡 Stocard',desc:'会员卡'},
+					{img:'../../static/images/pagesA/dapp/logo5.png',title:'快鱼',desc:'消费平台'},
+					{img:'../../static/images/pagesA/dapp/logo3.png',title:'来花花',desc:'移动金融信用管家'},
+					{img:'../../static/images/pagesA/dapp/logo2.png',title:'闪现',desc:'安全交易平台'}
 				],
-				activityId: '',
-				productList: [{
-						dayText: '产品一号',
-						Yield: '2',
-						IsDay: '产品一号',
-						NodeDay: '放行',
-						PenalSumRatio: '5'
-					},
-					{
-						dayText: '1',
-						Yield: '2',
-						IsDay: '3',
-						NodeDay: '4',
-						PenalSumRatio: '5'
-					},
-					{
-						dayText: '1',
-						Yield: '2',
-						IsDay: '3',
-						NodeDay: '4',
-						PenalSumRatio: '5'
-					}
-				]
+				newsList:[]
+			
 			};
 		},
 		onLoad() {
-
+			//获取快讯列表
+			uni.request({
+				url: this.baseUrl + "/news-list",
+				data:{
+					page: 1,
+					count: 10000
+				},
+				header:{
+					Authorization:uni.getStorageSync('token')
+				},
+				success: (res) => {
+					console.log(res)
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
+					} else if(res.data.status==1){
+						this.newsList = res.data.data.list
+						
+					}else{
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none'
+						})
+					}
+					
+				}
+			})
 		},
 		onNavigationBarButtonTap() {
 			console.log("22222")
@@ -263,6 +166,18 @@
 					this.active = 0
 				}
 			},
+			waiting(){
+				uni.showToast({
+					title:"正在开发中...",
+					icon:'none'
+				})
+			},
+			jumpToTextDetail(index){
+				console.log(this.newsList[index].Id)
+				uni.navigateTo({
+					url:"./text-detail?id="+this.newsList[index].Id
+				})
+			}
 
 		}
 

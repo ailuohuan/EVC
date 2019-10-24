@@ -56,9 +56,12 @@ const wallet = {
 	},
 	importByPrivateKey(privateKey,pin,callback){//通过私钥导入钱包
 		let wallet = eth.importByPrivateKey(privateKey);
-		console.log(JSON.stringify(wallet));
+		let currentWallet = this.getCurrentWallet() || [];
+		console.log(JSON.stringify(currentWallet));
 		if(wallet.status == 2){
 			base._toast('私钥输入错误，请检查');
+		}else if(currentWallet.address === wallet.address){
+			base._toast('钱包已经存在，不需再次导入');
 		}else if(wallet.status == 1){
 			this.walletSuccess(pin,wallet);
 			callback();
@@ -66,9 +69,12 @@ const wallet = {
 	},
 	importByMnemonic(mnemonic,pin,callback){//通过助记词导入钱包
 		let wallet = eth.importByMnemonic(mnemonic.replace(/,/g," "));
+		let currentWallet = this.getCurrentWallet() || [];
 		console.log(JSON.stringify(wallet));
 		if(wallet.status == 3){
 			base._toast('助记词输入错误，请检查');
+		}else if(currentWallet.address === wallet.address){
+			base._toast('钱包已经存在，不需再次导入');
 		}else if(wallet.status == 1){
 			this.walletSuccess(pin,wallet);
 			callback();

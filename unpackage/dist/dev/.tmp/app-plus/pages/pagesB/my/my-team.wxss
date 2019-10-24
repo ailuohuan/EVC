@@ -152,6 +152,7 @@
 }
 .content .list {
     font-size: 22rpx;
+    margin-bottom: 100rpx;
 }
 .content .list .list-item {
       height: 160rpx;

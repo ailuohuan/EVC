@@ -8,7 +8,7 @@
 			<text v-for="(item,index) in chooseMnemonic" :key="index">{{item}}</text>
 		</view>
 		<view class="mnemonic-wrap">
-			<view class="item" v-for="(item,index) in mnemonic" :key="index" @click="inputMnemonic(item)">{{item}}</view>
+			<view class="item" v-for="(item,index) in sj_mnemonic" :key="index" @click="inputMnemonic(item)">{{item}}</view>
 		</view>
 		<view class="flex">
 			<button class="plain blue" @click="before">上一步</button>
@@ -24,15 +24,17 @@
 		data() {
 			return {
 				mnemonic: [],
+				sj_mnemonic: [],
 				chooseMnemonic: []
 			}
 		},
 		onLoad() {
 			this.mnemonic = this.$Wallet.getCurrentWallet().mnemonic.split(' ');
-			this.mnemonic = this.mnemonic.sort(function() {
+			console.log(this.mnemonic);
+			this.sj_mnemonic = [...this.mnemonic];
+			this.sj_mnemonic = this.sj_mnemonic.sort(function() {
 			    return .5 - Math.random();
 			});
-			console.log(this.mnemonic);
 		},
 		methods: {
 			before(){
@@ -44,6 +46,8 @@
 				this.chooseMnemonic.push(item);
 			},
 			sureBackup(){
+				console.log(this.mnemonic.toString());
+				console.log(this.chooseMnemonic.toString());
 				if(this.mnemonic.toString() == this.chooseMnemonic.toString()){
 					uni.switchTab({
 						url: "wallet"

@@ -22,16 +22,17 @@
 		data() {
 			return {
 				emailNum:'',
-				autocode:'',
+				authcode:'',
 				opcity:0.5,
 				password:'',
 				surepassword:'',
-				emailNum:''
+				
 			}
 		},
 		onLoad(options) {
 			this.emailNum = options.emailNum
-			this.autocode = options.autocode
+			this.authcode = options.authcode
+			console.log(this.authcode)
 		},
 		onReady() {
 			
@@ -44,11 +45,12 @@
 						icon:"none"	
 					})
 				}else{
+					console.log(this.authcode)
 					uni.request({
 						url: this.baseUrl + "/member-forget-paypassword",
 						data:{
 							Email: this.emailNum,
-							AuthCode:this.autocode,
+							AuthCode:this.authcode,
 							NewPayPassword:this.password,
 							RepeatPayPassword:this.surepassword
 						},

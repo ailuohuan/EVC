@@ -24,7 +24,7 @@
 				<text class="font-middle">合计金额</text><text class="font-gray">可用：{{$base1._toFixed(balance,4) }}USDT</text>
 			</view>
 			<view class="">
-				<input class="input-num" type="text" value="10USDT" />
+				<input class="input-num" type="text" value="10.0000USDT" />
 			</view>
 			<view class="">
 				<view class="font-gray">

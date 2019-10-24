@@ -36,7 +36,7 @@
 					投资金额
 				</view>
 				<view class="">
-					{{number}} USDT
+					{{$base1._toFixed(number,4) }} USDT
 				</view>
 			</view>
 			<view class="rule padding flex-between">
@@ -60,7 +60,7 @@
 					锁仓数量
 				</view>
 				<view class="">
-					{{numEVC}} USDT
+					{{$base1._toFixed(numEVC,4)}} EVC
 				</view>
 			</view>
 		</view>
@@ -128,7 +128,7 @@
 							this.paytime=''
 							this.passtime=''
 						}
-						if(this.state==3){
+						if(this.state==3||this.state==4){
 							this.paytime=''
 						}
 						this.numEVC= res.data.data.NumberEVC

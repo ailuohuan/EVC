@@ -20,16 +20,16 @@
 		<view class="coin-wrap">
 			<view class="title">我的资产</view>
 			<view class="coin-list">
-				<navigator class="flex-between coin-item" v-for="(item,index) in coinList" :key="index" :url="'../coin/detail?coinItem='+JSON.stringify(item)+'&num='+getSimple(item.EnName)+'&money='+getCny(item.Price,getSimple(item.EnName))" >
+				<view class="flex-between coin-item" v-for="(item,index) in coinList" :key="index" @click="goDetail(item)">
 					<view class="flex">
-						<image :src="item.Logo.trim() ? item.Logo : defaultImg" @error="item.logo = defaultImg"></image>
+						<image :src="item.Logo ? item.Logo : defaultImg" @error="imageError(item)"></image>
 						<text class="name">{{item.EnName}}</text>
 					</view>
 					<view class="text-right">
 						<view>{{hidden ? '****' : getSimple(item.EnName)}}</view>
 						<view class="font-gray font-small">￥{{hidden ? '****' : getCny(item.Price,getSimple(item.EnName))}}</view>
 					</view>
-				</navigator>
+				</view>
 			</view>
 		</view>
 		<uni-popup ref="popup" type="center">
@@ -168,9 +168,6 @@
 				});
 			},
 			getBalance(){
-				uni.showLoading({
-				    title: '余额获取中'
-				});
 				let self = this , tempCoinBalance = {};
 				for(let i = 0 , len = this.coinList.length; i < len; i++){
 					this.$Wallet.getBalance(this.wallet.address,this.coinList[i].Ext,this.coinList[i].Decimals,function(balance){
@@ -187,7 +184,6 @@
 							self.wallet = self.$Wallet.getCurrentWallet();
 							self.coinBalance = JSON.parse(self.wallet.coin);
 							self.getTotalMoney();
-							uni.hideLoading();
 						}
 					});
 				}
@@ -198,6 +194,15 @@
 					temp += parseFloat(this.getCny(item.Price,this.coinBalance[item.EnName]));
 				});
 				this.totalMoney = this.app._toFixed(temp,4);
+			},
+			goDetail(item){
+				let self = this;
+				uni.navigateTo({
+					url: `../coin/detail?coinItem=${JSON.stringify(item)}&num=${self.getSimple(item.EnName)}&money=${self.getCny(item.Price,self.getSimple(item.EnName))}`
+				});
+			},
+			imageError(item){
+				item.Logo = this.defaultImg;
 			}
 		}
 	}
@@ -214,7 +219,7 @@
 	.assets-wrap .wallet-address .icon-erweima{font-size: 28upx;margin-left: 12upx;position: relative;top: 2upx;}
 	.coin-wrap .title{font-weight: bold;padding: 24upx 0;}
 	.coin-list .coin-item{border-bottom: 1px solid #FAFAFA;padding: 26upx 0;}
-	.coin-list .coin-item image{width: 56upx;height: 56upx;}
+	.coin-list .coin-item image{width: 56upx;height: 56upx;border-radius: 50%;}
 	.coin-list .coin-item .name{font-weight: bold;margin-left: 18upx;}
 	.wallet-manage{padding: 24upx;}
 	.wallet-title{font-size: 36upx;position: relative;}

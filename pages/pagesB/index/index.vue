@@ -15,8 +15,8 @@
 			</view>
 		</view>
 		<view class="notice">
-			<text class="iconfont icon1">&#xe63f;</text>
-			Aggregate ecology 1.0即将上线！
+			<text class="iconfont icon2">&#xe63f;</text>
+			{{title}}
 		</view>
 		<view class="recommend">
 			热门产品
@@ -64,7 +64,7 @@
 			</view>
 		</view>
 		<uni-load-more :status="loadingType"></uni-load-more>
-		<evc-tabbar :fontColor1="fontColor1" :indexImg="indexImgSelect"></evc-tabbar>
+		<evc-tabbar :tag="'index'" :fontColor1="fontColor1" :indexImg="indexImgSelect" :disabled="disabled"></evc-tabbar>
 	</view>
 </template>
 
@@ -90,7 +90,9 @@
 				loadingType: 'more',
 				total1:0,
 				total2:0,
-				levelBgc:''
+				levelBgc:'',
+				title:'',
+				disabled:false,
 			};
 		},
 		onLoad() {
@@ -118,6 +120,8 @@
 					
 				}
 			})
+			
+			
 			//此页做下拉刷新跟上拉加载
 			var _self = this
 			if(!uni.getStorageSync("token")){
@@ -199,6 +203,36 @@
 						
 					}
 				})
+				
+				//获取公告
+				
+				uni.request({
+					url: this.baseUrl + "/notice-list",
+					data:{
+						page: 1,
+						count: 10000
+					},
+					header:{
+						Authorization:uni.getStorageSync('token')
+					},
+					success: (res) => {
+						console.log(res)
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
+						} else if(res.data.status==1){
+							this.title = res.data.data[0].Title
+							
+						}else{
+							uni.showToast({
+								title: res.data.message,
+								icon: 'none'
+							})
+						}
+						
+					}
+				})
+				
+				
 				//我的广告包
 				uni.request({
 					url: this.baseUrl + "/my-product",
@@ -390,10 +424,11 @@
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			justify-content: space-around;
+			// justify-content: space-around;
 
 			.icon2 {
-				font-size: 24rpx;
+				font-size: 36rpx;
+				margin-right: 20rpx;
 			}
 		}
 
@@ -402,11 +437,15 @@
 			font-weight: bold;
 			margin-top: 62rpx;
 			margin-bottom: 30rpx;
+			// display: flex;
+			// flex-direction: row;
+			// justify-content: space-between;
 		}
 
 		.recommend-product {
 			position: relative;
 			display: inline-block;
+			
 			margin-top: 30rpx;
 			height: 262rpx;
 			width: 320rpx;
@@ -415,7 +454,7 @@
 			line-height: 60rpx;
 			box-sizing: border-box;
 			padding: 5rpx;
-			margin-right: 20rpx;
+			margin-right: 24rpx;
 			
 			.title {
 				padding-top: 30rpx;

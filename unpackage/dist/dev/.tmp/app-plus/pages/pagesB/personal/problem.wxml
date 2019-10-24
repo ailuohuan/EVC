@@ -1,1 +1,1 @@
-<view class="content"><view class="bgbox"></view><block wx:for="{{list}}" wx:for-item="item" wx:for-index="__i0__" wx:key="id"><view><view class="top">{{item.Question+"?"}}</view><view class="answer">{{"答： "+item.Answer}}</view></view></block></view>
+<view class="content"><view class="bgbox"></view><view><view class="top">{{question+"?"}}</view><view class="answer">{{"答： "+answer}}</view></view></view>

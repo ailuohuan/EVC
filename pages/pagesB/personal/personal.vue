@@ -3,7 +3,10 @@
 		<view class="user-wrap">
 			<view class="user-bg">
 				<view class="top text-center">
-					<view class="hot" v-show="status==1" @tap="unsealing">
+					<view class="hot" v-if="status==0" :style="{background:showLevelBgc(planLevel)}" >
+						V{{planLevel}} 
+					</view>
+					<view class="hot" v-else @tap="unsealing">
 						{{status==0?"":"点击解封"}}
 					</view>
 					<image class="head-img" :src="avatar" mode=""></image>
@@ -60,7 +63,7 @@
 					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				</view>
 			</navigator>
-			<view class="item flex-between border-bottom">
+		<!-- 	<view class="item flex-between border-bottom">
 				
 				<view class="flex">
 					<i class="iconfont font-big  icon-bangzhu"></i>
@@ -68,7 +71,8 @@
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				
-			</view>
+			</view> -->
+			<navigator url="./userform">
 			<view class="item flex-between border-bottom">
 				<view class="flex">
 					<i class="iconfont font-big  icon-RectangleCopy3"></i>
@@ -76,6 +80,8 @@
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 			</view>
+			</navigator>
+			<navigator url="./aboutus">
 			<view class="item flex-between border-bottom">
 				<view class="flex">
 					<i class="iconfont font-big  icon-wode"></i>
@@ -83,6 +89,7 @@
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 			</view>
+			</navigator>
 		</view>
 		<view class="" v-show="status==1">
 			<view class="font-red text-center font22 margin-top">
@@ -92,7 +99,7 @@
 				解封后收益正常产生
 			</view>
 		</view>
-		<evc-tabbar :fontColor4="fontColor4" :myImg="myImgSelect"></evc-tabbar>
+		<evc-tabbar :tag="'my'" :fontColor4="fontColor4" :myImg="myImgSelect"></evc-tabbar>
 		
 	
 	</view>
@@ -110,7 +117,8 @@
 				myImgSelect: '../../../static/images/evctabbar/myselect.png',
 				nickname: '',
 				avatar: '',
-				status:''
+				status:'',
+				planLevel:''
 			}
 		},
 		onNavigationBarButtonTap(e) {
@@ -137,7 +145,7 @@
 						this.nickname = res.data.data.NickName
 						this.avatar ='http://ceshi.8kpay.com/' + res.data.data.Avatar
 						this.status = res.data.data.IsForbidden
-						// this.status = 1
+						this.planLevel = res.data.data.PlanLevel
 						
 					} else {
 						uni.showToast({
@@ -149,6 +157,15 @@
 			})
 		},
 		methods: {
+			showLevelBgc(level){
+				if(level==1){
+					return  'linear-gradient(#FF727C, #FFA8AE)'
+				}else if(level==2){
+					return  'linear-gradient(#7FCCFF, #0099FF)'
+				}else if(level==3){
+					return  'linear-gradient(#FFC744, #FF9100)'
+				}
+			},
 			jumpToInvite(){
 				uni.navigateTo({
 						url: "./invite"

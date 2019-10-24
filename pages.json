@@ -129,7 +129,8 @@
 		{
 			"path": "pages/market/market",
 			"style": {
-				"navigationBarTitleText": "行情"
+				"navigationBarTitleText": "行情",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/dapp/dapp",
@@ -314,27 +315,7 @@
 				}
 			}
 		},
-		{
-			"path": "pages/pagesB/my/my-team2",
-			"style": {
-				"navigationBarTitleText": "我的团队",
-				"app-plus": {
-					"titleNView": {
-						"type": "default",
-						"titleColor": "#333333",
-						"backgroundColor": "#fff",
-						"titleSize": "36rpx",
-						"buttons": [{
-								"text": "EVC",
-								"fontSrc": "/static/font/iconfont.ttf",
-								"fontSize": "13px",
-								"float": "left"
-							}
-						]
-					}
-				}
-			}
-		},
+		
 		{
 			"path": "pages/pagesB/personal/personal",
 			"style": {
@@ -354,7 +335,20 @@
 				}
 			}
 		},
-		
+		{
+			"path": "pages/pagesB/personal/aboutus",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/userform",
+			"style": {
+				"navigationBarTitleText": "用户协议"
+			
+			}
+		},
 		{
 			"path": "pages/pagesB/personal/unsealing",
 			"style": {

@@ -1,8 +1,8 @@
 <template>
 	<view class="content padding">
-		<view class="middle text-center" @tap="jumpToMyTeam2">
+		<view class="middle text-center">
 			<view class="all">
-				<text>团队总业绩(社区收益{{$base1._showZero(ratio) }}%)</text>
+				<text>团队总业绩(社区收益{{$base1._showZero(ratio*100) }}%)</text>
 			</view>
 			<view class="all-num ">
 				<text class="font-bold">{{$base1._toFixed(teamAchievement,4)}}</text>  <text class="font-middle">USDT</text>
@@ -21,7 +21,7 @@
 		<view class="list" v-for="item in inviteList" :key="item.id">
 			<view class="list-item">
 				<view class="list-item-left">
-					<image class="img" :src="item.Avatar" mode="widthFix"></image>
+					<image class="img" :src="'http://ceshi.8kpay.com/' + item.Avatar" mode="scaleToFill"></image>
 					<view class="">
 						<view class="flex-row">
 							<view class="font-middle">
@@ -51,7 +51,7 @@
 						个人业绩
 					</view>
 					<view class="">
-						<text class="orange font-bold">{{$base1._toFixed(item.Achievement,2) }}</text><text>USDT</text>
+						<text class="orange font-bold">{{$base1._toFixed(item.Achievement,4) }}</text><text>USDT</text>
 					</view>
 				</view>
 				<view class="">
@@ -64,7 +64,7 @@
 				</view>
 			</view>
 		</view>
-<evc-tabbar :fontColor3="fontColor3" :teamImg="teamImgSelect"></evc-tabbar>
+<evc-tabbar :tag="'team'" :fontColor3="fontColor3" :teamImg="teamImgSelect"></evc-tabbar>
 
 	</view>
 </template>
@@ -158,11 +158,7 @@
 					}
 				})
 			},
-			jumpToMyTeam2(){
-				uni.navigateTo({
-					url:"./my-team2"
-				})
-			},
+			
 			showLevelImg(level){
 				if(level=="普通会员"){
 					return ''
@@ -276,7 +272,7 @@
 		}
 		.list {
 			font-size: 22rpx;
-
+			margin-bottom: 100rpx;
 			.list-item {
 				height: 160rpx;
 				width: 100%;

@@ -55,14 +55,12 @@
 		},
 		onLoad(opt) {
 			this.wallet = this.$Wallet.getCurrentWallet();
-			console.log(opt.num);
-			console.log(opt.money);
-			this.num = opt.num;
-			this.money = opt.money;
 			this.coinItem = JSON.parse(opt.coinItem);
 			uni.setNavigationBarTitle({
 				title: this.coinItem.EnName
 			});
+			this.num = opt.num;
+			this.money = opt.money;
 			this.getList();
 		},
 		methods: {
