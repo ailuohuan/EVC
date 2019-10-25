@@ -33,7 +33,7 @@
 }
 .content .percent {
     margin-top: 20rpx;
-    font-size: 58rpx;
+    font-size: 50rpx;
     color: #FF3400;
     font-weight: bold;
 }
@@ -135,12 +135,10 @@
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
 }
 .content .notice .icon2 {
-      font-size: 24rpx;
+      font-size: 36rpx;
+      margin-right: 20rpx;
 }
 .content .recommend {
     font-size: 32rpx;
@@ -153,7 +151,7 @@
     display: inline-block;
     margin-top: 30rpx;
     height: 262rpx;
-    width: 334rpx;
+    width: 320rpx;
     -webkit-box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
             box-shadow: 0 0 12rpx rgba(37, 144, 254, 0.1);
     text-align: left;
@@ -161,6 +159,7 @@
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
     padding: 5rpx;
+    margin-right: 24rpx;
 }
 .content .recommend-product .title {
       padding-top: 30rpx;

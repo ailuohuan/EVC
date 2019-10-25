@@ -79,9 +79,9 @@
 				<view class="desc-text ">
 					{{item.Title}}
 				</view>
-				<view class="flex-between font-gray">
-					<text class="">{{$base1._formatDate(AddTime)}}</text>
-					<!-- <text class="">25463阅读</text> -->
+				<view class="flex-between font-gray desc-num">
+					<view class="">{{$base1._formatDate(item.AddTime)}}</view>
+					<view class="">{{item.ReadNum}}阅读</view>
 				</view>
 			</view>
 			<view class="">
@@ -152,9 +152,16 @@
 		},
 		methods: {
 			jumpToLogin(){
-				uni.navigateTo({
-					url:"../pagesB/login/login"
-				})
+				if(uni.getStorageSync('token')){
+					uni.navigateTo({
+						url:"../pagesB/index/index"
+					})
+				}else{
+					uni.navigateTo({
+						url:"../pagesB/login/login"
+					})
+				}
+				
 			},
 			changeSwiper(e) {
 				this.swiperCurrent = e.detail.current;
@@ -287,6 +294,7 @@
 			}
 		}
 		.desc-box{
+			width: 100%;
 			height: 240rpx;
 			padding: 20rpx 30rpx;
 			border-top: 2rpx solid #E6E6E6;
@@ -303,6 +311,9 @@
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			margin-bottom: 30rpx;
+		}
+		.desc-num{
+			width: 680rpx;
 		}
 		.desc-img{
 			width: 250rpx;

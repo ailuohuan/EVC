@@ -3,9 +3,7 @@
 		<view class="bgbox">
 
 		</view>
-		<view>
-			<view class="top" v-html="container"></view>
-			
+		<view v-html="container">
 		</view>
 		
 

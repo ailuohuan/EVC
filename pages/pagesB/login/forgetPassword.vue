@@ -38,16 +38,14 @@
 		},
 		methods: {
 			sendCode(){
+				this.nosendCode = true
 				uni.request({
 					url: this.baseUrl + "/email-modify-pass",
 					data:{
 						Email: this.emailNum
 					},
 					method:"POST",
-					// header: {
-					// 	//除注册登录外其他的请求都携带用户token和秘钥
-					// 	Authorization: uni.getStorageSync('token')
-					// },
+					
 					success: (res) => {
 						console.log(res.data)
 						 if (res.data.status == 1) {
@@ -56,6 +54,7 @@
 								title:res.data.message
 							})
 						} else {
+							this.nosendCode = false
 							uni.showToast({
 								title: res.data.message,
 								icon: "none"

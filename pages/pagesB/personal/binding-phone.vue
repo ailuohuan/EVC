@@ -30,10 +30,11 @@
 					text: '获取验证码',
 					codeTime: 60
 				},
+				pages:''
 			}
 		},
-		onLoad() {
-
+		onLoad(options) {
+		this.pages = options.pages
 		},
 		onReady() {
 
@@ -71,6 +72,7 @@
 				})
 			},
 			comfirme() {
+				this.nosendCode = true
 				//绑定手机号
 				uni.request({
 					url: this.baseUrl + "/bind-phone",
@@ -86,16 +88,27 @@
 					success: (res) => {
 						console.log(res.data)
 						if (this.$base1._indexOf(res.data.status)) {
+							this.nosendCode =false
 							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							uni.showToast({
 								title: res.data.message,
 								icon: "none"
 							})
-							uni.navigateTo({
-								url: "./personal"
-							})
+							if(this.pages==1){
+								
+								uni.navigateTo({
+									url: "../wallet/transfer-num"
+								})
+							}else{
+								
+								uni.navigateTo({
+									url: "./personal"
+								})
+							}
+							
 						} else {
+							this.nosendCode =false
 							uni.showToast({
 								title: res.data.message,
 								icon: "none"

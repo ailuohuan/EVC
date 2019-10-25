@@ -150,7 +150,7 @@
         }
       }
     },
-    "arguments": "{\"name\":\"test\",\"id\":0,\"pathName\":\"pages/pagesB/index/index\"}",
+    "arguments": "{\"name\":\"test\",\"id\":0,\"pathName\":\"pages/pagesB/login/register\"}",
     "allowsInlineMediaPlayback": true,
     "safearea": {
       "background": "#FFFFFF",
@@ -159,7 +159,7 @@
       }
     },
     "uni-app": {
-      "compilerVersion": "2.3.6",
+      "compilerVersion": "2.3.7",
       "control": "v8",
       "nvueCompiler": "uni-app",
       "renderer": "auto",

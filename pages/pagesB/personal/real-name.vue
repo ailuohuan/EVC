@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-		<!-- <uni-steps class="steps1" :options="list1" :active="active" :activeColor="activeColor" /> -->
 		
 		<view class="input-wrap">
 			<view>
@@ -16,14 +15,10 @@
 				
 				<input class="input-num margin-top"  placeholder="请输入身份证号" placeholder-class="input-placeholder" v-model="indentifyCardNum">
 			</view>
-			
-
 		</view>
 		<view>
 			<button class="blue" hover-class="none" :style="{opacity:opcity}" @click="comfirme">下一步</button>
-		
 		</view>
-
 	</view>
 </template>
 
@@ -36,20 +31,15 @@
 		},
 		data() {
 			return {
-				// activeColor: "#4C70FF",
-				// list1: [{
-				// 	title: '',desc:'请填写身份信息'
-				// }, {
-				// 	title: '',desc:'请上传身份证反面'
-				// }],
-				// active: 3,
+				
 				realname: '',
 				indentifyCardNum: '',
 				opcity: 0.5
 			}
 		},
 		onLoad() {
-
+			//判断用户认证状态，如果已认证提示用户认证状态
+			
 		},
 		onReady() {
 

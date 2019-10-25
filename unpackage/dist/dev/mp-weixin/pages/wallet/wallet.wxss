@@ -9,7 +9,7 @@ page{background-color: #FFFFFF;}
 .assets-wrap .wallet-address .icon-erweima{font-size: 28rpx;margin-left: 12rpx;position: relative;top: 2rpx;}
 .coin-wrap .title{font-weight: bold;padding: 24rpx 0;}
 .coin-list .coin-item{border-bottom: 1px solid #FAFAFA;padding: 26rpx 0;}
-.coin-list .coin-item image{width: 56rpx;height: 56rpx;}
+.coin-list .coin-item image{width: 56rpx;height: 56rpx;border-radius: 50%;}
 .coin-list .coin-item .name{font-weight: bold;margin-left: 18rpx;}
 .wallet-manage{padding: 24rpx;}
 .wallet-title{font-size: 36rpx;position: relative;}

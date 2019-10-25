@@ -4,13 +4,13 @@
 			{{title}}
 		</view>
 		<view class="time flex-between">
-			<!-- <text class="font-gray">25463阅读</text> --><text class="font-gray">{{time}}</text>
+			<text class="font-gray">{{readNum}}阅读</text><text class="font-gray">{{time}}</text>
 		</view>
 		<view class="desc font-gray" v-html="content">
 			    
 		</view>
 		<view class="img">
-			<image class="desc-img" :src="img" mode=""></image>
+			<image class="desc-img" :src="img" mode="scaleToFill"></image>
 		</view>
 	</view>
 </template>
@@ -26,7 +26,8 @@
 				time:'',
 				content:'',
 				img:'',
-				id:''
+				id:'',
+				readNum:''
 			};
 		},
 
@@ -48,9 +49,10 @@
 						this.$base1._isLogin()
 					} else if(res.data.status==1){
 						this.title = res.data.data.Title
-						this.img = res.data.data.myImgs
+						this.img = res.data.data.Imgs
 						this.content = res.data.data.Content
 						this.time = this.$base1._formatDate(res.data.data.AddTime)
+						this.readNum =res.data.data.ReadNum
 					}else{
 						uni.showToast({
 							title: res.data.message,
@@ -86,8 +88,9 @@
 			
 		}
 		.desc-img{
+			width: 700rpx;
 			height: 478rpx;
-			width: 100%;
+			
 		}
 	}
 </style>

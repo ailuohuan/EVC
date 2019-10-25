@@ -14,7 +14,7 @@
 				<view class="iconfont font-blue font-big">
 					&#xe63d;
 				</view>
-				<input class="input-left" placeholder="请输入短信验证码" placeholder-class="input-placeholder" v-model="checkCode">
+				<input class="input-left" placeholder="请查看邮箱输入邮箱验证码" placeholder-class="input-placeholder" v-model="checkCode">
 				<button class="get-indentify" :disabled="nosendCode" @click="sendCode">{{sendbtn.text}}</button>
 			</view>
 		</view>

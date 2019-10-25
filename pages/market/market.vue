@@ -53,36 +53,24 @@
 		data() {
 			return {
 				currentNumber: 0, // 用来判断active样式类是否显示
-				statusChange: '',
-				curPage: 1,
-				status: 0,
-				nameList: [],
 				Coinlist:[],
-				id: '',
-				acid:'',
-				
-				list: [
-					
-				]
+				list: []
 			};
 		},
 		onLoad(options) {
-			// if(!uni.getStorageSync("token")&&!uni.getStorageSync("SecretKey")){
-			// 	this.$base1._isLogin()
-			// }
 			this.getCoreDetail()
 		},
 		onPullDownRefresh() {
 			this.getCoreDetail()
-			  setTimeout(function () {
-				  uni.stopPullDownRefresh();
-			  }, 1000);
-		  },
+			setTimeout(function () {
+				uni.stopPullDownRefresh();
+			}, 1000);
+			this.currentNumber = newArray[0];
+			
+		},
 		methods: {
 			currentInfo(index) {
-				console.log(index);
 				this.Coinlist = this.list[index];
-				console.log(JSON.stringify(this.Coinlist));
 				this.currentNumber = index;
 				console.log(this.currentNumber)
 			},
@@ -90,7 +78,6 @@
 			getCoreDetail() {
 				uni.request({
 					url: this.baseUrl + "/coin-kline",
-					
 					header: {
 						//除注册登录外其他的请求都携带用户token和秘钥
 						Authorization: uni.getStorageSync('token')
@@ -99,10 +86,9 @@
 						console.log(res)
 						 if (res.data.status == 1) {
 							this.list = res.data.data
-							console.log(JSON.stringify(this.list))
 							var newArray = Object.keys(this.list);
-							 this.Coinlist = res.data.data[newArray[0]];
-							 
+							this.Coinlist = res.data.data[newArray[0]];
+							this.currentNumber = newArray[0];
 						} else {
 							uni.showToast({
 								title: res.data.message,
@@ -110,27 +96,6 @@
 							})
 						}
 					}
-				})
-			
-			},
-			showState(state){
-				if(state==1){
-					return  "待理财";
-				}else if(state==2){
-					return "理财中"
-				}else if(state==3){
-					return "已撤资"
-				}else if(state==4){
-					return "已完结"
-				}
-			},
-			jumpToManage(index) {
-				this.id = this.nameList[index].Id
-				this.acid = this.nameList[index].ActivityId
-				console.log(this.id)//我的理财id
-				console.log(this.acid)//理财活动id
-				uni.navigateTo({
-					url: "./manage-in?id=" + this.id +"&acid="+this.acid//需要传一个investmentId过去,还需传一个acid过去获取天数
 				})
 			},
 			showBackColor(value){
@@ -199,19 +164,6 @@
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	.active {
 		color: #007AFF;
 		border-bottom: 2rpx solid #007AFF;

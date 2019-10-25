@@ -25,7 +25,7 @@
 						折合CNY
 					</view>
 					<view class="font-bold font36">
-						{{price}}
+						{{$base1._toFixed(price,2)}}
 					</view>
 				</view>
 			</view>

@@ -1,10 +1,8 @@
 <template>
 	<view class="content">
-		<view class="bgbox">
-			
-		</view>
-		<view class="product-list">
-			<view class="product-list-item" v-for="(item,index) in productList" :key="item.id" @tap="myAdDetail(index)">
+		<view class="bgbox"></view>
+		<view class="product-list" >
+			<view class="product-list-item " v-for="(item,index) in productList" :key="item.id" @tap="myAdDetail(index)">
 				<view class="title">
 					<view class="font-bold font-middle">
 						{{item.Name}}
@@ -94,15 +92,12 @@
 	page{
 		background-color: #fff;
 	}
-	.content{
-		padding: 0 58rpx;
-	}
 	
 
 	.product-list-item {
 		height: 256rpx;
 		width: 100%;
-		padding: 30rpx 0;
+		padding: 30rpx 52rpx;
 		box-sizing: border-box;
 		border-bottom: 2rpx solid #E6E6E6;
 	

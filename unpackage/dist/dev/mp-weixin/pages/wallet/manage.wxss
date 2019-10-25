@@ -1,13 +1,13 @@
 
-.wallet-list.data-v-70f559ca{padding: 24rpx;}
-.wallet-list .dott.data-v-70f559ca{position: absolute;right: 20rpx;top: 14rpx;z-index: 20;}
-.wallet-list .icon-more.data-v-70f559ca{font-size: 50rpx;}
-.wallet-list .item.data-v-70f559ca{background:-webkit-gradient(linear,left top, left bottom,from(rgba(0,153,255,1)),to(rgba(0,135,225,1)));background:-o-linear-gradient(top,rgba(0,153,255,1) 0%,rgba(0,135,225,1) 100%);background:linear-gradient(180deg,rgba(0,153,255,1) 0%,rgba(0,135,225,1) 100%);border-radius: 12rpx;margin-bottom: 20rpx;color: #FFFFFF;padding: 34rpx 20rpx;position: relative;}
-.wallet-list .address.data-v-70f559ca{position: relative;}
-.wallet-list .address .title.data-v-70f559ca{opacity: 0.9;margin-bottom: 10rpx;}
-.wallet-list .address .font-small.data-v-70f559ca{opacity: 0.7;}
-.wallet-operate.data-v-70f559ca{background-color: #FFFFFF;}
-.wallet-operate .item.data-v-70f559ca{border-bottom: 1px solid #F7F7F7;text-align: center;padding: 30rpx 0;}
-.wallet-operate .cancle.data-v-70f559ca{border-top: 20rpx solid #F8F8F8;padding: 30rpx 0;text-align: center;}
-.wallet-list .bg.data-v-70f559ca{position: absolute;width: 40rpx;right: 30rpx;bottom: 0;}
+.wallet-list.data-v-393df616{padding: 24rpx;}
+.wallet-list .dott.data-v-393df616{position: absolute;right: 20rpx;top: 14rpx;z-index: 20;}
+.wallet-list .icon-more.data-v-393df616{font-size: 50rpx;}
+.wallet-list .item.data-v-393df616{background:-webkit-gradient(linear,left top, left bottom,from(rgba(0,153,255,1)),to(rgba(0,135,225,1)));background:-o-linear-gradient(top,rgba(0,153,255,1) 0%,rgba(0,135,225,1) 100%);background:linear-gradient(180deg,rgba(0,153,255,1) 0%,rgba(0,135,225,1) 100%);border-radius: 12rpx;margin-bottom: 20rpx;color: #FFFFFF;padding: 34rpx 20rpx;position: relative;}
+.wallet-list .address.data-v-393df616{position: relative;}
+.wallet-list .address .title.data-v-393df616{opacity: 0.9;margin-bottom: 10rpx;}
+.wallet-list .address .font-small.data-v-393df616{opacity: 0.7;}
+.wallet-operate.data-v-393df616{background-color: #FFFFFF;}
+.wallet-operate .item.data-v-393df616{border-bottom: 1px solid #F7F7F7;text-align: center;padding: 30rpx 0;}
+.wallet-operate .cancle.data-v-393df616{border-top: 20rpx solid #F8F8F8;padding: 30rpx 0;text-align: center;}
+.wallet-list .bg.data-v-393df616{position: absolute;width: 40rpx;right: 30rpx;bottom: 0;}
 

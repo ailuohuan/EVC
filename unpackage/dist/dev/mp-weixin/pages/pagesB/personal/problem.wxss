@@ -54,9 +54,8 @@
             box-sizing: border-box;
     border-bottom: 2rpx solid #F1F1F1;
 }
-.content .top .icon {
-      color: #999;
-      font-size: 30rpx;
-      margin-left: 24rpx;
+.content .answer {
+    margin-top: 20rpx;
+    padding: 0 20rpx;
 }
 

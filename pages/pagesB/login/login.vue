@@ -67,7 +67,7 @@
 							uni.setStorageSync("token",res.data.data)
 							console.log(uni.getStorageSync('token'))
 							this.disabled = true
-							uni.navigateTo({
+							uni.redirectTo({
 								url:"../index/index"
 							})
 						} else {

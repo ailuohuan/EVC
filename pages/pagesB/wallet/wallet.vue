@@ -117,7 +117,7 @@
 		},
 		onLoad(options) {
 			
-			//币种余额
+			//总资产
 			uni.request({
 				url: this.baseUrl + "/total-balance",
 				header: {
@@ -129,6 +129,8 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.money = res.data.data
+						
+						
 					} else {
 						uni.showToast({
 							title: res.data.message,
@@ -203,9 +205,16 @@
 				})
 			},
 			jumpToTransferNum() {
-				uni.navigateTo({
-					url: "./transfer-num"
-				})
+				if(!this.money){
+					uni.showToast({
+						title:"您没有可用余额，不能进行提现操作"
+					})
+				}else{
+					uni.navigateTo({
+						url: "./transfer-num"
+					})
+				}
+			
 			},
 			jumToQrcode() {
 				uni.navigateTo({
@@ -220,7 +229,7 @@
 			jumpTocurrencyDetail(index) {
 				uni.navigateTo({
 					url: "./currency-detail?coinId=" + this.coinList[index].Id + "&money=" + this.coinList[index].Money + "&forzen=" +
-						this.coinList[index].Forzen + "&price=" + this.coinList[index].Price + "&logo=" + this.coinList[index].Logo + "&Name=" + this.coinList[index].EnName
+						this.coinList[index].Forzen + "&price=" +this.getCNY(this.coinList[index].Price)  + "&logo=" + this.coinList[index].Logo + "&Name=" + this.coinList[index].EnName
 				})
 				uni.setStorageSync('currencyName',this.coinList[index].EnName)
 				 

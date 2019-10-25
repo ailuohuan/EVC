@@ -24,37 +24,37 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.bgbox.data-v-00ccf07f {
+.bgbox.data-v-7123524e {
   background-color: #F8F8F8;
   height: 20rpx;
 }
-.content.data-v-00ccf07f {
+.content.data-v-7123524e {
   background-color: #fff;
   font-size: 24rpx;
   color: #333;
   height: 1334rpx;
 }
-.content .top.data-v-00ccf07f {
+.content .top.data-v-7123524e {
     font-size: 30rpx;
     margin-top: 20rpx;
     padding: 20rpx 20rpx;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
-.content .list-item.data-v-00ccf07f {
+.content .list-item.data-v-7123524e {
     line-height: 50rpx;
 }
-.content .font26.data-v-00ccf07f {
+.content .font26.data-v-7123524e {
     font-size: 26rpx;
 }
-.content .product-list-item.data-v-00ccf07f {
+.content .product-list-item.data-v-7123524e {
     height: 120rpx;
     width: 100%;
 }
-.content .product-list-item .title.data-v-00ccf07f {
+.content .product-list-item .title.data-v-7123524e {
       line-height: 60rpx;
 }
-.content .product-list-item .desc.data-v-00ccf07f {
+.content .product-list-item .desc.data-v-7123524e {
       display: inline-block;
       text-align: center;
       line-height: 36rpx;
@@ -66,16 +66,61 @@
       background-color: rgba(56, 194, 98, 0.1);
       border: 2rpx solid #38C262;
 }
-.content .percent.data-v-00ccf07f {
+.content .percent.data-v-7123524e {
     margin-top: 20rpx;
     font-size: 36rpx;
     color: #FF3400;
     font-weight: bold;
 }
-.content .rule.data-v-00ccf07f {
+.content .rule.data-v-7123524e {
     height: 100rpx;
 }
-.content .margin-top15.data-v-00ccf07f {
+.content .margin-top15.data-v-7123524e {
     margin-top: 15rpx;
+}
+/*弹窗样式*/
+.prompt-box.data-v-7123524e {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  background: rgba(0, 0, 0, 0.3);
+}
+.prompt-content.data-v-7123524e {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  z-index: 20;
+  width: 80%;
+  height: 380rpx;
+  max-width: 600rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 8rpx;
+  -webkit-box-sizing: bordre-box;
+          box-sizing: bordre-box;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  overflow: hidden;
+  background: #fff;
+  text-align: center;
+  padding: 34rpx 50rpx 56rpx;
+}
+.prompt-content .icon.data-v-7123524e {
+    position: absolute;
+    right: 52rpx;
+    top: 36rpx;
+}
+.prompt-input.data-v-7123524e {
+  margin-top: 80rpx;
+  width: 100%;
+  height: 88rpx;
+  background-color: #F5F5F5;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  text-align: left;
+  padding-left: 26rpx;
 }
 

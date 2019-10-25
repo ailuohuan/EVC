@@ -3,8 +3,8 @@
 		<view class="user-wrap">
 			<view class="user-bg">
 				<view class="top text-center">
-					<view class="hot" v-if="status==0" :style="{background:showLevelBgc(planLevel)}" >
-						V{{planLevel}} 
+					<view class="hot" v-if="status==0" :style="{background:showLevelBgc(planLevel)}">
+						V{{planLevel}}
 					</view>
 					<view class="hot" v-else @tap="unsealing">
 						{{status==0?"":"点击解封"}}
@@ -34,11 +34,11 @@
 							<view class="">
 								<image class="choice-img" src="../../../static/images/pagesA/my/film.png" mode=""></image>
 							</view>
-							
-								<view class="font22">
-									我的账单
-								</view>
-							
+
+							<view class="font22">
+								我的账单
+							</view>
+
 						</view>
 					</view>
 				</view>
@@ -63,7 +63,7 @@
 					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				</view>
 			</navigator>
-		<!-- 	<view class="item flex-between border-bottom">
+			<!-- 	<view class="item flex-between border-bottom">
 				
 				<view class="flex">
 					<i class="iconfont font-big  icon-bangzhu"></i>
@@ -73,22 +73,22 @@
 				
 			</view> -->
 			<navigator url="./userform">
-			<view class="item flex-between border-bottom">
-				<view class="flex">
-					<i class="iconfont font-big  icon-RectangleCopy3"></i>
-					<text>用户协议</text>
+				<view class="item flex-between border-bottom">
+					<view class="flex">
+						<i class="iconfont font-big  icon-RectangleCopy3"></i>
+						<text>用户协议</text>
+					</view>
+					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				</view>
-				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
-			</view>
 			</navigator>
 			<navigator url="./aboutus">
-			<view class="item flex-between border-bottom">
-				<view class="flex">
-					<i class="iconfont font-big  icon-wode"></i>
-					<text>关于我们</text>
+				<view class="item flex-between border-bottom">
+					<view class="flex">
+						<i class="iconfont font-big  icon-wode"></i>
+						<text>关于我们</text>
+					</view>
+					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				</view>
-				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
-			</view>
 			</navigator>
 		</view>
 		<view class="" v-show="status==1">
@@ -100,8 +100,8 @@
 			</view>
 		</view>
 		<evc-tabbar :tag="'my'" :fontColor4="fontColor4" :myImg="myImgSelect"></evc-tabbar>
-		
-	
+
+
 	</view>
 </template>
 
@@ -109,25 +109,24 @@
 	import evcTabbar from '@/components/evcTabbar.vue'
 	export default {
 		components: {
-					evcTabbar	
-				},
+			evcTabbar
+		},
 		data() {
 			return {
 				fontColor4: '#0099FF',
 				myImgSelect: '../../../static/images/evctabbar/myselect.png',
 				nickname: '',
 				avatar: '',
-				status:'',
-				planLevel:''
+				status: '',
+				planLevel: '',
+				authState: '',
+				i: 1
 			}
 		},
-		onNavigationBarButtonTap(e) {
-			if (e.index == 0) {
-				uni.navigateTo({
-					url: '../message/message'
-				})
-			}
+		onBackPress(options) {
+			
 		},
+	
 
 		onLoad() {
 			//获取用户信息
@@ -143,10 +142,14 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.nickname = res.data.data.NickName
-						this.avatar ='http://ceshi.8kpay.com/' + res.data.data.Avatar
+						this.avatar = 'http://ceshi.8kpay.com/' + res.data.data.Avatar
 						this.status = res.data.data.IsForbidden
 						this.planLevel = res.data.data.PlanLevel
-						
+
+						//用户实名认证状态
+						this.authState = res.data.data.AuthState
+
+
 					} else {
 						uni.showToast({
 							title: res.data.message,
@@ -157,40 +160,50 @@
 			})
 		},
 		methods: {
-			showLevelBgc(level){
-				if(level==1){
-					return  'linear-gradient(#FF727C, #FFA8AE)'
-				}else if(level==2){
-					return  'linear-gradient(#7FCCFF, #0099FF)'
-				}else if(level==3){
-					return  'linear-gradient(#FFC744, #FF9100)'
+			
+			showLevelBgc(level) {
+				if (level == 1) {
+					return 'linear-gradient(#FF727C, #FFA8AE)'
+				} else if (level == 2) {
+					return 'linear-gradient(#7FCCFF, #0099FF)'
+				} else if (level == 3) {
+					return 'linear-gradient(#FFC744, #FF9100)'
 				}
 			},
-			jumpToInvite(){
+			jumpToInvite() {
 				uni.navigateTo({
-						url: "./invite"
+					url: "./invite"
 				})
+				
 			},
 			jumpToPersonalInfo() {
 				uni.navigateTo({
 					url: "./personal-info"
 				})
 			},
-			unsealing(){
+			unsealing() {
 				uni.navigateTo({
-					url:"./unsealing"
+					url: "./unsealing"
 				})
-				
+
 			},
-			jumpToRealName(){
-				uni.navigateTo({
-					url:"./real-name"
-				})
-				
+			jumpToRealName() {
+				console.log(this.authState)
+				if (this.authState == 0) {
+					uni.redirectTo({
+						url: "./real-name"
+					})
+				} else {
+					uni.navigateTo({
+						url: './examine?authState=' + this.authState
+					})
+				}
+
+
 			},
-			jumpToMyBill(){
+			jumpToMyBill() {
 				uni.navigateTo({
-					url:"./my-bill"
+					url: "./my-bill"
 				})
 			}
 		}
@@ -198,9 +211,10 @@
 </script>
 
 <style scoped>
-	.font22{
+	.font22 {
 		font-size: 22rpx;
 	}
+
 	.user-wrap {
 		background-color: #0099FF;
 		height: 400upx;

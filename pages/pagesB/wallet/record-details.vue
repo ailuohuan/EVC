@@ -14,7 +14,7 @@
 				</view>
 			</view>
 			<view class="all-num blue">
-				{{money}}{{name}}
+				{{$base1._toFixed(money,4)}}{{name}}
 			</view>
 				
 		</view>		

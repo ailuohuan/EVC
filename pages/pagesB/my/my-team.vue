@@ -2,7 +2,7 @@
 	<view class="content padding">
 		<view class="middle text-center">
 			<view class="all">
-				<text>团队总业绩(社区收益{{$base1._showZero(ratio*100) }}%)</text>
+				<text>团队总业绩(社区收益{{$base1._showZero(ratio*100)}}%)</text>
 			</view>
 			<view class="all-num ">
 				<text class="font-bold">{{$base1._toFixed(teamAchievement,4)}}</text>  <text class="font-middle">USDT</text>
@@ -18,52 +18,53 @@
 		<view class="team-text font-bold font-middle">
 			团队列表
 		</view>
-		<view class="list" v-for="item in inviteList" :key="item.id">
-			<view class="list-item">
-				<view class="list-item-left">
-					<image class="img" :src="'http://ceshi.8kpay.com/' + item.Avatar" mode="scaleToFill"></image>
-					<view class="">
-						<view class="flex-row">
-							<view class="font-middle">
-								{{item.Name}}
+		<view class="list-box">
+			<view class="list" v-for="item in inviteList" :key="item.id">
+				<view class="list-item">
+					<view class="list-item-left">
+						<image class="img" :src="'http://ceshi.8kpay.com/' + item.Avatar" mode="scaleToFill"></image>
+						<view class="">
+							<view class="flex-row">
+								<view class="font-middle">
+									{{item.Name}}
+								</view>
+								<view class="list-level">
+									<image class="list-level-img" :src="showLevelImg(item.Level)" mode=""></image>
+									<text>{{item.Level}}</text>
+								</view>
 							</view>
-							<view class="list-level">
-								<image class="list-level-img" :src="showLevelImg(item.Level)" mode=""></image>
-								<text>{{item.Level}}</text>
-								
+							<view class="name-ch">
+								{{item.Phone}}
 							</view>
 						</view>
-						
-						<view class="name-ch">
-							{{item.Phone}}
+					</view>
+					<view class="">
+						<view class="">
+							团队：{{item.TeamNumber}}人
 						</view>
 					</view>
 				</view>
-				<view class="">
+				<view class="flex-between padding border-bottom  padding-bottom ">
 					<view class="">
-						团队：{{item.TeamNumber}}人
-					</view>
-				</view>
-			</view>
-			<view class="flex-between padding border-bottom padding-bottom ">
-				<view class="">
-					<view class="">
-						个人业绩
+						<view class="">
+							个人业绩
+						</view>
+						<view class="">
+							<text class="orange font-bold">{{$base1._toFixed(item.Achievement,4) }}</text><text>USDT</text>
+						</view>
 					</view>
 					<view class="">
-						<text class="orange font-bold">{{$base1._toFixed(item.Achievement,4) }}</text><text>USDT</text>
-					</view>
-				</view>
-				<view class="">
-					<view class="">
-						团队业绩
-					</view>
-					<view class="">
-						<text class="orange font-bold">{{$base1._toFixed(item.TeamAchievement,4) }}</text><text>USDT</text>
+						<view class="">
+							团队业绩
+						</view>
+						<view class="">
+							<text class="orange font-bold">{{$base1._toFixed(item.TeamAchievement,4) }}</text><text>USDT</text>
+						</view>
 					</view>
 				</view>
 			</view>
 		</view>
+		
 <evc-tabbar :tag="'team'" :fontColor3="fontColor3" :teamImg="teamImgSelect"></evc-tabbar>
 
 	</view>
@@ -72,11 +73,7 @@
 <script>
 	import evcTabbar from '@/components/evcTabbar.vue'
 	export default {
-		
-		components: {
-					
-					evcTabbar	
-				},
+		components: {evcTabbar},
 		data() {
 			return {
 				fontColor3:'#0099FF',
@@ -93,11 +90,9 @@
 		onLoad() {
 			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
 				this.$base1._isLogin()
+				return
 			}
 			this.initData()
-
-		},
-		onReady() {
 		},
 		onPullDownRefresh() {
 			this.initData()
@@ -124,7 +119,6 @@
 							this.ratio = res.data.data.Ratio
 							this.level = res.data.data.Level
 							this.invite = res.data.data.Invite
-							
 						} else {
 							uni.showToast({
 								title: res.data.message,
@@ -134,7 +128,6 @@
 					}
 				})
 				//直推列表
-				
 				uni.request({
 					url: this.baseUrl + "/invite-list",
 					data:{
@@ -158,7 +151,6 @@
 					}
 				})
 			},
-			
 			showLevelImg(level){
 				if(level=="普通会员"){
 					return ''
@@ -272,14 +264,16 @@
 		}
 		.list {
 			font-size: 22rpx;
-			margin-bottom: 100rpx;
+			
 			.list-item {
-				height: 160rpx;
+				height: 140rpx;
 				width: 100%;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
+				padding-top: 60rpx;
+				box-sizing: border-box;
 
 				.name-en {
 					font-size: 36rpx;
@@ -311,5 +305,9 @@
 	}
 	.padding-bottom{
 		padding-bottom: 20rpx;
+		
+	}
+	.list-box {
+		margin-bottom: 96rpx;
 	}
 </style>

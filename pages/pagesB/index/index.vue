@@ -14,10 +14,21 @@
 				</block>
 			</view>
 		</view>
-		<view class="notice">
+		<!-- 公告轮播 -->
+		<view class="flex-row" @tap="jumpToNoticeDetail">
+			<text class="iconfont icon2">&#xe63f;</text>
+			<swiper class="notice text-overflow" @change="changeNoticeSwiper" autoplay="true" circular="true" interval="6000">
+				<swiper-item v-for="(item, index) in noticeList" :key="index">
+					{{item.Title}}
+				</swiper-item>
+			</swiper>
+		</view>
+		
+		
+		<!-- <view class="notice">
 			<text class="iconfont icon2">&#xe63f;</text>
 			{{title}}
-		</view>
+		</view> -->
 		<view class="recommend">
 			热门产品
 		</view>
@@ -56,7 +67,7 @@
 				</view>
 				<view class="title">
 					<text class="font-gray">投入金额:{{$base1._toFixed(item.Number,4)}}USDT</text>
-					<button class="blue detail-btn" hover-class="none" >详情</button>
+					<button class="blue detail-btn" hover-class="none">详情</button>
 				</view>
 				<view class="font-gray">
 					周期:10天
@@ -73,14 +84,14 @@
 	import UniLoadMore from '@/components/uni-load-more.vue'
 	export default {
 		components: {
-					UniLoadMore,
-					evcTabbar	
-				},
+			UniLoadMore,
+			evcTabbar
+		},
 		data() {
 			return {
 				swiperImg: [],
-				fontColor1:'#0099FF',
-				indexImgSelect:'../../../static/images/evctabbar/indexselect.png',
+				fontColor1: '#0099FF',
+				indexImgSelect: '../../../static/images/evctabbar/indexselect.png',
 				current: 0,
 				swiperCurrent: 0,
 				productList: [],
@@ -88,45 +99,43 @@
 				productList2: [],
 				curPage: 1,
 				loadingType: 'more',
-				total1:0,
-				total2:0,
-				levelBgc:'',
-				title:'',
-				disabled:false,
+				total1: 0,
+				total2: 0,
+				levelBgc: '',
+				noticeList: [],
+				disabled: false,
+				noticeindex:0
 			};
 		},
 		onLoad() {
+			//此页做下拉刷新跟上拉加载
+			var _self = this
+			if (!uni.getStorageSync("token")) {
+				this.$base1._isLogin()
+				return
+			}
 			//获取首页banner
 			//产品列表
 			uni.request({
 				url: this.baseUrl + "/banner-list",
-				
-				header:{
-					Authorization:uni.getStorageSync('token')
+				header: {
+					Authorization: uni.getStorageSync('token')
 				},
 				success: (res) => {
 					console.log(res)
 					if (this.$base1._indexOf(res.data.status)) {
 						this.$base1._isLogin()
-					} else if(res.data.status==1){
+					} else if (res.data.status == 1) {
 						this.swiperImg = res.data.data
-						
-					}else{
+					} else {
 						uni.showToast({
 							title: res.data.message,
 							icon: 'none'
 						})
 					}
-					
+
 				}
 			})
-			
-			
-			//此页做下拉刷新跟上拉加载
-			var _self = this
-			if(!uni.getStorageSync("token")){
-				this.$base1._isLogin()
-			}
 			_self.getProduct()
 			console.log(uni.getStorageSync("token"))
 		},
@@ -143,19 +152,16 @@
 		onPullDownRefresh() {
 			this.curPage = 1;
 			this.getProduct('refresh')
-			
 		},
 		//上拉加载更多
 		onReachBottom() {
 			this.curPage++;
 			this.getProduct('add');
 		},
-
 		onNavigationBarButtonTap(e) {
-			
-			if(e.index==1){
+			if (e.index == 1) {
 				uni.navigateTo({
-					url:"./profit"
+					url: "./profit"
 				})
 			}
 		},
@@ -169,12 +175,12 @@
 						return;
 					}
 					this.loadingType = 'loading';
-					
+
 				} else {
 					this.loadingType = 'more'
 				}
 				if (type === 'refresh') {
-					
+
 					this.productList2 = [];
 				}
 				//产品列表
@@ -184,55 +190,46 @@
 						page: 1,
 						count: 100000
 					},
-					header:{
-						Authorization:uni.getStorageSync('token')
+					header: {
+						Authorization: uni.getStorageSync('token')
 					},
 					success: (res) => {
 						console.log(res)
-						if (this.$base1._indexOf(res.data.status)) {
-							this.$base1._isLogin()
-						} else if(res.data.status==1){
+						if (res.data.status == 1) {
 							this.productList = res.data.data.List
-							
-						}else{
+
+						} else {
 							uni.showToast({
 								title: res.data.message,
 								icon: 'none'
 							})
 						}
-						
+
 					}
 				})
-				
 				//获取公告
-				
 				uni.request({
 					url: this.baseUrl + "/notice-list",
-					data:{
+					data: {
 						page: 1,
 						count: 10000
 					},
-					header:{
-						Authorization:uni.getStorageSync('token')
+					header: {
+						Authorization: uni.getStorageSync('token')
 					},
 					success: (res) => {
 						console.log(res)
-						if (this.$base1._indexOf(res.data.status)) {
-							this.$base1._isLogin()
-						} else if(res.data.status==1){
-							this.title = res.data.data[0].Title
-							
-						}else{
+						if (res.data.status == 1) {
+							this.noticeList = res.data.data
+						} else {
 							uni.showToast({
 								title: res.data.message,
 								icon: 'none'
 							})
 						}
-						
+
 					}
 				})
-				
-				
 				//我的广告包
 				uni.request({
 					url: this.baseUrl + "/my-product",
@@ -240,8 +237,8 @@
 						page: this.curPage,
 						count: 1
 					},
-					header:{
-						Authorization:uni.getStorageSync('token')
+					header: {
+						Authorization: uni.getStorageSync('token')
 					},
 					success: (res) => {
 						console.log(res)
@@ -250,7 +247,7 @@
 							this.total2 = res.data.data.Total
 							if (this.productList2.length == 0) {
 								this.loadingType = '';
-							} else if (this.productList2.length >=this.total2 ) {
+							} else if (this.productList2.length >= this.total2) {
 								this.loadingType = 'nomore';
 							} else {
 								this.loadingType = 'more';
@@ -271,18 +268,18 @@
 						}
 					}
 				})
-				
+
 			},
-			showStatus(status){
-				if(status==0){
+			showStatus(status) {
+				if (status == 0) {
 					return '未报单'
-				}else if(status==1){
+				} else if (status == 1) {
 					return '已报单'
-				}else if(status==2){
+				} else if (status == 2) {
 					return '已出局'
-				}else if(status==3){
+				} else if (status == 3) {
 					return '已放行'
-				}else if(status==4){
+				} else if (status == 4) {
 					return '违约'
 				}
 			},
@@ -296,31 +293,43 @@
 					this.active = 0
 				}
 			},
-			showLevelBgc(level){
-				if(level==1){
-					return  'linear-gradient(#FF727C, #FFA8AE)'
-				}else if(level==2){
-					return  'linear-gradient(#7FCCFF, #0099FF)'
-				}else if(level==3){
-					return  'linear-gradient(#FFC744, #FF9100)'
+			showLevelBgc(level) {
+				if (level == 1) {
+					return 'linear-gradient(#FF727C, #FFA8AE)'
+				} else if (level == 2) {
+					return 'linear-gradient(#7FCCFF, #0099FF)'
+				} else if (level == 3) {
+					return 'linear-gradient(#FFC744, #FF9100)'
 				}
 			},
-			jumpToProductDetail(index){
-				console.log(this.productList[index].Id)
+			jumpToProductDetail(index) {
 				//携带参数跳转到产品详情页
 				uni.navigateTo({
-					url:"./product-detail?id="+this.productList[index].Id
+					url: "./product-detail?id=" + this.productList[index].Id
 				})
 			},
-			seeAll(){
+			seeAll() {
 				uni.navigateTo({
-					url:"./myad"
+					url: "./myad"
 				})
 			},
-			myAdDetail(index){
+			myAdDetail(index) {
 				uni.navigateTo({
 					//携带参数跳转到详情页
-					url:"./detail?id="+this.productList2[index].Id
+					url: "./detail?id=" + this.productList2[index].Id
+				})
+			},
+			changeNoticeSwiper(e) {
+				// console.log('------------'+JSON.stringify(e))
+				this.noticeindex = e.detail.current
+				console.log(this.noticeindex)
+			},
+			jumpToNoticeDetail(){
+				console.log(this.noticeindex)
+				console.log(this.noticeList[this.noticeindex].Id) 
+				var noticeid=this.noticeList[this.noticeindex].Id
+				uni.navigateTo({
+					url:"./noticeDetail?id="+noticeid
 				})
 			}
 
@@ -419,11 +428,15 @@
 		}
 
 		.notice {
-			font-size: 26rpx;
-			margin-top: 30rpx;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
+			margin: 0 auto;
+			width: 300rpx;
+			height: 50rpx;
+			
+			// font-size: 26rpx;
+			// margin-top: 30rpx;
+			// display: flex;
+			// flex-direction: row;
+			// align-items: center;
 			// justify-content: space-around;
 
 			.icon2 {
@@ -445,7 +458,7 @@
 		.recommend-product {
 			position: relative;
 			display: inline-block;
-			
+
 			margin-top: 30rpx;
 			height: 262rpx;
 			width: 320rpx;
@@ -455,7 +468,7 @@
 			box-sizing: border-box;
 			padding: 5rpx;
 			margin-right: 24rpx;
-			
+
 			.title {
 				padding-top: 30rpx;
 				font-weight: bold;

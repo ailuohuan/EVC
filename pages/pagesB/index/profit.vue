@@ -74,7 +74,7 @@
 				手续费：{{ $base1._toFixed(num*radio,2) }} USDT≈{{$base1._toFixed(num*radio*7,2)}} CNY
 			</view>
 			<view class="font28 margin-top20">
-				到账金额：{{$base1._toFixed(num-(num*radio),2) }}USDT
+				到账金额：{{$base1._toFixed(num-(num*radio),4) }}USDT
 			</view>
 			<view class=" flex-row padding80 font28 ">
 				<view class="sure" @tap="closePinMask">

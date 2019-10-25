@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-		<!-- <uni-steps class="steps1" :options="list1" :active="active" :activeColor="activeColor" /> -->
 		<view class="flex-between margin-top">
 			<view class="">
 				<view class="text-center margin-top">
@@ -56,7 +55,7 @@
 				</view>
 			</view>
 			<view class="bottom-btn">
-				<button class="blue margin-top" hover-class="none" :style="{opacity:opcity}" @click="comfirme">提交</button>
+				<button class="blue margin-top" hover-class="none"  @click="comfirme">提交</button>
 			</view>
 		</view>
 	</view>
@@ -74,16 +73,7 @@
 		},
 		data() {
 			return {
-				// activeColor: "#4C70FF",
-				// list1: [{
-				// 	title: '',
-				// 	desc: '请填写身份信息'
-				// }, {
-				// 	title: '',
-				// 	desc: '请上传身份证反面'
-				// }],
-				// active: 3,
-				
+			
 				opcity: 0.5,
 				photo1:'../../../static/images/pagesA/my/id-car1.png',
 				photo2:'../../../static/images/pagesA/my/id-car2.png',
@@ -95,10 +85,8 @@
 			}
 		},
 		onLoad(options) {
-			
 			this.name = options.name
-			// this.carnum = options.carnum
-			
+
 		},
 		onReady() {
 
@@ -185,11 +173,7 @@
 									console.log('===========' + success.imageURL);
 									_self.photoArray.push(success.imageURL)
 									 _self.photo2 = 'http://ceshi.8kpay.com/'+success.imageURL
-									if (photoArray.length != 0) {
-										_self.opcity = 1
-									} else {
-										_self.opcity = 0.5
-									}	 
+									
 										
 									}, (error) => {
 										console.log(error);
@@ -218,10 +202,7 @@
 			},
 			
 			comfirme() {
-				var _self = this
-				console.log(_self.photoArray)
-				// var photoArray1 = (JSON.stringify(photoArray)).split(",")
-		
+				var _self = this		
 				uni.request({
 					url: this.baseUrl + "/auth-member",
 					method:'POST',
@@ -244,6 +225,9 @@
 								title: res.data.message,
 								icon: "none"
 							})
+							uni.navigateTo({
+								url:'./examine'
+							})
 							
 						} else {
 							uni.showToast({
@@ -253,20 +237,8 @@
 						}
 					}
 				})
-				
-				
-				
-				
-				
-				
-				
-				
-			},
-			
-				
-				
-			
 
+			},
 		}
 	}
 </script>
@@ -325,7 +297,7 @@
 	button.blue {
 		margin-bottom: 20rpx;
 		margin-top: 80rpx;
-		opacity: 0.5;
+		
 	}
 	.bottom-btn{
 		margin-top: 150rpx;

@@ -14,7 +14,6 @@
 				<view>请输入正确私钥</view>
 				<view>如未导出私钥，请选择助记词导入</view>
 			</view>
-			<input value="permit banana evidence sell abuse culture announce oyster exhaust record clean car" />
 			<view class="text-left">
 				<textarea :placeholder="type == 1 ? '请输入助记词' : '请输入私钥'" placeholder-class="input-placeholder" v-model="value"></textarea>
 			</view>

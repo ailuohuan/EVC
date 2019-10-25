@@ -23,7 +23,7 @@
 				<view class="list-item-right">
 					<view class="">
 						<view class="name-en">
-							{{item.Money}}{{item.CoinName}}
+							{{$base1._toFixed(item.Money,4)}}{{item.CoinName}}
 						</view>
 						<view class="name-ch desc" :style="{color:showColor(item.Status)}">
 							{{ showStatus(item.Status) }}
@@ -64,9 +64,10 @@
 			};
 		},
 		onLoad(options) {
-			this.id = options.id
+			// this.id = options.id
 			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
 				this.$base1._isLogin()
+				return
 			}
 			this.getCoreDetail()
 		},
@@ -117,9 +118,7 @@
 						newArray[j++] = this.nameList3[i]
 					}
 				}
-				// console.log(JSON.stringify(newArray) )
-				
-				
+
 				var newArray2 = []
 				var j2 = 0
 				for (let i in this.nameList2) {
@@ -127,7 +126,6 @@
 						newArray2[j2++] = this.nameList2[i]
 					}
 				}
-				// console.log(JSON.stringify(newArray2) )
 
 				//充提记录根据返回的Type动态显示 1充值 2提现
 

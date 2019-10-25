@@ -39,6 +39,7 @@
 		methods: {
 
 			sendCode(){
+				this.nosendCode = true
 				uni.request({
 					url: this.baseUrl + "/email-modify-pay-pass",
 					data:{
@@ -57,6 +58,7 @@
 								title:res.data.message
 							})
 						} else {
+							this.nosendCode = false
 							uni.showToast({
 								title: res.data.message,
 								icon: "none"

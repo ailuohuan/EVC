@@ -3,7 +3,7 @@
 		<view class="flex-between top padding">
 			<view class="flex-row flex">
 				<view class="">
-					<image class="logo-img" src="../../../static/images/BTC@2x.png" mode=""></image>
+					<image class="logo-img" :src="array[index].logo" mode=""></image>
 				</view>
 				<view class="font-middle font-bold">
 					{{array[index].enName}}
@@ -49,7 +49,7 @@
 
 		</view>
 		<view class="font-gray font22 padding">
-			手续费：{{money*chargeFee*0.01}} {{array[index].enName}}≈{{money*chargeFee*0.01*7}} CNY
+			手续费：{{money*chargeFee}} {{array[index].enName}}≈{{money*chargeFee*7}} CNY
 		</view>
 		<view class="margin-top">
 			<button class="blue" type="primary" @tap="sureTransfer">转账</button>
@@ -118,6 +118,7 @@
 					text: '获取验证码',
 					codeTime: 60
 				},
+				userPhone:''
 			}
 
 		},
@@ -125,6 +126,27 @@
 			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
 				this.$base1._isLogin()
 			}
+			//获取用户手机号
+			uni.request({
+				url: this.baseUrl + "/member-info",
+				header: {
+					//除注册登录外其他的请求都携带用户token和秘钥
+					Authorization: uni.getStorageSync('token')
+				},
+				success: (res) => {
+					console.log(res.data)
+					if (this.$base1._indexOf(res.data.status)) {
+						this.$base1._isLogin()
+					} else if (res.data.status == 1) {
+						this.userPhone = res.data.data.Phone
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: "none"
+						})
+					}
+				}
+			})
 			//我的资产列表
 			uni.request({
 				url: this.baseUrl + "/coin-list",
@@ -156,7 +178,8 @@
 										if(self.coinList[i].Money){
 											var coinListName = {
 												enName: self.coinList[i].EnName,
-												id: self.coinList[i].Id
+												id: self.coinList[i].Id,
+												logo: self.coinList[i].Logo
 											}
 											self.array.push(coinListName)
 										}
@@ -169,8 +192,6 @@
 									this.getChargeFee()
 									this.getsingleBanlence()
 									
-									
-									
 								} else {
 									uni.showToast({
 										title: res.data.message,
@@ -180,9 +201,6 @@
 						
 							}
 						})
-						
-						
-						
 					} else {
 						uni.showToast({
 							title: res.data.message,
@@ -209,28 +227,47 @@
 			},
 			//转账获取验证码
 			sendCode() {
-				uni.request({
-					url: this.baseUrl + "/sms-withdraw",
-					method: "POST",
-					header: {
-						//除注册登录外其他的请求都携带用户token和秘钥
-						Authorization: uni.getStorageSync('token')
-					},
-					success: (res) => {
-						console.log(res.data)
-						if (res.data.status == 1) {
-							this.sendMsgCodeTimer()
-							uni.showToast({
-								title: res.data.message
-							})
-						} else {
-							uni.showToast({
-								title: res.data.message,
-								icon: "none"
-							})
+				
+				if(this.userPhone){
+					this.nosendCode = true
+					uni.request({
+						url: this.baseUrl + "/sms-withdraw",
+						method: "POST",
+						header: {
+							//除注册登录外其他的请求都携带用户token和秘钥
+							Authorization: uni.getStorageSync('token')
+						},
+						success: (res) => {
+							console.log(res.data)
+							if (res.data.status == 1) {
+								this.sendMsgCodeTimer()
+								uni.showToast({
+									title: res.data.message
+								})
+							} else {
+								this.nosendCode =false
+								uni.showToast({
+									title: res.data.message,
+									icon: "none"
+								})
+							}
 						}
-					}
-				})
+					})
+				}else{
+					uni.showModal({
+					    title: '提示',
+					    content: '您还未绑定 手机号点击确认绑定手机号',
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.navigateTo({
+					            	url:"../personal/binding-phone?pages=1"
+					            })
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}				
 			},
 			sendMsgCodeTimer() {
 				this.timerId = setInterval(() => {
@@ -315,7 +352,15 @@
 				this.money = this.allmoneyNum
 			},
 			sureTransfer() {
-				this.showPinMask = true
+				if(this.money){
+					this.showPinMask = true
+				}else{
+					uni.showToast({
+						title:"请输入转账数量",
+						icon:"none"
+					})
+				}
+				
 			},
 			closePinMask() {
 				this.showPinMask = false
@@ -350,6 +395,9 @@
 							uni.showToast({
 								title: res.data.message,
 								icon: "none"
+							})
+							uni.navigateTo({
+								url:"./charging-record"
 							})
 						} else {
 							console.log(res.data.message)

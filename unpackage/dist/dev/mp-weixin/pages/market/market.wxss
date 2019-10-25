@@ -24,13 +24,13 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.font26.data-v-efd3e362 {
+.font26.data-v-b81c7fae {
   font-size: 26rpx;
 }
-.font20.data-v-efd3e362 {
+.font20.data-v-b81c7fae {
   font-size: 20rpx;
 }
-.content.data-v-efd3e362 {
+.content.data-v-b81c7fae {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-size: 30rpx;
@@ -39,17 +39,17 @@
   height: 1334rpx;
   width: 750rpx;
 }
-.content .nav-text.data-v-efd3e362 {
+.content .nav-text.data-v-b81c7fae {
     height: 88rpx;
     line-height: 88rpx;
     width: 150rpx;
     background-color: #fff;
     text-align: center;
 }
-.content .list.data-v-efd3e362 {
+.content .list.data-v-b81c7fae {
     margin-top: 20rpx;
 }
-.content .list .list-item.data-v-efd3e362 {
+.content .list .list-item.data-v-b81c7fae {
       height: 140rpx;
       width: 100%;
       line-height: 50rpx;
@@ -59,29 +59,29 @@
               box-sizing: border-box;
       border-bottom: 2rpx solid #F1F1F1;
 }
-.content .list .list-item .list-item-left.data-v-efd3e362 {
+.content .list .list-item .list-item-left.data-v-b81c7fae {
         width: 50%;
 }
-.content .list .list-item .list-item-right.data-v-efd3e362 {
+.content .list .list-item .list-item-right.data-v-b81c7fae {
         width: 50%;
 }
-.content .choice.data-v-efd3e362 {
+.content .choice.data-v-b81c7fae {
     height: 60rpx;
     font-size: 22rpx;
     color: #999999;
     background-color: #F8F8F8;
 }
-.content .choice .choice-item.data-v-efd3e362 {
+.content .choice .choice-item.data-v-b81c7fae {
       width: 50%;
 }
-.content .choice .choice-item .icon.data-v-efd3e362 {
+.content .choice .choice-item .icon.data-v-b81c7fae {
         font-size: 22rpx;
 }
-.active.data-v-efd3e362 {
+.active.data-v-b81c7fae {
   color: #007AFF;
   border-bottom: 2rpx solid #007AFF;
 }
-.show-btn.data-v-efd3e362 {
+.show-btn.data-v-b81c7fae {
   background-color: #17A52F;
   width: 118rpx;
   height: 60rpx;

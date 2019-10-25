@@ -10,7 +10,7 @@
 			<text>账号:{{email}}</text>
 		</view>
 		<view class="top top2">
-			<text>个人业绩：{{achievement}} USDT</text>
+			<text>个人业绩：{{$base1._toFixed(achievement,4) }} USDT</text>
 		</view>
 	</view>
 </template>
