@@ -33,12 +33,11 @@
 </template>
 
 <script>
-
 	export default {
-		
+
 		data() {
 			return {
-				disabled:true,
+				disabled: true,
 				emailNum: '',
 				password: '',
 				opcity: 0.5
@@ -58,17 +57,18 @@
 					url: this.baseUrl + "/member-login",
 					data: {
 						Email: this.emailNum,
-						Password:this.password
+						Password: this.password
 					},
 					method: "POST",
-					success: (res) => {
+					success: res => {
+						console.log('11111111111')
 						console.log(res)
 						if (res.data.status == 1) {
-							uni.setStorageSync("token",res.data.data)
+							uni.setStorageSync("token", res.data.data)
 							console.log(uni.getStorageSync('token'))
 							this.disabled = true
 							uni.redirectTo({
-								url:"../index/index"
+								url: "../index/index"
 							})
 						} else {
 							this.disabled = false
@@ -81,7 +81,7 @@
 				})
 			},
 			change(e) {
-				console.log(e.detail.value.length)
+				// console.log(e.detail.value.length)
 				if (e.detail.value.length >= 3) {
 					this.opcity = 1
 					this.disabled = false
@@ -90,9 +90,9 @@
 					this.disabled = true
 				}
 			},
-			jumpToForgetPassword(){
+			jumpToForgetPassword() {
 				uni.navigateTo({
-					url:"./forgetPassword"
+					url: "./forgetPassword"
 				})
 			}
 		}
@@ -100,13 +100,15 @@
 </script>
 
 <style lang="scss">
-	page{
+	page {
 		background-color: #fff;
 	}
-	.content {		
+
+	.content {
 		padding: 0 56rpx;
 		font-size: 24rpx;
 		color: #999999;
+
 		.logo {
 			width: 86px;
 			height: 86rpx;

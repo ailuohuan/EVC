@@ -17,6 +17,24 @@
 				fail: () => {},
 				complete: () => {}
 			});
+			
+			//获取七牛云域名
+			uni.request({
+				url: this.baseUrl + "/qiniu-domain",
+				success: (res) => {
+					console.log(res)
+					if (res.data.status == 1) {
+						uni.setStorageSync('domain',res.data.data.Domain)
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none'
+						})
+					}
+				}
+			})
+			
+			
 		},
 		onShow: function() {
 			console.log('App Show')

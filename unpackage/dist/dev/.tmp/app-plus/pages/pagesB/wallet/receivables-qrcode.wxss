@@ -38,6 +38,8 @@
 }
 .content .name {
     font-size: 32rpx;
+    width: 500rpx;
+    margin: 0 auto;
 }
 .content .top {
     font-size: 30rpx;

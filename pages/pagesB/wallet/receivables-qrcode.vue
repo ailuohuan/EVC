@@ -23,7 +23,7 @@
 		<view class="bgbox ">
 		</view>
 		<view class="box ">
-			<view class="name margin-top padding-top">
+			<view class="name margin-top padding-top text-overflow">
 				{{address}}
 			</view>
 			<view class="font-gray font20 ">
@@ -107,7 +107,7 @@
 						console.log('999999999999999')
 						console.log(res.data)
 						 if (res.data.status == 1) {
-							this.address = res.data.data.WalletAddress
+							this.address = res.data.data
 							this.img = QR.createQrCodeImg(this.address, {
 								size: parseInt(300) //二维码大小  
 							})
@@ -151,6 +151,9 @@
 
 		.name {
 			font-size: 32rpx;
+			width: 500rpx;
+			margin: 0 auto;
+			
 		}
 
 		.top {

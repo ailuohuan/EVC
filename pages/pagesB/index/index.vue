@@ -4,7 +4,7 @@
 			<!-- 轮播 -->
 			<swiper class="swiper" :autoplay="true" :interval="3000" :duration="1000" :current="swiperCurrent" @change="changeSwiper">
 				<swiper-item v-for="item in swiperImg" :key="item.id">
-					<image class="swiper-item" :src="item.Img" mode="widthFix"></image>
+					<image class="swiper-item" :src="domain+item.Img" mode="widthFix"></image>
 				</swiper-item>
 			</swiper>
 			<!-- 轮播指示点样式修改 -->
@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		<!-- 公告轮播 -->
-		<view class="flex-row" @tap="jumpToNoticeDetail">
+		<view class="flex-row margin-top" @tap="jumpToNoticeDetail">
 			<text class="iconfont icon2">&#xe63f;</text>
 			<swiper class="notice text-overflow" @change="changeNoticeSwiper" autoplay="true" circular="true" interval="6000">
 				<swiper-item v-for="(item, index) in noticeList" :key="index">
@@ -23,8 +23,8 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		
-		
+
+
 		<!-- <view class="notice">
 			<text class="iconfont icon2">&#xe63f;</text>
 			{{title}}
@@ -104,10 +104,13 @@
 				levelBgc: '',
 				noticeList: [],
 				disabled: false,
-				noticeindex:0
+				noticeindex: 0,
+				domain: ''
 			};
 		},
 		onLoad() {
+
+			this.domain = uni.getStorageSync('domain')
 			//此页做下拉刷新跟上拉加载
 			var _self = this
 			if (!uni.getStorageSync("token")) {
@@ -115,7 +118,6 @@
 				return
 			}
 			//获取首页banner
-			//产品列表
 			uni.request({
 				url: this.baseUrl + "/banner-list",
 				header: {
@@ -125,6 +127,7 @@
 					console.log(res)
 					if (this.$base1._indexOf(res.data.status)) {
 						this.$base1._isLogin()
+						return
 					} else if (res.data.status == 1) {
 						this.swiperImg = res.data.data
 					} else {
@@ -157,6 +160,17 @@
 		onReachBottom() {
 			this.curPage++;
 			this.getProduct('add');
+		},
+		onBackPress(options) {
+			var idtag = 1
+			console.log(idtag)
+			if (idtag == 1) {
+				console.log('222')
+				uni.switchTab({
+					url: "../../wallet/wallet"
+				})
+				return true;
+			}
 		},
 		onNavigationBarButtonTap(e) {
 			if (e.index == 1) {
@@ -322,14 +336,12 @@
 			changeNoticeSwiper(e) {
 				// console.log('------------'+JSON.stringify(e))
 				this.noticeindex = e.detail.current
-				console.log(this.noticeindex)
 			},
-			jumpToNoticeDetail(){
-				console.log(this.noticeindex)
-				console.log(this.noticeList[this.noticeindex].Id) 
-				var noticeid=this.noticeList[this.noticeindex].Id
+			jumpToNoticeDetail() {
+				
+				// var noticeid = this.noticeList[this.noticeindex].Id
 				uni.navigateTo({
-					url:"./noticeDetail?id="+noticeid
+					url: "./public-notification"
 				})
 			}
 
@@ -431,7 +443,7 @@
 			margin: 0 auto;
 			width: 300rpx;
 			height: 50rpx;
-			
+
 			// font-size: 26rpx;
 			// margin-top: 30rpx;
 			// display: flex;

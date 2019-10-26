@@ -1,10 +1,10 @@
 <template>
 	<view class="content">
-		<view class="padding margin-top">
+		<view class="margin-top padding">
 			<!-- 轮播 -->
 			<swiper class="swiper" :autoplay="true" :interval="3000" :duration="1000" :current="swiperCurrent" @change="changeSwiper">
 				<swiper-item v-for="item in swiperImg" :key="item.id">
-					<image class="swiper-item" :src="item.Img" mode="widthFix"></image>
+					<image class="swiper-item" :src="domain + item.Img" mode="widthFix"></image>
 				</swiper-item>
 			</swiper>
 			<!-- 轮播指示点样式修改 -->
@@ -13,18 +13,14 @@
 					<view class="dot" :class="index==swiperCurrent ? ' active' : ''"></view>
 				</block>
 			</view>
-
 		</view>
-
-		<!-- <view class="notice" @tap="jumpToManageMoney(0)">
-			<text class="iconfont icon1">&#xe63f;</text>
-			sdfsdfsdsdfsdfsdfsddffsdfds哩哩啦啦即将上线！
-		</view> -->
+		
 		<view class="bgbox">
 
 		</view>
-		<view class="recommend flex-between padding">
-			<text>热门推荐</text> <!-- <text class="iconfont font-gray">&#xea25;</text> -->
+		<view class="recommend flex-between">
+			<text>热门推荐</text>
+			<!-- <text class="iconfont font-gray">&#xea25;</text> -->
 		</view>
 
 		<view class="flex-around" >
@@ -46,15 +42,15 @@
 
 		<view class="choice-type padding">
 			<view class="choice-type1">最新</view>
-			<!-- <view class="font-gray">
+			<view class="font-gray">
 				<text>查看更多</text><text class="iconfont icon">&#xea25;</text>
-			</view> -->
+			</view>
 		</view>
 		<view class="product-list ">
 			<view class="product-list-item " @tap="waiting" v-for="item in applist" :key="item.id">
 				<view class="flex padding">
 					<view>
-						<image class="more-logo-img" :src="item.img" mode=""></image>
+						<image class="more-logo-img" :src= " item.img" mode=""></image>
 					</view>
 					<view class="" @tap="waiting">
 						<view class="">
@@ -85,12 +81,9 @@
 				</view>
 			</view>
 			<view class="">
-				<image class="desc-img" :src="item.Imgs" mode=""></image>
+				<image class="desc-img" :src="domain + item.Imgs" mode=""></image>
 			</view>
 		</view>
-	
-		
-
 	</view>
 	</view>
 </template>
@@ -100,10 +93,7 @@
 		data() {
 			return {
 				hoverColor: '#4C70FF',
-				swiperImg: [{
-						Img: "../../static/images/pagesA/login/banner.png"
-					}
-				],
+				swiperImg: [],
 				current: 0,
 				swiperCurrent: 0,
 				applist:[
@@ -112,11 +102,28 @@
 					{img:'../../static/images/pagesA/dapp/logo3.png',title:'来花花',desc:'移动金融信用管家'},
 					{img:'../../static/images/pagesA/dapp/logo2.png',title:'闪现',desc:'安全交易平台'}
 				],
-				newsList:[]
-			
+				newsList:[],
+				domain:''
 			};
 		},
 		onLoad() {
+			this.domain = uni.getStorageSync('domain')
+			//获取banner
+			uni.request({
+				url: this.baseUrl + "/banner-list",
+				success: (res) => {
+					console.log(res)
+					if (res.data.status == 1) {
+						this.swiperImg = res.data.data
+					} else {
+						uni.showToast({
+							title: res.data.message,
+							icon: 'none'
+						})
+					}
+				}
+			})
+		
 			//获取快讯列表
 			uni.request({
 				url: this.baseUrl + "/news-list",
@@ -124,14 +131,9 @@
 					page: 1,
 					count: 10000
 				},
-				header:{
-					Authorization:uni.getStorageSync('token')
-				},
 				success: (res) => {
 					console.log(res)
-					if (this.$base1._indexOf(res.data.status)) {
-						this.$base1._isLogin()
-					} else if(res.data.status==1){
+					 if(res.data.status==1){
 						this.newsList = res.data.data.list
 						
 					}else{
@@ -163,6 +165,7 @@
 				}
 				
 			},
+			
 			changeSwiper(e) {
 				this.swiperCurrent = e.detail.current;
 			},
@@ -192,19 +195,22 @@
 </script>
 
 <style lang="scss">
-	.content {
+	page{
 		background-color: #fff;
+	}
+	.content {
 		font-size: 24rpx;
 		color: #333;
-		height: 100%;
-
+		box-sizing: border-box;
+		width: 750rpx;
 		.percent {
 			margin-top: 20rpx;
 			font-size: 58rpx;
 			color: #FF3400;
 			font-weight: bold;
 		}
-
+		
+		
 		.percent-small {
 			font-size: 36rpx;
 		}
@@ -294,7 +300,6 @@
 			}
 		}
 		.desc-box{
-			width: 100%;
 			height: 240rpx;
 			padding: 20rpx 30rpx;
 			border-top: 2rpx solid #E6E6E6;
@@ -313,10 +318,10 @@
 			margin-bottom: 30rpx;
 		}
 		.desc-num{
-			width: 680rpx;
+			// width: 680rpx;
 		}
 		.desc-img{
-			width: 250rpx;
+			width: 160rpx;
 			height: 160rpx;
 		}
 

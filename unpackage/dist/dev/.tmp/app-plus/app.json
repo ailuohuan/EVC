@@ -29,6 +29,7 @@
     "pages/pagesB/index/myad",
     "pages/pagesB/index/profit",
     "pages/pagesB/index/detail",
+    "pages/pagesB/index/public-notification",
     "pages/pagesB/personal/invite",
     "pages/pagesB/wallet/wallet",
     "pages/pagesB/wallet/transfer-num",
@@ -48,6 +49,9 @@
     "pages/pagesB/personal/set-password",
     "pages/pagesB/personal/set-paypassword",
     "pages/pagesB/personal/forget-pay-password",
+    "pages/pagesB/personal/binding-addr",
+    "pages/pagesB/personal/answer",
+    "pages/pagesB/personal/hasBindingPhone",
     "pages/pagesB/personal/self-in",
     "pages/pagesB/personal/real-photo",
     "pages/pagesB/personal/personal-info",
@@ -111,7 +115,7 @@
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
-  "appname": "EVC",
+  "appname": "EVC Wallet",
   "compilerVersion": "2.3.7",
   "usingComponents": {
     "page-loading": "/components/pageloading"

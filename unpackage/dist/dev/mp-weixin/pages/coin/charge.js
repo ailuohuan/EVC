@@ -149,7 +149,7 @@ var _wallet = _interopRequireDefault(__webpack_require__(/*! @/common/js/wallet.
 //
 //
 //
-var tkiQrcode = function tkiQrcode() {return Promise.all(/*! import() | components/tki-qrcode */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tki-qrcode")]).then(__webpack_require__.bind(null, /*! @/components/tki-qrcode.vue */ 545));};var _default = { components: { tkiQrcode: tkiQrcode }, data: function data() {return { wallet: {} };}, onLoad: function onLoad() {uni.showLoading({ title: '二维码生成中' });
+var tkiQrcode = function tkiQrcode() {return Promise.all(/*! import() | components/tki-qrcode */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tki-qrcode")]).then(__webpack_require__.bind(null, /*! @/components/tki-qrcode.vue */ 561));};var _default = { components: { tkiQrcode: tkiQrcode }, data: function data() {return { wallet: {} };}, onLoad: function onLoad() {uni.showLoading({ title: '二维码生成中' });
 
     this.wallet = this.$Wallet.getCurrentWallet();
     setTimeout(function () {

@@ -22,7 +22,7 @@
 			<view class="list" v-for="item in inviteList" :key="item.id">
 				<view class="list-item">
 					<view class="list-item-left">
-						<image class="img" :src="'http://ceshi.8kpay.com/' + item.Avatar" mode="scaleToFill"></image>
+						<image class="img" :src="domain + item.Avatar" mode="scaleToFill"></image>
 						<view class="">
 							<view class="flex-row">
 								<view class="font-middle">
@@ -84,10 +84,12 @@
 				level:'',
 				invite:'',
 				inviteList:[],
-				levelImg:''
+				levelImg:'',
+				domain:''
 			};
 		},
 		onLoad() {
+			this.domain=uni.getStorageSync('domain')
 			if (!uni.getStorageSync("token") && !uni.getStorageSync("SecretKey")) {
 				this.$base1._isLogin()
 				return
@@ -99,6 +101,17 @@
 			setTimeout(function() {
 				uni.stopPullDownRefresh();
 			}, 1000);
+		},
+		onBackPress(options) {
+			var idtag=1
+			console.log(idtag)
+			if (idtag==1) {
+				console.log('222')
+				uni.switchTab({
+					url:"../../wallet/wallet"
+				})
+				return true;
+			}
 		},
 		methods: {
 			initData() {

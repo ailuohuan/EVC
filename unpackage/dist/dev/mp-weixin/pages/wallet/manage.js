@@ -186,7 +186,7 @@ var _wallet = _interopRequireDefault(__webpack_require__(/*! @/common/js/wallet.
 //
 //
 //
-var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup */ "components/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup.vue */ 553));};var _default = { components: { uniPopup: uniPopup }, data: function data() {return { wallet: {}, walletList: [], pageHide: false };}, onNavigationBarButtonTap: function onNavigationBarButtonTap(e) {if (e.index == 0) {this.togglePopup();}}, onHide: function onHide() {this.pageHide = true;this.canclePopup();}, onShow: function onShow() {if (this.pageHide) {
+var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup */ "components/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup.vue */ 569));};var _default = { components: { uniPopup: uniPopup }, data: function data() {return { wallet: {}, walletList: [], pageHide: false };}, onNavigationBarButtonTap: function onNavigationBarButtonTap(e) {if (e.index == 0) {this.togglePopup();}}, onHide: function onHide() {this.pageHide = true;this.canclePopup();}, onShow: function onShow() {if (this.pageHide) {
       this.pageHide = false;
       this.wallet = this.$Wallet.getCurrentWallet();
       this.walletList = this.$Wallet.getWalletList();

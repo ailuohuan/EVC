@@ -152,7 +152,6 @@
 }
 .content .list {
     font-size: 22rpx;
-    margin-bottom: 96rpx;
 }
 .content .list .list-item {
       height: 140rpx;
@@ -174,7 +173,6 @@
       -webkit-align-items: center;
           -ms-flex-align: center;
               align-items: center;
-      border-top: 2rpx solid #007AFF;
       padding-top: 60rpx;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
@@ -208,5 +206,8 @@
 }
 .padding-bottom {
   padding-bottom: 20rpx;
+}
+.list-box {
+  margin-bottom: 96rpx;
 }
 

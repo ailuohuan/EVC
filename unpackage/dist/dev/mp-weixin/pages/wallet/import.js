@@ -154,7 +154,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _wallet = _interopRequireDefault(__webpack_require__(/*! @/common/js/wallet.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -186,9 +185,9 @@ var _wallet = _interopRequireDefault(__webpack_require__(/*! @/common/js/wallet.
 //
 //
 //
-//
 var _default = { data: function data() {return { type: 1, //1：助记词导入钱包，2：私钥导入钱包
-      value: '' };}, methods: { typeChange: function typeChange(val) {this.type = val;if (val == 1) {uni.setNavigationBarTitle({ title: '助记词导入' });} else {uni.setNavigationBarTitle({ title: '私钥导入' });}}, importWallet: function importWallet() {var _this = this;var wallet = this.$Wallet.getWalletList();var templist = wallet.filter(function (item) {return item.privateKey == _this.value || item.mnemonic == _this.value;});if (templist.length) {this.app._toast('钱包已经存在，不需再次导入');return;}if (!this.value) {if (this.type == 1) this.app._toast('请输入助记词');else this.app._toast('请输入私钥');} else {var self = this;
+      value: '' };}, methods: { typeChange: function typeChange(val) {this.type = val;if (val == 1) {uni.setNavigationBarTitle({ title: '助记词导入' });} else {uni.setNavigationBarTitle({ title: '私钥导入' });}}, importWallet: function importWallet() {var _this = this;var wallet = this.$Wallet.getWalletList();var templist = wallet.filter(function (item) {return item.privateKey == _this.value || item.mnemonic == _this.value;});if (templist.length) {this.app._toast('钱包已经存在，不需再次导入');return;}if (!this.value) {if (this.type == 1) this.app._toast('请输入助记词');else this.app._toast('请输入私钥');} else {
+        var self = this;
         uni.navigateTo({
           url: "../forget/pwd?mold=2&type=".concat(self.type, "&value=").concat(self.value) });
 

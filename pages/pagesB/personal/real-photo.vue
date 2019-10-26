@@ -119,7 +119,7 @@
 									qiniuUploader.upload(res.tempFilePaths[0], (success) => {
 										console.log('===========' + success.imageURL);
 										_self.photoArray.push(success.imageURL)
-										 _self.photo1 = 'http://ceshi.8kpay.com/'+success.imageURL
+										 _self.photo1 = uni.getStorageSync('domain')+success.imageURL
 										
 									}, (error) => {
 										console.log(error);
@@ -172,7 +172,7 @@
 									qiniuUploader.upload(res.tempFilePaths[0], (success) => {
 									console.log('===========' + success.imageURL);
 									_self.photoArray.push(success.imageURL)
-									 _self.photo2 = 'http://ceshi.8kpay.com/'+success.imageURL
+									 _self.photo2 = uni.getStorageSync('domain')+success.imageURL
 									
 										
 									}, (error) => {

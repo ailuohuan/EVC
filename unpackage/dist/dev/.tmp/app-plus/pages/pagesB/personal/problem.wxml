@@ -1,1 +1,1 @@
-<view class="content"><view class="bgbox"></view><view><view class="top">{{question+"?"}}</view><view class="answer">{{"答： "+answer}}</view></view></view>
+<view class="content"><view class="bgbox"></view><block wx:for="{{questionList}}" wx:for-item="item" wx:for-index="index" wx:key="id"><view data-event-opts="{{[['tap',[['jumpToAnswer',[index]]]]]}}" class="flex-between top" bindtap="__e"><text>{{item.Question+"?"}}</text><text class="iconfont"></text></view></block></view>

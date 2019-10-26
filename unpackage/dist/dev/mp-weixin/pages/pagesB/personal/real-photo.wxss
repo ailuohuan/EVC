@@ -85,7 +85,6 @@
 button.blue.data-v-f1a7d8d2 {
   margin-bottom: 20rpx;
   margin-top: 80rpx;
-  opacity: 0.5;
 }
 .bottom-btn.data-v-f1a7d8d2 {
   margin-top: 150rpx;

@@ -235,16 +235,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
     return {
       hoverColor: '#4C70FF',
-      swiperImg: [{
-        Img: "../../static/images/pagesA/login/banner.png" }],
-
-
+      swiperImg: [],
       current: 0,
       swiperCurrent: 0,
       applist: [
@@ -258,6 +254,32 @@ var _default =
 
   },
   onLoad: function onLoad() {var _this = this;
+    //获取banner
+    //产品列表
+    uni.request({
+      url: this.baseUrl + "/banner-list",
+      header: {
+        Authorization: uni.getStorageSync('token') },
+
+      success: function success(res) {
+        console.log(res);
+        if (_this.$base1._indexOf(res.data.status)) {
+          _this.$base1._isLogin();
+        } else if (res.data.status == 1) {
+          _this.swiperImg = res.data.data;
+        } else {
+          uni.showToast({
+            title: res.data.message,
+            icon: 'none' });
+
+        }
+
+      } });
+
+
+
+
+
     //获取快讯列表
     uni.request({
       url: this.baseUrl + "/news-list",

@@ -24,11 +24,15 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.content {
+page {
   background-color: #fff;
+}
+.content {
   font-size: 24rpx;
   color: #333;
-  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 750rpx;
 }
 .content .percent {
     margin-top: 20rpx;

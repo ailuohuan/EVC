@@ -1,14 +1,11 @@
 <template>
 	<view class="content">
 		<view class="bgbox">
-
 		</view>
-		<view>
-			<view class="top">{{question}}?</view>
-			<view class="answer">答： {{answer}}</view>
+		<view class="flex-between top" v-for="(item,index) in questionList" :key="item.id" @tap="jumpToAnswer(index)">
+			<text >{{item.Question}}?</text> <text class="iconfont">&#xea25;</text>
+			<!-- <view class="answer">答： {{item.Answer}}</view> -->
 		</view>
-		
-
 	</view>
 </template>
 
@@ -18,9 +15,7 @@
 		data() {
 			return {
 				
-				
-				question:'',
-				answer:''
+				questionList:""
 			}
 		},
 		onLoad() {
@@ -37,10 +32,7 @@
 					if (this.$base1._indexOf(res.data.status)) {
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
-						
-						
-						this.question = res.data.data.Question 
-						this.answer = res.data.data.Answer
+						this.questionList = res.data.data
 					} else {
 						uni.showToast({
 							title: res.data.message,
@@ -51,7 +43,11 @@
 			})
 		},
 		methods: {
-			
+			jumpToAnswer(index){
+				uni.navigateTo({
+					url:"./answer?id="+this.questionList[index].Id
+				})
+			}
 		}
 	}
 </script>

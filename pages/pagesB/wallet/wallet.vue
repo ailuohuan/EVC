@@ -184,6 +184,17 @@
 			})
 		
 		},
+		onBackPress(options) {
+			var idtag=1
+			console.log(idtag)
+			if (idtag==1) {
+				console.log('222')
+				uni.switchTab({
+					url:"../../wallet/wallet"
+				})
+				return true;
+			}
+		},
 		methods: {
 			set_balance() {
 				var self = this;

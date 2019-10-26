@@ -233,6 +233,13 @@
 			}
 		},
 		{
+			"path": "pages/pagesB/index/public-notification",
+			"style": {
+				"navigationBarTitleText": "公告"
+				
+			}
+		},
+		{
 			"path": "pages/pagesB/personal/invite",
 			"style": {
 				"navigationBarTitleText": "邀请好友"
@@ -400,6 +407,26 @@
 			"path": "pages/pagesB/personal/forget-pay-password",
 			"style": {
 				"navigationBarTitleText": "忘记交易密码"
+			
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/binding-addr",
+			"style": {
+				"navigationBarTitleText": "绑定地址"
+			
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/answer",
+			"style": {
+				"navigationBarTitleText": "问题详情"
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/hasBindingPhone",
+			"style": {
+				"navigationBarTitleText": ""
 			
 			}
 		},

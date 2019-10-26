@@ -127,7 +127,7 @@
 							this.$base1._isLogin()
 						} else if (res.data.status == 1) {
 							this.nickname = res.data.data.NickName
-							this.avatar ='http://ceshi.8kpay.com/' + res.data.data.Avatar
+							this.avatar =uni.getStorageSync('domain') + res.data.data.Avatar
 							this.email = res.data.data.Email
 							this.achievement = res.data.data.Achievement
 						} else {

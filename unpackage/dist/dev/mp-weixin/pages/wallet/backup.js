@@ -190,7 +190,7 @@ var _wallet = _interopRequireDefault(__webpack_require__(/*! @/common/js/wallet.
 //
 //
 //
-var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup */ "components/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup.vue */ 553));};var _default = { components: { uniPopup: uniPopup }, data: function data() {return { pwd: '', type: 1, //1：导出助记词，2：导出私钥
+var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup */ "components/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup.vue */ 569));};var _default = { components: { uniPopup: uniPopup }, data: function data() {return { pwd: '', type: 1, //1：导出助记词，2：导出私钥
       wallet: {} };}, onHide: function onHide() {this.$refs['password'].close();this.pwd = '';}, onLoad: function onLoad() {this.wallet = this.$Wallet.getCurrentWallet();console.log(JSON.stringify(this.wallet));}, methods: { togglePopup: function togglePopup() {this.$refs['password'].open();}, canclePopup: function canclePopup() {this.$refs['password'].close();}, validatePwd: function validatePwd() {if (!this.pwd) {
         this.app._toast('请输入资金密码');
       } else if (this.pwd != this.wallet.pin) {

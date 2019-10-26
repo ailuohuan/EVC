@@ -33,8 +33,8 @@
 					if (this.$base1._indexOf(res.data.status)) {
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
-						this.content = res.data.data
-						this.container = this.content[0].AboutUs
+						// this.content = res.data.data
+						this.container = res.data.data.AboutUs
 						console.log(this.container)
 					} else {
 						uni.showToast({

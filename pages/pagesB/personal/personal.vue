@@ -54,15 +54,23 @@
 		</navigator>
 
 		<view class="block item-wrap ">
-			<navigator url="./binding-phone">
-				<view class="item flex-between border-bottom">
+			
+				<view @tap="jumpToBindingPhone" class="item flex-between border-bottom">
 					<view class="flex">
 						<i class="iconfont font-big  icon-RectangleCopy2"></i>
 						<text>绑定手机</text>
 					</view>
 					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				</view>
-			</navigator>
+				
+				<!-- <view @tap="jumpToBindingAddr" class="item flex-between border-bottom">
+					<view class="flex">
+						<i class="iconfont font-big  icon-dingwei"></i>
+						<text>绑定地址</text>
+					</view>
+					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
+				</view> -->
+			
 			<!-- 	<view class="item flex-between border-bottom">
 				
 				<view class="flex">
@@ -120,7 +128,8 @@
 				status: '',
 				planLevel: '',
 				authState: '',
-				i: 1
+				i: 1,
+				isBindPhone:''
 			}
 		},
 		onBackPress(options) {
@@ -142,12 +151,17 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.nickname = res.data.data.NickName
-						this.avatar = 'http://ceshi.8kpay.com/' + res.data.data.Avatar
+						console.log('111111111111111111'+uni.getStorageSync('domain'))
+						
+						
+						this.avatar = uni.getStorageSync('domain') + res.data.data.Avatar
 						this.status = res.data.data.IsForbidden
 						this.planLevel = res.data.data.PlanLevel
 
 						//用户实名认证状态
 						this.authState = res.data.data.AuthState
+						//绑定手机号的状态
+						this.isBindPhone = res.data.data.IsBindPhone
 
 
 					} else {
@@ -159,8 +173,34 @@
 				}
 			})
 		},
+		onBackPress(options) {
+			var idtag=1
+			console.log(idtag)
+			if (idtag==1) {
+				console.log('222')
+				uni.switchTab({
+					url:"../../wallet/wallet"
+				})
+				return true;
+			}
+		},
 		methods: {
-			
+			jumpToBindingPhone(){
+				if(this.isBindPhone!=1){
+					uni.redirectTo({
+						url:"./binding-phone"
+					})
+				}else {
+					uni.navigateTo({
+						url:"./hasBindingPhone"
+					})
+				}
+			},
+			jumpToBindingAddr(){
+				uni.navigateTo({
+					url:"./binding-addr"
+				})
+			},
 			showLevelBgc(level) {
 				if (level == 1) {
 					return 'linear-gradient(#FF727C, #FFA8AE)'
@@ -177,7 +217,7 @@
 				
 			},
 			jumpToPersonalInfo() {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: "./personal-info"
 				})
 			},

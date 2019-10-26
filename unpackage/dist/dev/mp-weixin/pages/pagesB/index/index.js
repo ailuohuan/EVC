@@ -161,7 +161,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var evcTabbar = function evcTabbar() {return __webpack_require__.e(/*! import() | components/evcTabbar */ "components/evcTabbar").then(__webpack_require__.bind(null, /*! @/components/evcTabbar.vue */ 560));};var UniLoadMore = function UniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more */ "components/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more.vue */ 567));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var evcTabbar = function evcTabbar() {return __webpack_require__.e(/*! import() | components/evcTabbar */ "components/evcTabbar").then(__webpack_require__.bind(null, /*! @/components/evcTabbar.vue */ 576));};var UniLoadMore = function UniLoadMore() {return __webpack_require__.e(/*! import() | components/uni-load-more */ "components/uni-load-more").then(__webpack_require__.bind(null, /*! @/components/uni-load-more.vue */ 583));};var _default =
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -254,8 +265,9 @@ __webpack_require__.r(__webpack_exports__);
       total1: 0,
       total2: 0,
       levelBgc: '',
-      title: '',
-      disabled: false };
+      noticeList: [],
+      disabled: false,
+      noticeindex: 0 };
 
   },
   onLoad: function onLoad() {var _this = this;
@@ -371,7 +383,7 @@ __webpack_require__.r(__webpack_exports__);
         success: function success(res) {
           console.log(res);
           if (res.data.status == 1) {
-            _this2.title = res.data.data[0].Title;
+            _this2.noticeList = res.data.data;
           } else {
             uni.showToast({
               title: res.data.message,
@@ -468,6 +480,19 @@ __webpack_require__.r(__webpack_exports__);
       uni.navigateTo({
         //携带参数跳转到详情页
         url: "./detail?id=" + this.productList2[index].Id });
+
+    },
+    changeNoticeSwiper: function changeNoticeSwiper(e) {
+      // console.log('------------'+JSON.stringify(e))
+      this.noticeindex = e.detail.current;
+      console.log(this.noticeindex);
+    },
+    jumpToNoticeDetail: function jumpToNoticeDetail() {
+      console.log(this.noticeindex);
+      console.log(this.noticeList[this.noticeindex].Id);
+      var noticeid = this.noticeList[this.noticeindex].Id;
+      uni.navigateTo({
+        url: "./noticeDetail?id=" + noticeid });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
