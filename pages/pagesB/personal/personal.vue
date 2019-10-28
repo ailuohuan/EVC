@@ -44,16 +44,17 @@
 				</view>
 			</view>
 		</view>
-		<navigator class="block border-bottom flex-between item margin-top100" url="./self-in">
-			<view class="flex">
-				<i class="iconfont font-big icon-RectangleCopy"></i>
-				<text>安全中心</text>
-			</view>
-			<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
-
-		</navigator>
+		
 
 		<view class="block item-wrap ">
+			<navigator class="block border-bottom flex-between item " url="./self-in">
+				<view class="flex">
+					<i class="iconfont font-big icon-RectangleCopy"></i>
+					<text>安全中心</text>
+				</view>
+				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
+			
+			</navigator>
 			
 				<view @tap="jumpToBindingPhone" class="item flex-between border-bottom">
 					<view class="flex">
@@ -62,14 +63,21 @@
 					</view>
 					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 				</view>
+				<view @tap="outLogin" class="item flex-between border-bottom">
+					<view class="flex">
+						<i class="iconfont font-big  icon-guanbi1"></i>
+						<text>退出登录</text>
+					</view>
+					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
+				</view>
 				
-				<!-- <view @tap="jumpToBindingAddr" class="item flex-between border-bottom">
+				<view @tap="jumpToBindingAddr" class="item flex-between border-bottom">
 					<view class="flex">
 						<i class="iconfont font-big  icon-dingwei"></i>
 						<text>绑定地址</text>
 					</view>
 					<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
-				</view> -->
+				</view>
 			
 			<!-- 	<view class="item flex-between border-bottom">
 				
@@ -129,7 +137,8 @@
 				planLevel: '',
 				authState: '',
 				i: 1,
-				isBindPhone:''
+				isBindPhone:'',
+				bindingAddr:''
 			}
 		},
 		onBackPress(options) {
@@ -162,7 +171,8 @@
 						this.authState = res.data.data.AuthState
 						//绑定手机号的状态
 						this.isBindPhone = res.data.data.IsBindPhone
-
+						//绑定地址状态
+						this.bindingAddr = res.data.data.BindAddress
 
 					} else {
 						uni.showToast({
@@ -196,10 +206,34 @@
 					})
 				}
 			},
+			outLogin(){
+				uni.showModal({
+				    title: '退出',
+				    content: '点击确认退出登录',
+				    success: function (res) {
+				        if (res.confirm) {
+				           uni.clearStorage();
+							uni.clearStorageSync();
+							uni.reLaunch({
+								url:"../login/login"
+							})
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+			},
 			jumpToBindingAddr(){
-				uni.navigateTo({
-					url:"./binding-addr"
-				})
+				if(this.bindingAddr==0){
+					uni.navigateTo({
+						url:"./binding-addr"
+					})
+				}else{
+					uni.navigateTo({
+						url:"./hasBindingAddr"
+					})
+				}
+				
 			},
 			showLevelBgc(level) {
 				if (level == 1) {

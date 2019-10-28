@@ -9,6 +9,7 @@
     "pages/wallet/backup",
     "pages/wallet/manage",
     "pages/user/user",
+    "pages/user/about",
     "pages/message/message",
     "pages/message/detail",
     "pages/coin/detail",
@@ -30,6 +31,7 @@
     "pages/pagesB/index/profit",
     "pages/pagesB/index/detail",
     "pages/pagesB/index/public-notification",
+    "pages/pagesB/personal/hasBindingAddr",
     "pages/pagesB/personal/invite",
     "pages/pagesB/wallet/wallet",
     "pages/pagesB/wallet/transfer-num",
@@ -69,7 +71,8 @@
     "pages/export/mnemonic",
     "pages/export/privatekey",
     "pages/question/question",
-    "pages/question/answer"
+    "pages/question/answer",
+    "pages/pagesB/wallet/coinDetail"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -334,8 +334,8 @@ __wallet.getContactBalance = function(data) {
 	if(data.length < 3 || data.length > 18) {
 		data.error(LengthError.LengthError, "请输入正确的合约币长度");
 	}
-	var provider = new ethers.providers.JsonRpcProvider("https://web3.token.im");
-	//var provider = ethers.getDefaultProvider('ropsten');
+	//var provider = new ethers.providers.JsonRpcProvider("https://web3.token.im");
+	var provider = new ethers.providers.JsonRpcProvider("https://mainnet-eth.token.im");
 	
 	var contract = new ethers.Contract(data.contactAddress, data.contactAbi, provider);
 	var balance = contract.balanceOf(data.address);
@@ -366,7 +366,7 @@ __wallet.getBalance = function(data) {
 		return;
 	}
 	var provider = new ethers.providers.JsonRpcProvider("https://web3.token.im");
-	//var provider = ethers.getDefaultProvider('ropsten');
+	//var provider = new ethers.providers.JsonRpcProvider("https://mainnet-eth.token.im");
 	var self = this;
 	provider.getBalance(data.address).then(function(balance) {
 		if(data.contactAddress == 'eth' || data.contactAddress == '') {
@@ -381,8 +381,7 @@ __wallet.getBalance = function(data) {
 }
 
 __wallet.transferEth = function(data, wallet) {
-
-	var provider = ethers.getDefaultProvider()
+	var provider = ethers.getDefaultProvider();
 
 	var balancePromise = provider.getBalance(wallet.address);
 	var gasPricePromise = provider.getGasPrice();
@@ -414,12 +413,23 @@ __wallet.transferEth = function(data, wallet) {
 				// This ensures the transaction cannot be replayed on different networks
 				chainId: ethers.utils.getNetwork('homestead').chainId
 			}
+			console.log(JSON.stringify(transaction));
 			var wallet = new ethers.Wallet(data.privateKey);
 			var signPromise = wallet.sign(transaction)
 			signPromise.then(function(signedTransaction){
 				provider.sendTransaction(signedTransaction).then(function(tx){
 					data.success(tx.hash);
+				}).catch(function(err){
+					uni.showToast({
+						icon: 'none',
+						title: '有一笔交易正在进行中',
+						duration: 2000
+					});
+					uni.hideLoading();
 				});
+			}).catch(function(err){
+				console.log(err);
+				uni.hideLoading();
 			})
 		}
 	});
@@ -516,5 +526,8 @@ __wallet.transferContact = function(data, wallet) {
 			}
 		}
 	});
+}
+__wallet.formatValue = function(data,length){//格式化金额
+	return ethers.utils.formatUnits(data, length);
 }
 export default __wallet;

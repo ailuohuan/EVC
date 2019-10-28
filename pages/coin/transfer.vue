@@ -2,7 +2,7 @@
 	<view>
 		<view class="flex-between coin-choose" @click="togglePopup('coin')">
 			<view class="flex">
-				<image class="logo" :src="currentCoin.Logo.trim() ? currentCoin.Logo : defaultImg" @error="currentCoin.logo = defaultImg"></image>
+				<image class="logo" :src="currentCoin.Logo ? currentCoin.Logo : defaultImg" @error="currentCoin.logo = defaultImg"></image>
 				<text class="coinname">{{currentCoin.EnName}}</text>
 			</view>
 			<view class="font-gray flex">
@@ -84,6 +84,7 @@
 				address: '',
 				freeMoney: '0.008',
 				gasNum: 80000,
+				gasPrice: 20,
 				wallet: {},
 				coinBalance: {},
 				coinList: [],
@@ -92,14 +93,19 @@
 			}
 		},
 		onLoad(opt) {
+			this.coinList = uni.getStorageSync(this.app._cacheCoin) || [];
 			this.wallet = this.$Wallet.getCurrentWallet();
 			this.coinBalance = JSON.parse(this.wallet.coin);
-			this.currentCoin = JSON.parse(opt.coinItem);
-			this.coinList = uni.getStorageSync(this.app._cacheCoin) || [];
+			if(opt.address){
+				this.address = opt.address;
+				this.currentCoin = this.coinList[0];
+			}else{
+				this.currentCoin = JSON.parse(opt.coinItem);
+			}
 		},
 		computed: {
 			getBalance() {
-				return this.app._toFixed(this.coinBalance[this.currentCoin.EnName],2);
+				return this.app._toFixed(this.coinBalance[this.currentCoin.EnName],4);
 			}
 		},
 		methods: {
@@ -132,15 +138,19 @@
 				uni.showLoading({
 				    title: '提交中'
 				});
-				let self = this;
+				let self = this , contractlength = 18;
+				if(this.currentCoin.EnName.toUpperCase() != 'ETH'){
+					contractlength = this.currentCoin.Decimals;
+				}
+				this.gasNum = this.freeMoney * 10000 / self.gasPrice * 100000;
 				this.$Wallet.trasfer({
 					privateKey: this.wallet.privateKey,
 					toaddress: this.address,
 					money: this.money,
 					gasNum: this.gasNum,
-					gasPrice: this.freeMoney,
+					gasPrice: this.gasPrice,
 					contractAddress: this.currentCoin.Ext,
-					contractLength: this.currentCoin.Decimals
+					contractLength: contractlength
 				},function(){
 					self.pwd = '';
 					self.canclePopup('password');

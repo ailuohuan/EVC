@@ -7,7 +7,7 @@
   "id": "__UNI__A1A6FE1",
   "name": "EVC Wallet",
   "version": {
-    "name": "1.0.0",
+    "name": "1.0",
     "code": "100"
   },
   "description": "",
@@ -43,6 +43,9 @@
       "immersed": "supportedDevice",
       "style": "dark",
       "background": "#FFFFFF"
+    },
+    "compatible": {
+      "ignoreVersion": true
     },
     "usingComponents": true,
     "nvueCompiler": "uni-app",
@@ -150,7 +153,7 @@
         }
       }
     },
-    "arguments": "{\"name\":\"test\",\"id\":0,\"pathName\":\"pages/pagesB/login/register\"}",
+    "arguments": "{\"id\":0}",
     "allowsInlineMediaPlayback": true,
     "safearea": {
       "background": "#FFFFFF",
@@ -198,7 +201,11 @@
           "text": "我的"
         }
       ],
-      "height": "50px"
+      "height": "50px",
+      "child": [
+        "lauchwebview"
+      ],
+      "selected": 0
     }
   }
 }

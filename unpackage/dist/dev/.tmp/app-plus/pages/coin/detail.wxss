@@ -7,7 +7,7 @@ page{background-color: #FFFFFF;}
 .assets-wrap .money{font-weight: bold;font-size: 48rpx;}
 .transfer-wrap{padding-bottom: 140rpx;}
 .transfer-wrap .nav{display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-justify-content: space-around;-ms-flex-pack: distribute;justify-content: space-around;color: #999999;height: 90rpx;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;}
-.transfer-wrap .nav>text{padding-bottom: 10rpx;}
+.transfer-wrap .nav>text{padding: 10rpx 40rpx;}
 .transfer-wrap .nav .active{color: #0099FF;border-bottom: 2px solid #0099FF;}
 .transfer-wrap .title{font-weight: bold;border-bottom: 1px solid #F6F6F6;padding: 30rpx 24rpx;}
 .transfer-list{padding: 0 24rpx;}

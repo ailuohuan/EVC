@@ -2,11 +2,14 @@
     "name" : "EVC Wallet",
     "appid" : "__UNI__A1A6FE1",
     "description" : "",
-    "versionName" : "1.0.0",
+    "versionName" : "1.0",
     "versionCode" : "100",
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
+        "compatible" : {
+            "ignoreVersion" : true
+        },
         "usingComponents" : true,
         "nvueCompiler" : "uni-app",
         "splashscreen" : {

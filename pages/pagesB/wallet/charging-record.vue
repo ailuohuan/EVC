@@ -25,8 +25,8 @@
 						<view class="name-en">
 							{{$base1._toFixed(item.Money,4)}}{{item.CoinName}}
 						</view>
-						<view class="name-ch desc" :style="{color:showColor(item.Status)}">
-							{{ showStatus(item.Status) }}
+						<view class="name-ch desc" :style="{color:showColor(item.Status,item.Type)}">
+							{{ showStatus(item.Status,item.Type) }}
 						</view>
 					</view>
 					<view class="iconfont icon">
@@ -144,27 +144,51 @@
 
 			},
 			//处理状态返回的显示值
-			showStatus(status) {
-				if (status) {
-					if (status == "-1") {
-						return "驳回"
-					} else if (status == "0") {
-
-						return "待处理"
-					} else if (status == "1") {
-
-						return "处理中"
-					} else if (status == "2") {
-						return "已处理"
-					} else if (status == "3") {
-
-						return "失败"
-					} else if (status == "4") {
-
-						return "处理成功"
-					}
+			//处理状态返回的显示值
+			showStatus(status,type){
+				if(type == 1){
+					if(status == 0) return '区块确认中';
+					else if(status == 1) return '已完成';
+				}else{
+					if(status == -1) return '驳回';
+					else if(status == 0 || status == 3) return '待审核';
+					else if(status == 1) return '区块确认中';
+					else if(status == 2 || status == 4) return '已完成';
 				}
 			},
+			//状态不同显示不同的颜色
+			showColor(status,type){
+				if(type == 1){
+					if(status == 0) return "#333333";
+					else if(status == 1) return '已完成';
+				}else{
+					if(status == -1) return "red";
+					else if(status == 0 || status == 1 || status == 3) return "green";
+					else if(status == 2 || status == 4) return '#333333';
+				}
+			},
+			// showStatus(status) {
+			// 	if (status) {
+			// 		if (status == "-1") {
+			// 			return "驳回"
+			// 		} else if (status == "0") {
+
+			// 			return "待审核"
+			// 		} else if (status == "1") {
+
+			// 			return "区块确认中"
+			// 		} else if (status == "2") {
+			// 			return "成功"
+			// 		} else if (status == "3") {
+
+			// 			return "待审核"
+			// 		} 
+			// 		// else if (status == "4") {
+
+			// 		// 	return "处理成功"
+			// 		// }
+			// 	}
+			// },
 			//状态不同显示不同的颜色
 			showColor(status) {
 				if (status) {

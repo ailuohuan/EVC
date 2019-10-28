@@ -150,20 +150,12 @@
 					}
 				})
 			},
-			showState(state){
-				if(state==1){
-					return  "待理财";
-				}else if(state==2){
-					return "理财中"
-				}else if(state==3){
-					return "已撤资"
-				}else if(state==4){
-					return "已完结"
-				}
-			},
+		
 			jumpToRecorde(index) {
+				console.log(this.nameList[index].Id)
 				uni.navigateTo({
-					url: "./recorder-detail?id="+this.nameList[index].Id
+					//携带时间，名称，金额
+					url: "recorde-detail?id="+this.nameList[index].Id+"&time="+this.$base1._formatDate(this.nameList[index].AddTime)+"&money="+ this.nameList[index].Money+"&name="+this.nameList[index].CoinName+"&type="+this.nameList[index].MoldTitle
 				})
 			}
 		}

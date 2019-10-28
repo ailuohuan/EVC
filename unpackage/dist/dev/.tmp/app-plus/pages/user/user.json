@@ -4,16 +4,7 @@
   "titleNView": {
     "type": "transparent",
     "titleColor": "#fff",
-    "backgroundColor": "#007AFF",
-    "buttons": [
-      {
-        "text": "",
-        "fontSrc": "/static/font/iconfont.ttf",
-        "fontSize": "22px",
-        "float": "right",
-        "background": "rgba(0,0,0,0)"
-      }
-    ]
+    "backgroundColor": "#007AFF"
   },
   "usingComponents": {}
 }

@@ -22,9 +22,9 @@
 			
 		</view>
 		<view class="list padding">
-			<view class="list-item" v-for="item in nameList" :key="item.id">
+			<view class="list-item flex-between" v-for="item in nameList" :key="item.id">
 				
-					<text>{{item.leftText}}</text><text>{{item.rightText}}</text>
+					<view>{{item.leftText}}</view><view class="text-right right-text text-overflow">{{item.rightText}}</view>
 				
 			</view>
 		</view>
@@ -38,11 +38,11 @@
 		data() {
 			return {
 				nameList:[					
-					{leftText:'时间戳:',rightText:'2019-09-19 14:58:03'},
+					{leftText:'时间:',rightText:''},
 					// {leftText:'区块高度:',rightText:'6984112（43282块确认'},
-					{leftText:'接收地址：',rightText:'udwgufewfjiebufbwfbwjegbwv'},
+					{leftText:'接收地址：',rightText:''},
 					
-					{leftText:'哈希值：',rightText:'liodoiuendjfhwofnkovidoshwq90375kdmc...'},
+					{leftText:'哈希值：',rightText:''},
 					
 				],
 			
@@ -82,7 +82,7 @@
 							this.$base1._isLogin()
 						} else if(res.data.status==1){
 							this.nameList[0].rightText = this.$base1._formatDate(this.time) 
-							this.nameList[1].rightText = res.data.data.RecvAddress
+							this.nameList[1].rightText = res.data.data.Address
 							this.nameList[2].rightText = res.data.data.Hash
 							
 						}else{
@@ -111,7 +111,7 @@
 							this.$base1._isLogin()
 						} else if(res.data.status==1){
 							this.nameList[0].rightText = this.$base1._formatDate(this.time)
-							this.nameList[1].rightText = res.data.data.RecvAddress
+							this.nameList[1].rightText = res.data.data.Address
 							this.nameList[2].rightText = res.data.data.Hash
 						}else{
 							uni.showToast({
@@ -134,6 +134,10 @@
 		font-size: 30rpx;
 		background-color: #fff;
 		height: 1334rpx;
+		.right-text{
+			width: 300rpx;
+			
+		}
 		.top {
 			display: flex;
 			flex-direction: row;

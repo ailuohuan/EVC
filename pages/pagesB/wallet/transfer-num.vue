@@ -35,8 +35,25 @@
 				<text>接收地址</text>
 			</view>
 			<view class="list-input font-small">
-				<input class="font-small" type="text" value="" v-model="address" placeholder="输入接收地址" />
+				<input class="font-small" type="text" disabled v-model="address" :placeholder="address" />
 
+			</view>
+		</view>
+		<view class="list padding">
+			<view class="list-top">
+				<text>验证码</text>
+			</view>
+			<view class="list-input font-small flex-between">
+				<input class="font-small" type="text" v-model="autoCode" placeholder="请输入验证码" />
+				<text class="font-blue" @click="sendCode">{{sendbtn.text}}</text>
+			</view>
+		</view>
+		<view class="list padding">
+			<view class="list-top">
+				<text>资金密码</text>
+			</view>
+			<view class="list-input font-small">
+				<input class="font-small" type="password" v-model="password" placeholder="请输入资金密码" />
 			</view>
 		</view>
 		<view class="list padding">
@@ -55,7 +72,7 @@
 			<button class="blue" type="primary" @tap="sureTransfer">转账</button>
 		</view>
 		<!-- 输入资金密码的弹窗 -->
-		<view class="prompt-box" v-show="showPinMask" @tap="closePinMask"></view>
+		<!-- <view class="prompt-box" v-show="showPinMask" @tap="closePinMask"></view>
 		<view class="prompt-content" v-show="showPinMask">
 			<view class="">请输入资金密码 <text class="iconfont icon" @tap="closePinMask">&#xe723;</text></view>
 			<input class="prompt-input" type="text" password v-model="password" placeholder="请输入资金密码" />
@@ -65,10 +82,10 @@
 			<view class="margin-top">
 				<button class="blue" @tap="confirm">提交密码</button>
 			</view>
-		</view>
+		</view> -->
 
 		<!-- 输入验证码的弹窗 -->
-		<view class="prompt-box" v-show="showCodeMask" @tap="closeCodeMask"></view>
+		<!-- <view class="prompt-box" v-show="showCodeMask" @tap="closeCodeMask"></view>
 		<view class="prompt-content" v-show="showCodeMask">
 			<view class="font36 font-bold text-left">
 				安全验证
@@ -87,7 +104,7 @@
 				<button class="blue" @tap="surePay">确认支付</button>
 			</view>
 		</view>
-
+ -->
 	</view>
 </template>
 
@@ -118,7 +135,9 @@
 					text: '获取验证码',
 					codeTime: 60
 				},
-				userPhone:''
+				userPhone:'',
+				bindingAddr:'',
+				isRealName:''
 			}
 
 		},
@@ -139,6 +158,10 @@
 						this.$base1._isLogin()
 					} else if (res.data.status == 1) {
 						this.userPhone = res.data.data.Phone
+						this.address = res.data.data.Address;
+						this.bindingAddr = res.data.data.BindAddress
+						//获取用户是否实名认证
+						this.isRealName = res.data.data.AuthState
 					} else {
 						uni.showToast({
 							title: res.data.message,
@@ -227,9 +250,9 @@
 			},
 			//转账获取验证码
 			sendCode() {
-				
 				if(this.userPhone){
-					this.nosendCode = true
+					if(this.nosendCode) return;
+					this.nosendCode = true;
 					uni.request({
 						url: this.baseUrl + "/sms-withdraw",
 						method: "POST",
@@ -352,28 +375,46 @@
 				this.money = this.allmoneyNum
 			},
 			sureTransfer() {
-				if(this.money){
-					this.showPinMask = true
-				}else{
-					uni.showToast({
-						title:"请输入转账数量",
-						icon:"none"
-					})
+				if(this.bindingAddr ==0){
+					uni.showModal({
+					    title: '您还未绑定充值地址',
+					    content: '点击确定绑定',
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.navigateTo({
+					            	url:"../personal/binding-addr"
+					            })
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+					return;
+				}else if(this.isRealName==0){
+					uni.showModal({
+					    title: '您还未实名认证',
+					    content: '点击确定实名认证',
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.navigateTo({
+					            	url:"../personal/real-name"
+					            })
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+					return
 				}
-				
-			},
-			closePinMask() {
-				this.showPinMask = false
-			},
-			confirm() {
-				this.showCodeMask = true
-			},
-			closeCodeMask() {
-				this.showCodeMask = false
-			},
-
-			surePay() {
-				//转账
+				if(!this.money){
+					this.app._toast('请输入转账数量');return;
+				}
+				if(!this.autoCode){
+					this.app._toast('请输入验证码');return;
+				}
+				if(!this.password){
+					this.app._toast('请输入资金密码');return;
+				}
 				uni.request({
 					url: this.baseUrl + "/recharge",
 					data: {
@@ -420,6 +461,16 @@
 					}
 				})
 			},
+			closePinMask() {
+				this.showPinMask = false
+			},
+			confirm() {
+				this.showCodeMask = true
+			},
+			closeCodeMask() {
+				this.showCodeMask = false
+			},
+
 			jumpToForgetPassword() {
 				uni.navigateTo({
 					url: "../login/forgetPassword"
@@ -431,6 +482,7 @@
 </script>
 
 <style lang="scss">
+	page{background: #FFFFFF;}
 	.font36 {
 		font-size: 36rpx;
 	}
@@ -459,8 +511,9 @@
 		.top {
 			font-size: 30rpx;
 			margin-top: 20rpx;
-			padding: 40rpx 20rpx;
+			padding: 20rpx 20rpx;
 			box-sizing: border-box;
+			border-top: 8px solid #F5F5F5;
 		}
 
 		.font22 {

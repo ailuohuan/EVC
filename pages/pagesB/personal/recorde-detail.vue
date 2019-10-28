@@ -5,20 +5,20 @@
 		<view class="middle">
 			<view class="all">
 				<view class="name margin-top">
-					btc
+					{{name}}
 				</view>
 			</view>
 			<view class="transfer-accounts">
-				购买算力
+				{{type}}
 			</view>
 			<view class="all-num">
-				33333BTC
+				{{money}}{{name}}
 			</view>
 		</view>
 		<view class="bgbox">
 		</view>
 		<view class="list">
-			<view class="list-item padding" v-for="item in nameList">
+			<view class="list-item padding" v-for="item in nameList" :key="item.id">
 
 				<text>{{item.leftText}}</text><text>{{item.rightText}}</text>
 
@@ -38,38 +38,38 @@
 		data() {
 			return {
 				nameList: [{
-						leftText: '时间戳:',
-						rightText: '2019-09-19 14:58:03'
+						leftText: '时间:',
+						rightText: ''
 					},
+					
 					{
-						leftText: '区块高度:',
-						rightText: '6984112（43282块确认'
+						leftText: '金额：',
+						rightText: ''
 					},
-					{
-						leftText: '发起地址：',
-						rightText: 'udwgufewfjiebufbwfbwjegbwv'
-					},
-					{
-						leftText: '当前状态：',
-						rightText: '区块确认到账'
-					},
-					{
-						leftText: '哈希值：',
-						rightText: 'liodoiuendjfhwofnkovidoshwq90375kdmc...'
-					},
+					
 
 				],
-				headerTitle: '资金记录详情'
+				name:'',
+				time:'',
+				money:'',
+				type:''
 			};
 		},
 		onLoad(options) {
 			this.nameList[0].rightText = options.time
-			this.nameList[1].rightText = options.height
-			this.nameList[2].rightText = options.addr
-			this.nameList[3].rightText = options.status
-			this.nameList[4].rightText = options.hash
-
+			this.nameList[1].rightText = options.money
+			
+			this.id = options.id
+			//接收名称金额时间
+			this.name = options.name
+			this.time = options.time
+			this.money = options.money
+			this.type = options.type
+		},
+		methods:{
+			
 		}
+		
 	}
 </script>
 

@@ -65,7 +65,7 @@
 		</block> -->
 		<!-- <block v-else> -->
 			<view class="list">
-				<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToManage(index)">
+				<view class="list-item" v-for="(item,index) in nameList" :key="index" @tap="jumpToManage(item.Id,item.Type,name)">
 					<view class="">
 						<view class="name-en">
 							{{item.Type==1?"充值":"提现"}}
@@ -79,8 +79,8 @@
 							<view class="name-en">
 								{{item.Money}}{{name}}
 							</view>
-							<view class="name-ch desc" :style="{color:showColor(item.Status)}">
-								{{showStatus(item.Status)}}
+							<view class="name-ch desc" :style="{color:showColor(item.Status,item.Type)}">
+								{{showStatus(item.Status,item.Type)}}
 							</view>
 						</view>
 						<view class="iconfont icon">
@@ -226,47 +226,26 @@
 				})
 			},
 			//处理状态返回的显示值
-			showStatus(status){
-				if(status){
-					if(status=="-1"){
-						return "驳回" 
-					}else if(status=="0"){
-						
-						return "待处理"
-					}else if(status=="1"){
-						
-						return "处理中"
-					}else if(status=="2"){
-						return "已处理"
-					}else if(status=="3"){
-						
-						return "失败"
-					}else if(status=="4"){
-						
-						return "处理成功"
-					}
+			showStatus(status,type){
+				if(type == 1){
+					if(status == 0) return '区块确认中';
+					else if(status == 1) return '已完成';
+				}else{
+					if(status == -1) return '驳回';
+					else if(status == 0 || status == 3) return '待审核';
+					else if(status == 1) return '区块确认中';
+					else if(status == 2 || status == 4) return '已完成';
 				}
 			},
 			//状态不同显示不同的颜色
-			showColor(status){
-				if(status){
-					if(status=="-1"){
-						return "red" 
-					}else if(status=="0"){
-						
-						return "green"
-					}else if(status=="1"){
-						
-						return "green"
-					}else if(status=="2"){
-						return "blue"
-					}else if(status=="3"){
-						
-						return "red"
-					}else if(status=="4"){
-						
-						return "blue"
-					}
+			showColor(status,type){
+				if(type == 1){
+					if(status == 0) return "#333333";
+					else if(status == 1) return '已完成';
+				}else{
+					if(status == -1) return "red";
+					else if(status == 0 || status == 1 || status == 3) return "green";
+					else if(status == 2 || status == 4) return '#333333';
 				}
 			},
 			currentBtnIndex(index) {
@@ -336,14 +315,18 @@
 					return "已完结"
 				}
 			},
-			jumpToManage(index) {
-				this.id = this.nameList[index].Id
-				this.acid = this.nameList[index].ActivityId
-				console.log(this.id) //我的理财id
-				console.log(this.acid) //理财活动id
+			jumpToManage(id,type,coinname) {
+				// this.id = this.nameList[index].Id
+				// this.acid = this.nameList[index].ActivityId
+				// console.log(this.id) //我的理财id
+				// console.log(this.acid) //理财活动id
+				// uni.navigateTo({
+				// 	url: "./manage-in?id=" + this.id + "&acid=" + this.acid //需要传一个investmentId过去,还需传一个acid过去获取天数
+				// })
+				console.log(coinname)
 				uni.navigateTo({
-					url: "./manage-in?id=" + this.id + "&acid=" + this.acid //需要传一个investmentId过去,还需传一个acid过去获取天数
-				})
+					url: `coinDetail?id=${id}&type=${type}&coinname=${coinname}`,
+				});
 			}
 		}
 	}

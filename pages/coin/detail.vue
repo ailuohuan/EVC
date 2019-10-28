@@ -9,24 +9,32 @@
 			<page-loading v-if="!pageLoad"></page-loading>
 			<view v-else>
 				<view class="nav">
-					<text :class="mold == 0 ? 'active' : ''" @click="mold = 0">全部</text>
-					<text :class="mold == 1 ? 'active' : ''" @click="mold = 1">收款</text>
-					<text :class="mold == 2 ? 'active' : ''" @click="mold = 2">转账</text>
+					<text :class="mold == 0 ? 'active' : ''" @click="moldChange(0)">全部</text>
+					<text :class="mold == 1 ? 'active' : ''" @click="moldChange(1)">收款</text>
+					<text :class="mold == 2 ? 'active' : ''" @click="moldChange(2)">转账</text>
 				</view>
 				<view>
-					<view class="no-data" v-if="1==2">
+					<view class="no-data" v-if="!record.length">
 						<view><image src="../../static/images/nodata.png" mode="widthFix"></image></view>
 						<view class="font-blue">这里还没有数据哦</view>
 					</view>
 					<view v-else class="transfer-list">
-						<navigator class="item" v-for="(item,index) in 10" :key="index" url="transferDetail">
-							<view class="flex-between">
+						<navigator class="item" v-for="(item,index) in record" :key="index" :url="'transferDetail?coinname='+coinItem.EnName+'&item='+JSON.stringify(item)">
+							<view class="flex-between" v-if="item.from.toLowerCase() == wallet.address.toLowerCase()">
+								<text>转账</text>
+								<text>-{{item.value}} {{coinItem.EnName}}</text>
+							</view>
+							<view class="flex-between" v-else>
 								<text>收款</text>
-								<text>+1000 BTC</text>
+								<text>+{{item.value}} {{coinItem.EnName}}</text>
 							</view>
 							<view class="flex-between">
-								<text class="font-gray font-small">2019-09-09 23:34:34</text>
-								<text class="font-small">已完成</text>
+								<text class="font-gray font-small">{{app._formatDate(item.timeStamp)}}</text>
+								<text class="font-small" v-if="item.isError==1">交易失败</text>
+								<block v-else>
+									<text class="font-small" v-if="item.confirmations>12">已完成</text>
+									<text class="font-small font-green" v-else>区块确认中</text>
+								</block>
 							</view>
 						</navigator>
 					</view>
@@ -46,32 +54,81 @@
 		data() {
 			return {
 				mold: 0, //0：全部，1：收款，2：转账
-				pageLoad: true,
+				pageLoad: false,
 				wallet: {},
 				coinItem: {},
 				num: '',
-				money: ''
+				money: '',
+				allRecord: [],
+				record: []
 			}
 		},
 		onLoad(opt) {
 			this.wallet = this.$Wallet.getCurrentWallet();
 			this.coinItem = JSON.parse(opt.coinItem);
+			this.num = opt.num;
+			this.money = opt.money;
+			this.allRecord = uni.getStorageSync(this.app._cacheList) || [];
+			this.record = [...this.allRecord];
+			if(this.record.length) this.pageLoad = true;
 			uni.setNavigationBarTitle({
 				title: this.coinItem.EnName
 			});
-			this.num = opt.num;
-			this.money = opt.money;
 			this.getList();
 		},
 		methods: {
+			moldChange(value){
+				this.mold = value;
+				if(this.mold == 0){
+					this.record = [...this.allRecord];
+				}else if(this.mold == 1){
+					this.record = this.allRecord.filter(item => {
+						return item.from != this.wallet.address;
+					});
+				}else{
+					this.record = this.allRecord.filter(item => {
+						return item.from == this.wallet.address;
+					});
+				}
+			},
 			getList(){
-				let self = this , sendPara = {UnkowUrl1: 'https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=0xd26114cd6EE289AccF82350c8d8487fedB8A0C07&address=0xA2B0f0bDc42f79E51838aC8c625609B3535c9Bd3&page=1&offset=1000&sort=desc'};
+				let self = this , sendPara = {};
+				if(this.coinItem.EnName.toUpperCase() == 'ETH'){
+					sendPara = {UnkowUrl1: "https://api.etherscan.io/api?module=account&action=txlist&address=" + this.wallet.address + "&page=1&offset=1000&sort=desc"};
+				}else{
+					sendPara = {UnkowUrl1: "https://api.etherscan.io/api?module=account&action=tokentx&contractaddress=" + this.coinItem.Ext + "&address=" + this.wallet.address + "&page=1&offset=1000&sort=desc"};
+				}
 				uni.request({
 					url: self.baseUrl + '/etherscan',
 					method: 'GET',
 					data: sendPara,
 					success: res => {
-						console.log(res.data);
+						if(res.data.status == 1){
+							self.allRecord = res.data.data.result;
+							self.allRecord.map(function(item) {
+								if(self.coinItem.EnName.toUpperCase() == 'ETH'){
+									item.value = self.$Wallet.formatValue(item.value,18);
+								}else{
+									item.value = self.$Wallet.formatValue(item.value,self.coinItem.Decimals);
+								}
+							});
+							if(self.mold == 0){
+								self.record = [...self.allRecord];
+							}else if(self.mold == 1){
+								self.record = self.allRecord.filter(item => {
+									return item.from != self.wallet.address;
+								});
+							}else{
+								self.record = self.allRecord.filter(item => {
+									return item.from == self.wallet.address;
+								});
+							}
+							self.record.sort(function(b, a) {
+								return a.blockNumber - b.blockNumber;
+							});
+							uni.setStorageSync(self.app._cacheList,self.allRecord);
+						}
+						self.pageLoad = true;
 					},
 					fail: () => {},
 					complete: () => {}
@@ -90,7 +147,7 @@
 	.assets-wrap .money{font-weight: bold;font-size: 48upx;}
 	.transfer-wrap{padding-bottom: 140upx;}
 	.transfer-wrap .nav{display: flex;justify-content: space-around;color: #999999;height: 90upx;align-items: center;}
-	.transfer-wrap .nav>text{padding-bottom: 10upx;}
+	.transfer-wrap .nav>text{padding: 10upx 40upx;}
 	.transfer-wrap .nav .active{color: #0099FF;border-bottom: 2px solid #0099FF;}
 	.transfer-wrap .title{font-weight: bold;border-bottom: 1px solid #F6F6F6;padding: 30upx 24upx;}
 	.transfer-list{padding: 0 24upx;}

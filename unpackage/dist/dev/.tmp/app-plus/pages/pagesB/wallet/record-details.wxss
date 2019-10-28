@@ -31,6 +31,9 @@
   background-color: #fff;
   height: 1334rpx;
 }
+.content .right-text.data-v-6d8a7c81 {
+    width: 300rpx;
+}
 .content .top.data-v-6d8a7c81 {
     display: -webkit-box;
     display: -webkit-flex;

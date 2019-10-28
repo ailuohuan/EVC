@@ -82,18 +82,23 @@
 					"titleNView": {
 						"type": "transparent",
 						"titleColor": "#fff",
-						"backgroundColor": "#007AFF",
-						"buttons": [{
-							"text": "\ue645",
-							"fontSrc": "/static/font/iconfont.ttf",
-							"fontSize": "22px",
-							"float": "right",
-							"background": "rgba(0,0,0,0)"
-						}]
+						"backgroundColor": "#007AFF"
+						// "buttons": [{
+						// 	"text": "\ue645",
+						// 	"fontSrc": "/static/font/iconfont.ttf",
+						// 	"fontSize": "22px",
+						// 	"float": "right",
+						// 	"background": "rgba(0,0,0,0)"
+						// }]
 					}
 				}
 			}
 
+		},{
+			"path": "pages/user/about",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
 		},
 		{
 			"path": "pages/message/message",
@@ -157,7 +162,6 @@
 		{
 			"path": "pages/pagesB/index/index",
 			"style": {
-				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": true,
 				"navigationBarTitleText": "首页",
 				"app-plus": {
@@ -237,6 +241,12 @@
 			"style": {
 				"navigationBarTitleText": "公告"
 				
+			}
+		},
+		{
+			"path": "pages/pagesB/personal/hasBindingAddr",
+			"style": {
+				"navigationBarTitleText": "已绑地址"
 			}
 		},
 		{
@@ -544,13 +554,18 @@
 		    "style" : {
 				"navigationBarTitleText": "问题解答"
 			}
+		},{
+		    "path" : "pages/pagesB/wallet/coinDetail",
+		    "style" : {
+				"navigationBarTitleText": "记录详情"
+			}
 		}
     ],
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式（list 的索引项）
 		"list": [{
-			"name": "test", //模式名称
-			"path": "pages/pagesB/login/register" //启动页面，必选
+			// "name": "test", //模式名称
+			// "path": "pages/pagesB/index/index" //启动页面，必选
 		}]
 
 	},

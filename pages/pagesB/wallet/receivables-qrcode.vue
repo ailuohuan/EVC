@@ -3,7 +3,7 @@
 		<view class="flex-between top padding">
 			<view class="flex-row flex">
 				<view class="">
-					<image class="logo-img" src="../../../static/images/BTC@2x.png" mode=""></image>
+					<image class="logo-img" :src="array[index].logo" mode=""></image>
 				</view>
 				<view class="font-middle font-bold">
 					{{array[index].enName}}
@@ -49,9 +49,9 @@
 				address: '',
 				id: '',
 				array: [],
-				coinList:[],
-				arrayenName:[],
-				index:0
+				coinList: [],
+				arrayenName: [],
+				index: 0
 			};
 		},
 		onLoad(options) {
@@ -68,11 +68,15 @@
 					} else if (res.data.status == 1) {
 						this.coinList = res.data.data
 						var self = this
-						for(var i = 0; i < self.coinList.length; i++){
-							var coinListName = {enName:self.coinList[i].EnName,id:self.coinList[i].Id}
+						for (var i = 0; i < self.coinList.length; i++) {
+							var coinListName = {
+								enName: self.coinList[i].EnName,
+								id: self.coinList[i].Id,
+								logo: self.coinList[i].Logo
+							}
 							self.array.push(coinListName)
-						}		
-						for(var j=0 ; j<self.array.length;j++){
+						}
+						for (var j = 0; j < self.array.length; j++) {
 							this.arrayenName.push(this.array[j].enName)
 						}
 						this.getAdress()
@@ -84,7 +88,7 @@
 					}
 				}
 			})
-			
+
 		},
 		methods: {
 			bindPickerChange(e) {
@@ -92,12 +96,12 @@
 				console.log(this.index)
 				this.getAdress()
 			},
-			getAdress(){
+			getAdress() {
 				//获取充值地址
 				uni.request({
 					url: this.baseUrl + "/recharge-address",
-					data:{
-						Id:this.array[this.index].id
+					data: {
+						Id: this.array[this.index].id
 					},
 					header: {
 						//除注册登录外其他的请求都携带用户token和秘钥
@@ -106,7 +110,7 @@
 					success: (res) => {
 						console.log('999999999999999')
 						console.log(res.data)
-						 if (res.data.status == 1) {
+						if (res.data.status == 1) {
 							this.address = res.data.data
 							this.img = QR.createQrCodeImg(this.address, {
 								size: parseInt(300) //二维码大小  
@@ -153,7 +157,7 @@
 			font-size: 32rpx;
 			width: 500rpx;
 			margin: 0 auto;
-			
+
 		}
 
 		.top {

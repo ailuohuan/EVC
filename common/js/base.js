@@ -1,6 +1,7 @@
 module.exports = {
 	_cacheWallet: "evc_wallet",//钱包的缓存名字
 	_cacheCoin: "evc_coin",//币种缓存名称
+	_cacheList: 'evc_list',//充提记录缓存名称
 	_des3pwd: "ioqXdfdHfbSZaLeBQhLgxBNG",//des3加密秘钥
 	_platCoin(){ //平台币
 		return '';
@@ -145,5 +146,54 @@ module.exports = {
 				url: '/pages/account/login',
 			});
 		}
+	},
+	_install(item){ //安装新版本
+		plus.nativeUI.showWaiting("更新中...");
+		let url = item.Android;
+		if (plus.os.name.toLowerCase() == "ios") {
+			url = item.IOS;
+			if (item.install) {
+				plus.runtime.openURL(url, function() {
+					plus.nativeUI.toast("启动外部浏览器错误", {
+						verticalAlign: 'center'
+					});
+				}); 
+				return;
+			}
+		}
+		let self = this;
+		var dtask = plus.downloader.createDownload(url, {},
+			function(d, status) {
+				plus.nativeUI.closeWaiting();
+				if (status == 200) { 
+					self._toast("正在准备环境，请稍后！");
+					setTimeout(function() {
+						var path = d.filename; //下载apk
+						//plus.runtime.install()
+						plus.runtime.install(path, {
+							force: true
+						}, function() {
+							var str = '更新成功,请手动重启';
+							if (plus.os.name.toLowerCase() == 'ios') {
+								str = '更新成功，将自动重启';
+							}
+							plus.nativeUI.alert(str, function() {
+								if (plus.os.name.toLowerCase() == 'ios') {
+									plus.runtime.restart();
+								} else {
+									plus.runtime.quit();
+								}
+							});
+						}, function(ttt) {
+							plus.nativeUI.toast("更新失败", {
+								verticalAlign: 'center'
+							});
+						}); // 自动安装apk文件
+					}, 100);
+				} else {
+					plus.nativeUI.alert('资源包下载失败:' + status);
+				}
+		});
+		dtask.start();
 	}
 }

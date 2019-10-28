@@ -218,9 +218,14 @@
 			jumpToTransferNum() {
 				if(!this.money){
 					uni.showToast({
-						title:"您没有可用余额，不能进行提现操作"
+						title:"您没有可用余额，不能进行提现操作",
+						icon:"none"
 					})
 				}else{
+					//提币实名状态如果未实名则让用户实名
+					
+					
+					
 					uni.navigateTo({
 						url: "./transfer-num"
 					})

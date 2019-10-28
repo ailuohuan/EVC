@@ -27,7 +27,7 @@
 					</view>
 					<view class="text-right">
 						<view>{{hidden ? '****' : getSimple(item.EnName)}}</view>
-						<view class="font-gray font-small">￥{{hidden ? '****' : getCny(item.Price,getSimple(item.EnName))}}</view>
+						<view class="font-gray font-small">￥{{hidden ? '****' : getCny(item.Price,getSimple(item.EnName),item.EnName)}}</view>
 					</view>
 				</view>
 			</view>
@@ -70,7 +70,15 @@
 		},
 		onNavigationBarButtonTap(e) {
 			if(e.index == 1){
-				
+				uni.scanCode({
+				    success: function (res) {
+				        console.log('条码类型：' + res.scanType);
+				        console.log('条码内容：' + res.result);
+						uni.navigateTo({
+							url: `../coin/transfer?address=${res.result}`
+						})
+				    }
+				});
 			}else{
 				uni.navigateTo({
 					url: 'manage'
@@ -112,17 +120,17 @@
 			getSimple(){
 				return function(name){
 					if(!this.coinBalance[name]){
-						return '0.00';
+						return '0.0000';
 					}else{
-						return this.app._toFixed(this.coinBalance[name],2);
+						return this.app._toFixed(this.coinBalance[name],4);
 					}
 				}
 			},
 			getCny() {
-				return function(price,num){
-					let temp = price ? price : this.$Wallet.getCNY(item.EnName);
+				return function(price,num,name){
+					let temp = this.$Wallet.getCNY(name);
 					let money = this.app._accMul(temp,num);
-					return this.app._toFixed(money,2);
+					return this.app._toFixed(money,4);
 				}
 			}
 		},
@@ -151,7 +159,7 @@
 			getCoinList(){
 				let self = this;
 				uni.request({
-					url: self.baseUrl + '/coin-list',
+					url: self.baseUrl + '/coin--list',
 					method: 'GET',
 					data: {},
 					success: res => {

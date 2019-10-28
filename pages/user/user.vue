@@ -21,20 +21,20 @@
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
 			</navigator>
-			<view class="item flex-between">
+			<navigator class="item flex-between" url="about?type=1">
 				<view class="flex">
 					<i class="iconfont icon-bianji"></i>
 					<text>用户协议</text>
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
-			</view>
-			<view class="item flex-between">
+			</navigator>
+			<navigator class="item flex-between" url="about?type=2">
 				<view class="flex">
 					<i class="iconfont icon-zhuye"></i>
 					<text>关于我们</text>
 				</view>
 				<i class="iconfont icon-return-copy-copy-copy font-gray"></i>
-			</view>
+			</navigator>
 		</view>
 	</view>
 </template>

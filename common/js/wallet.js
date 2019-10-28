@@ -4,7 +4,6 @@ import DES3 from "./DES3.js";
 import eth from "./eth.js";
 const wallet = {
 	ecodeDes3JSON(data){ // des3加密json
-		console.log('原没加密的json: ' + JSON.stringify(data));
 		let list = {};
 		for(let key in data) {
 			let val = null;
@@ -15,7 +14,6 @@ const wallet = {
 			}
 			list[DES3.encrypt(base._des3pwd, key)] = DES3.encrypt(base._des3pwd, val);
 		}
-		console.log('加密后的json: ' + JSON.stringify(list));
 		return list;
 	},
 	decodeDes3JSON(data){// des3解密json
@@ -105,6 +103,7 @@ const wallet = {
 				contactAddress: ctaddress,
 				length: length,
 				success(balance){
+					console.log(ctaddress);
 					console.log(JSON.stringify(balance));
 					callback(balance);
 				},
@@ -149,18 +148,21 @@ const wallet = {
 			}
 		})
 	},
+	formatValue(value,length){//格式化金额
+		return eth.formatValue(value,length);
+	},
 	getCNY(name){ // 获取币种人民币价格
 		if(!name) return 0;
 		let cnyPrice = this.getUsdtPrice();
 		if(name.toUpperCase() == "USDT") {
 			return cnyPrice;
 		}
-		let namePrice = getUsdt(name);
+		let namePrice = this.getUsdt(name);
 		if(cnyPrice == 0 || namePrice == 0) {
 			return 0;
 		}
 		let price = cnyPrice * namePrice;
-		return Ceil(price,2);
+		return base._toFixed(price,2);
 	},
 	getUsdtPrice() {
 		var list = uni.getStorageSync(base._cacheCoin) || [];

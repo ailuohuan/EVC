@@ -197,7 +197,6 @@ var des3iv = '12345678';
 var DES3 = {
   //3DES加密，CBC/PKCS5Padding
   encrypt:function(key,input){
-	console.log(key);
     var genKey = genkey(key, 0, 24);
     return btoa(des(genKey.key, input, 1, 1, des3iv, 1));
   },

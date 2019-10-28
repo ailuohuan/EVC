@@ -127,7 +127,6 @@
 					console.log(res)
 					if (this.$base1._indexOf(res.data.status)) {
 						this.$base1._isLogin()
-						return
 					} else if (res.data.status == 1) {
 						this.swiperImg = res.data.data
 					} else {
@@ -209,7 +208,9 @@
 					},
 					success: (res) => {
 						console.log(res)
-						if (res.data.status == 1) {
+						if (this.$base1._indexOf(res.data.status)) {
+							this.$base1._isLogin()
+						} else if (res.data.status == 1) {
 							this.productList = res.data.data.List
 
 						} else {

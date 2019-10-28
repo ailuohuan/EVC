@@ -5,8 +5,27 @@
 			plus.screen.lockOrientation('portrait-primary'); //锁定
 			this.app._networkMethod();
 			let self = this;
+			plus.runtime.getProperty(plus.runtime.appid,(wgtinfo)=>{
+				uni.request({
+					url: self.baseUrl + '/update',
+					method: 'GET',
+					data: {Version: wgtinfo.version},
+					success: res => {
+						console.log(res);
+						if(res.data.status == 1){
+							if(res.data.data.NeedInstall == 1){
+								plus.runtime.openURL('http://evcblock.tech/download.html');  
+							}else{
+								self.app._install(res.data.data);
+							}
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			})
 			uni.request({
-				url: self.baseUrl + '/coin-list',
+				url: self.baseUrl + '/coin--list',
 				method: 'GET',
 				success: res => {
 					console.log(res.data);
@@ -33,7 +52,6 @@
 					}
 				}
 			})
-			
 			
 		},
 		onShow: function() {
